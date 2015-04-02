@@ -5,12 +5,16 @@
 #include <cstdlib>
 #include "tile.h"
 
-class dcTimeLine: public Tile
-{
+class dcTimsLine: public Tile
+{	int pay;
+	bool landed; // defaults to true
 public:
-	dcTimeLine();
-	~dcTimeLine();
+	dcTimsLine(std::string name, int index, int row, int col);
+	~dcTimsLine();
+	int payFee();
 
 };
 
 #endif
+
+/* methods for roll doubles or using RollUpRim to be implemented in player?*/

@@ -8,7 +8,7 @@
 class goToTims: public Tile
 {
 public:
-	goToTims();
+	goToTims(std::string name, int index, int row, int col);
 	~goToTims();
 
 	/* data */

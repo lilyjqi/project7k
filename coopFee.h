@@ -9,9 +9,10 @@ class coopFee: public Tile
 {
 	int fee;
 public:
-	coopFee();
+	coopFee(string name, int index, int row, int col);
 	~coopFee();
 
-	/* data */
+	int getFee() const;
+
 };
 #endif
