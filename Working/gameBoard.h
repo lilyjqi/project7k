@@ -1,9 +1,7 @@
 #ifndef __GAMEBOARD_H__
 #define __GAMEBOARD_H__
 
-#define NUM_ROWS 4
-#define NUM_COLS 10
-#define MAX_PLAYERS 6
+#define NUM_TILES 40
 #define NUM_CUPS 4
 
 #include <iostream>
@@ -17,13 +15,13 @@
 class Tile;
 
 class GameBoard{
-    Tile* tiles[NUM_ROWS][NUM_COLS];
-    Owner* players[MAX_PLAYERS];
+    Tile* tiles[NUM_TILES];
+    Owner* players;
     Owner* admin;
     boardDisplay* display;
     Owner* curPlayer
     int numPlayers;
-    // rollUpRim cups[NUM_CUPS];
+    rollUpRim cups[NUM_CUPS];
   public:
     rollUpRim cups[NUM_CUPS]; // private field with a getter a better option?
     GameBoard();

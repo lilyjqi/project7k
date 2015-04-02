@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Residence::residence(string name, int position. int rindex, int cindex):
+Residence::Residence(string name, int position. int rindex, int cindex):
     Building (name, position, rindex, cindex,3) {}
 
 void Residence::setCost() {
