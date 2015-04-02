@@ -1,4 +1,6 @@
 #include "player.h"
+#include "gameboard.h"
+#include <string>
 
 using namespace std;
 
@@ -41,7 +43,20 @@ void Player::makeMove() {
     cout << "Player " << name << " rolled" << dice1+dice2 << endl;
 
     int newpos = pos+ dice1 + dice2;
-    if (newpos > 40) {newpos -= 40;}
+    if (newpos >= 40) {newpos -= 40;}
+    GameBoard *gb = GameBoard::getInstance();
+    Tile * t = gb->getTile(newpos);
+    notify(t);
+
+    position = newpos;
+    rindex = t->getRow();
+    cindex = t->getCol();
+}
+
+void Player::makeMove(int i) {
+    int newpos = pos + i;
+    if (newpos >=40 ) {newpos -= 40;}
+    GameBoard *gb = GameBoard::getInstance();
     Tile * t = gb->getTile(newpos);
     notify(t);
 
