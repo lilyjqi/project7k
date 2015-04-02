@@ -3,6 +3,7 @@
 
 #define NUM_TILES 40
 #define NUM_CUPS 4
+#define NUM_PLAYERS 8
 
 #include <iostream>
 #include <string>
@@ -15,24 +16,25 @@
 class Tile;
 
 class GameBoard{
+    GameBoard *instance = 0;
     Tile* tiles[NUM_TILES];
-    Owner* players;
+    Player* players[NUM_PLAYERS];
     Owner* admin;
     boardDisplay* display;
     Owner* curPlayer
     int numPlayers;
     rollUpRim cups[NUM_CUPS];
   public:
-    rollUpRim cups[NUM_CUPS]; // private field with a getter a better option?
     GameBoard();
+    GameBoard *getInstance();
     Owner* getCurPlayer();
     void setCurPlayer();
-    void addOwner(char o);
-    void deleteOwner(int n);
     Tile* getTile(int t);
+    int getRindex(int pos);
+    int getCindex(int pos);
+    void addPlayer(string name, char c);
+    void deletePlayer(string name);
     Tile* notifyTile(int t);
-    int tileToPos(std::string s);
-
     ~GameBoard();
 };
 
