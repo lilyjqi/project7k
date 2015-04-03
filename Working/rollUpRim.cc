@@ -2,9 +2,9 @@
 
 using namespace std;
 
-rollUpRim ** rollUpRim::instance = 0;
+static rollUpRim ** rollUpRim::instance = 0;
 
-rollUpRim ** rollUpRim::getInstance() {
+static rollUpRim ** rollUpRim::getInstance() {
     if (!instance) {
         instance = new rollUpRim *[4];
         for (int i=0; i<4; i++) {
@@ -21,7 +21,16 @@ void rollUpRim::setOwner(Owner *o) {
     owner = o;
 }
 
-void rollUpRim::cleanup() {
+rollUpRim * rollUpRim::getCup() {
+    for (int i=0; i<4; ++i) {
+        if (instance[i]->owner->getName() != "School") {
+            return instance[i];
+        }
+    }
+    return NULL;
+}
+
+static void rollUpRim::cleanup() {
     for (int i=0; i<4; i++) {
          delete instance[i];
     }

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-GameBoard::GameBoard(Owner *admin, BoardDiaply *theDisplay, int numPlayers, rollUpRim *cups): 
+GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, int numPlayers, rollUpRim *cups): 
      admin(admin), theDisplay(theDisplay),curPlayer(NULL),numPlayer(numPlayer),cups(cups) 
 {
     for (int i=0; i<40; i++) {
@@ -105,7 +105,7 @@ GameBoard::GameBoard(Owner *admin, BoardDiaply *theDisplay, int numPlayers, roll
     }
 }
 
-GameBoard * GameBoard::getInstance(Owner *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups) {
+static GameBoard * GameBoard::getInstance(School *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups) {
     if (!instance) {
         instance = new GameBoard(Owner *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups);
         atexist(cleanup);
@@ -113,7 +113,7 @@ GameBoard * GameBoard::getInstance(Owner *admin, BoardDiaply *display, int numPl
     return instance;
 }
 
-Owner * GameBoard::getCurPlayer() {
+Player * GameBoard::getCurPlayer() {
     cout << “Current Player is ” << curPlayer->getName() << endl;
     return curPlayer;
 }
@@ -152,24 +152,10 @@ int GameBoard::getCindex(int pos) {
     return tiles[pos]->getCindex();
 }
 
-void GameBoard::addPlayer(string name, char c) {
-    srand(time(NULL));
-    int p = rand()%40+1;
-    int r = getRindex(p);
-    int c = getCindex(p);
-    Player *newplayer = new Player(name, c, pos, r, c);
+void GameBoard::addPlayer(Player *p) {
     numPlayers ++;
-    players.push_back(newplayer);
-    cout << “Player ” << newplayer->getName() << “ is added.” << endl;
-}
-
-void GameBoard::addPlayer(string name, char c, int p) {
-    int r = getRindex(p);
-    int c = getCindex(p);
-    Player *newplayer = new Player(name, c, p, r, c);
-    numPlayers ++;
-    players.push_back(newplayer);
-    cout << “Player ” << newplayer->getName() << “ is added.” << endl;
+    players.push_back(p);
+    cout << “Player ” << p->getName() << “ is added.” << endl;
 }
 
 void GameBoard::deletePlayer(string name) {

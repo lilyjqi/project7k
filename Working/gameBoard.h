@@ -19,10 +19,10 @@ class Tile;
 class GameBoard{
     static GameBoard *instance = 0;
     Tile* tiles[NUM_TILES];
-    vector<Player *> players (NUM_PLAYERS);
-    Owner* admin;
-   BoardDisplay* theDisplay;
-    Owner* curPlayer
+    vector<Player *> players;
+    School* admin;
+    BoardDisplay* theDisplay;
+    Player * curPlayer
     int numPlayers;
   
 public:
@@ -30,7 +30,7 @@ public:
     GameBoard();
     static GameBoard getInstance();
 
-    Owner* getCurPlayer();
+    Player* getCurPlayer();
     void setCurPlayer();
 
     BoardDisplay * getDisplay();
@@ -42,8 +42,7 @@ public:
     int getRindex(int pos);
     int getCindex(int pos);
 
-    void addPlayer(string, char);
-    void addPlayer(string, char, int);
+    void addPlayer(Player *);
     void deletePlayer(string name);
 
     static void cleanup();

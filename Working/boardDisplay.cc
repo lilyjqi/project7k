@@ -1,7 +1,6 @@
 #include "boardDisplay.h"
 #include "gameBoard.h"
 #include <string>
-#include <cstring>
 #include <iostream>
 
 using namespace std;

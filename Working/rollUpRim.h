@@ -9,12 +9,14 @@
 
 class rollUpRim
 {
-	Player* owner;
+	Owner* owner;
 	static rollUpRim** instance;
 public:
-	void setOwner(Owner* );
-	static rollUpRim* getInstance();
 	rollUpRim(Owner *);
+	void setOwner(Owner* );
+        rollUpRim *getCup();
+	static rollUpRim* getInstance();
+        static void cleanup();
 };
 
 #endif
