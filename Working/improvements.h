@@ -7,16 +7,30 @@
 
 class Improvements: public ABDecorator
 {
-        int curLevel;
 public:
-	Improvements(int curLevel,AcadBuilding *ab): ABDecorator(ab),curLevel(curLevel) {};
-        int getCurLevel();
+	Improvements(AcadBuilding *ab): ABDecorator(ab) {};
+        
+        // from tile.h
+        void visit(Player *);
+        void devisit(Player *);
         std::string getName();
         int getPos();
         int getRindex();
         int getCindex();
-	int getCost();
+        
+        // from building.h
+        void setOwner(Owner *);
+        void setMort(bool);
+
+        // frim acadBuilding.h
         int getPay();
+	int getCost();
+        bool isMono();
+        std::string getmonoBlock();
+        int getCurLevel();
+        void improv();
+        void notifyGB(AcadBuilding *);
+
 };
 
 #endif

@@ -8,13 +8,6 @@ void Building::setOwner(Owner * o) {
     owner = o;
 }
 
-int Building::getpay() {
-    return pay;
-}
-
-int Building::getCost() {
-    return cost;
-}
 
 void Building::setMort(bool b) {
     mort = b;

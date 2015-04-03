@@ -11,13 +11,22 @@ void Residence::setCost() {
 }
 
 void Residence::setPay() {
+    pay = 25;
+}
+
+int getPay() {
     int count=0;
     for (int i=0; i<numNeighbour; i++) {
-        if (neighbours[i]->owner==owner) {
+        if (neighbours[i]->getOwner()==this->getOwner()) {
             count++;
         }
     }
-    pay = count * 25;
+    return pay * count;
+
+}
+
+int getCost() {
+    return cost;
 }
 
 void Residence::addNeighbour(Building *b) {
@@ -38,8 +47,3 @@ void Residence::addNeighbour(Building *b) {
     }//else
 }
 
-void Residence::notify() {
-    for (int i=0; i<numNeighbour; i++) {
-        neighbours[i]->setPay();
-    }
-}

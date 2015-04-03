@@ -1,25 +1,52 @@
-#include "improvements.h”
+#include "improvements.h"
 
 using namespace std;
 
+// methods in tile.h
+void Improvemebts::visit(Player *p) {
+    ab->visit(p);
+}
+
+void Improvements::devisit(Player *p) {
+    ab->devisit(p);
+}
+
+string Improvements::getName() {
+    ab->getName();
+}
+
+int Improvements::getPos() {
+    return ab->getIndex();
+}
+
+int Improvements::getRindex() {
+    return ab->getRow();
+}
+
+int Improvements::getCindex() {
+    return ab->getCol();
+}
+
+//methods in building.h
+void Improvements::setOwner(Owner *o) {
+    ab->setOwner(o);
+}
+
+void Improvements::setMort(bool m) {
+    ab->setMort(m);
+} 
+
+// methods in acadBuilding.h
 int Improvements::getCurLevel() {
     return 1 + ab->curLevel;
 }
 
-string Improvements::getName() {
-    return ab->getName();
+bool Improvements::isMono() {
+    return ab->isMono();
 }
 
-int Improvements::getPos() {
-    return ab->getPos();
-}
-
-int Improvements::getRindex() {
-    return ab->getRindex();
-}
-
-int Improvements::getCindex() {
-    return ab->getCindex();
+string Improvements::getmonoBlock() {
+    return ab->getmonoBlock();
 }
 
 int Improvements::getCost() {
@@ -106,5 +133,14 @@ int Improvements::getPay() {
         {return ab->getPay() + 200;}
         else if (name == "DC") {return ab->getPay() + 300;}
     }
+}
 
+void Improvements::improv() {
+    AcadBuilding *ab = new Improvements(this);
+    notifyGB(ab);
+}
+
+void Improvements::notifyGB(AcadBuilding *ab) {
+    GameBoard *gb = GameBoard::getInstance();
+    gb->setTile(ab);
 }

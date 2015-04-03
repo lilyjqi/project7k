@@ -27,6 +27,7 @@ class Player: public Owner
 
   	bool isDouble();
   	void makeMove();
+        void makeMove(int); 
   	void notify(Tile *);
         void notifyDisplay(Tile *);
         void goToTims();

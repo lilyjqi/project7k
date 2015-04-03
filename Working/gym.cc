@@ -15,13 +15,22 @@ void Gym::setPay() {
     else {return 4;}
 }
 
+int getCost() {return cost;}
+
+int getPay() {
+    cout << "Roll two dices!" << endl;
+    srand(time(NULL));
+    int dice1 = rand()%6 + 1;
+    int dice2 = rang()%6 + 1;
+    int sum = dice1 + dice2;
+    cout << "You've rolled " << sum << endl;
+    this->setPay();
+    return pay * sum;
+}
+
 void Gym::addNeighbour(Building *b) {
     neighbours = new Building *[numNeighbours];
     neighbours[0] = b;
 }
 
-void Gym::notify() {
-    for (int i=0; i<numNeighbour; i++) {
-        neighbours[i]->setPay();
-    }
-}
+

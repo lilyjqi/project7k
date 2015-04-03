@@ -1,8 +1,6 @@
 #ifndef __ACADBUILDING
 #define __ACADBUILDING 
 
-#include <iostream>
-#include <cstdlib>
 #include "building.h"
 
 class AcadBuilding: public Building
@@ -14,14 +12,15 @@ public:
 	~AcadBuilding();
         
         bool isMono();
-        std::string getmonoBlock;
+        std::string getmonoBlock();
         int getCurLevel();
 	void setCost();
 	void setPay();
+        int getCost();
+        int getPay();
 	void addNeighbour(Building *);
         void improv();
-	void notify();
-        void notifyGB();
+        void notifyGB(AcadBuilding *);
 };
 
 #endif

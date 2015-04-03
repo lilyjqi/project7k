@@ -48,25 +48,31 @@ void AcadBuilding::setCost() {
 
 void AcadBuilding::setPay() {
     string name = this->getName();
-    if (name == "AL") {cost = 2;}
-    else if (name == "ML") {cost = 4;}
-    else if (name == "ECH" || name == "PAS") {cost = 6;}
-    else if (name == "HH") {cost = 8;}
-    else if (name == "RCH" || name == "DWE") {cost = 10;}
-    else if (name == "CPH") {cost = 12;}
-    else if (name == "LHI" || name == "BMH") {cost = 14;}
-    else if (name == "OPT") {cost = 16;}
-    else if (name == "EV1" || name == "EV2") {cost = 18;}
-    else if (name == "EV3") {cost = 20;}
-    else if (name == "PHYS" || name == "B1") {cost = 22;}
-    else if (name == "B2") {cost = 24;}
-    else if (name == "EIT" || name == "ESC") {cost = 26;}
-    else if (name == "C2") {cost = 28;}
-    else if (name == "MC") {cost = 35;}
-    else if (name == "DC") {cost = 50;}
-    
-    if (this->isMono()) {cost *= 2;}
+    if (name == "AL") {pay = 2;}
+    else if (name == "ML") {pay = 4;}
+    else if (name == "ECH" || name == "PAS") {pay = 6;}
+    else if (name == "HH") {pay = 8;}
+    else if (name == "RCH" || name == "DWE") {pay = 10;}
+    else if (name == "CPH") {pay = 12;}
+    else if (name == "LHI" || name == "BMH") {pay = 14;}
+    else if (name == "OPT") {pay = 16;}
+    else if (name == "EV1" || name == "EV2") {pay = 18;}
+    else if (name == "EV3") {pay = 20;}
+    else if (name == "PHYS" || name == "B1") {pay = 22;}
+    else if (name == "B2") {pay = 24;}
+    else if (name == "EIT" || name == "ESC") {pay = 26;}
+    else if (name == "C2") {pay = 28;}
+    else if (name == "MC") {pay = 35;}
+    else if (name == "DC") {pay = 50;}
+}
 
+int AcadBuilding::getPay() {
+    if (this->isMono() && this->getCurLevl() == 0) {return 2*pay;}
+    else {return pay;}
+}
+
+int AcadBuilding::getCost() {
+    return cost;
 }
 
 void AcadBuilding::addNeighbour(Building *b) {
@@ -89,13 +95,7 @@ void AcadBuilding::improv() {
     notifyGB(ab);
 }
 
-void AcadBuilding::notify() {
-    for (int i=0; i< numNeighbour; i++) {
-        neighbours[i]->setPay();
-    }
-}
-
-void notifyGB(AcadBuilding *ab) {
+void AcadBuilding::notifyGB(AcadBuilding *ab) {
     GameBoard * gb = GameBoard::getInstance();
     gb->setTile(ab);
 }

@@ -36,8 +36,6 @@ public:
 	int getRow() const;
 	int getCol() const;
 
-//	void setDisplay(Display * d);
-//	void updateVisitorDisplay();
 };
 
 #endif

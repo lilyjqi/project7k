@@ -46,10 +46,6 @@ bool Player::isDouble() {
     return false;
 }
 
-void addBalance(int money) {
-    balance += money;
-}
-
 void Player::makeMove() {
 
     // roll dices

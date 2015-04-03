@@ -13,7 +13,8 @@ public:
 
 	void setCost();
         void setPay();
+        int getCost();
+        int getPay();
 	void addNeighbour(Building *);
-        void notify(); //notify neighbours of owner change
 };
 #endif
