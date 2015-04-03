@@ -8,7 +8,6 @@
 class needlesHall: public Tile
 {
 	int fee;
-	bool winRim;
 	const int cards[7];
 	const int cardsDistribution[7];
 public:
@@ -17,5 +16,6 @@ public:
 
 	void drawCards();
 	int getFee() const;
+	void action(Player* p);
 };
 #endif

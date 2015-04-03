@@ -11,3 +11,7 @@ Tuition::~Tuition(){}
 int Tuition::getTuition() const {
 	return pay;
 }
+
+void Tuition::action(Player* p){
+	p->setBalance(-getTuition());
+}

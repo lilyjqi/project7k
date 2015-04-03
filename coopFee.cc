@@ -10,3 +10,9 @@ coopFee::~coopFee(){}
 int coopFee::getFee(){
 	return fee;
 }
+
+void coopFee::action(Player* p){
+	visit(p);
+	p->setBalance(-getFee());
+	devisit();
+}

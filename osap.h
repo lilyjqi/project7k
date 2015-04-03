@@ -11,6 +11,7 @@ public:
 	~Osap();
 
 	int collectOSAP() const;
+	void action(Player* p);
 };
 
 #endif

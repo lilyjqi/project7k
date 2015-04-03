@@ -13,6 +13,7 @@ public:
 	~tuition();
 
 	int getTuition() const;
+	void action(Player* p);
 };
 
 #endif

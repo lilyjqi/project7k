@@ -9,3 +9,9 @@ Osap::Osap(std::string name, int index, int row, int col):
 Osap::~Osap(){}
 
 int Osap::collectOSAP(){ return collect; }
+
+void Osap::action(Player* p) {
+	visit(p);
+	p->setBalance(collectOSAP());
+	devisit();
+}

@@ -7,7 +7,6 @@
 
 class SLC: public Tile
 {
-	int move;
 	bool winRim;
 	const int cards[8]; // add goToTims or movetoIndex to Player
 	const int cardsDistribution[8];
@@ -17,6 +16,7 @@ public:
 
 	void drawCard();
 	int getMove() const;
+	void action(Player* p);
 
 };
 #endif
