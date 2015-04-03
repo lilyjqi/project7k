@@ -114,11 +114,15 @@ GameBoard * GameBoard::getInstance(Owner *admin, BoardDiaply *display, int numPl
 }
 
 Owner * GameBoard::getCurPlayer() {
+    cout << “Current Player is ” << curPlayer->getName() << endl;
     return curPlayer;
 }
 
 void GameBoard::setCurPlayer() {
     if (curPlayer == NULL) {
+        curPlayer = players[0];
+    }
+    else if (curPlayer == players[numPlayer-1]) {
         curPlayer = players[0];
     }
     else {
@@ -146,12 +150,14 @@ void GameBoard::addPlayer(string name, char c) {
     Player *newplayer = new Player(name, c, pos, r, c);
     numPlayers ++;
     players.push_back(newplayer);
+    cout << “Player ” << newplayer->getName() << “ is added.” << endl;
 }
 
 void GameBoard::deletePlayer(string name) {
     for (int i=0; i<players.size(); ++i) {
         if (players.at(i)->getName() == name) {
             players.erase(players.begin()+i); 
+            cout << “Player ” << name << “ is deleted.“ << endl;
             break;
         }
     }
@@ -160,7 +166,6 @@ void GameBoard::deletePlayer(string name) {
 GameBoard::~GameBoard() {
     delete tiles;
     player.clear();
-    delete admin;
 }
 
 static void GameBoard::cleanup() {
