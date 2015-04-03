@@ -152,6 +152,11 @@ int GameBoard::getCindex(int pos) {
     return tiles[pos]->getCindex();
 }
 
+Player * GameBoard::getPlayer(std::string s){
+     if(pNamesMap.count(s)){ return pNamesMap[s]; }
+	else{ return NULL; }
+}
+
 void GameBoard::addPlayer(string name, char c) {
     srand(time(NULL));
     int p = rand()%40+1;
