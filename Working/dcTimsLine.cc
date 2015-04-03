@@ -25,7 +25,7 @@ void dcTimsLine::action(Player* p){
 	//p->setRollDoubleFailCount(0);  to be set in main.cc
 	visit(p);
 	int i;
-	if (p->getRollDoubleFailCount() == 3) {
+	if (p->getRollDoubleFailCount() == 2) {
 		cout << "Choose one of the following two options because you've failed too many roll doubles attempts:" << endl;
 		cout << "1. Pay $50" << endl;
 		cout << "2. Use Roll Up the Rim (if you have one)" << endl;

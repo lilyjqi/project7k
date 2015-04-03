@@ -20,18 +20,18 @@ class Tile;
 class GameBoard{
     static GameBoard *instance = 0;
     Tile* tiles[NUM_TILES];
-<<<<<<< HEAD
-    vector<Player *> players;
-    School* admin;
-    BoardDisplay* theDisplay;
-    Player * curPlayer
-=======
-    vector<Player *> players (NUM_PLAYERS);
-    std::map<std::string, Player *> pNamesMap;
+//<<<<<<< HEAD
+    // vector<Player*> players;
+    // School* admin;
+    // BoardDisplay* theDisplay;
+    // Player* curPlayer;
+//=======
+    vector<Player*> players;
+    std::map<std::string, Player*> pNamesMap;
     Owner* admin;
     BoardDisplay* theDisplay;
-    Player* curPlayer
->>>>>>> a3425ce69a8c5fd0ec0835d2e985127dbebaf9d2
+    Player* curPlayer;
+//>>>>>>> a3425ce69a8c5fd0ec0835d2e985127dbebaf9d2
     int numPlayers;
   
 public:
@@ -40,22 +40,22 @@ public:
     static GameBoard getInstance();
 
     Player* getCurPlayer();
-<<<<<<< HEAD
-=======
-    Player * getPlayer(std::string s);
->>>>>>> a3425ce69a8c5fd0ec0835d2e985127dbebaf9d2
+//<<<<<<< HEAD
+//=======
+    Player* getPlayer(std::string s);
+//>>>>>>> a3425ce69a8c5fd0ec0835d2e985127dbebaf9d2
     void setCurPlayer();
 
-    BoardDisplay * getDisplay();
+    BoardDisplay* getDisplay();
 
-    void setTile(Tile *);
-    Tile **getTiles();
+    void setTile(Tile*);
+    Tile** getTiles();
     Tile* getTile(int t);
 
     int getRindex(int pos);
     int getCindex(int pos);
 
-    void addPlayer(Player *);
+    void addPlayer(Player*);
     void deletePlayer(string name);
 
     static void cleanup();
