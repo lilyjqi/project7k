@@ -152,7 +152,21 @@ int GameBoard::getCindex(int pos) {
     return tiles[pos]->getCindex();
 }
 
+<<<<<<< HEAD
 void GameBoard::addPlayer(Player *p) {
+=======
+Player * GameBoard::getPlayer(std::string s){
+     if(pNamesMap.count(s)){ return pNamesMap[s]; }
+	else{ return NULL; }
+}
+
+void GameBoard::addPlayer(string name, char c) {
+    srand(time(NULL));
+    int p = rand()%40+1;
+    int r = getRindex(p);
+    int c = getCindex(p);
+    Player *newplayer = new Player(name, c, pos, r, c);
+>>>>>>> a3425ce69a8c5fd0ec0835d2e985127dbebaf9d2
     numPlayers ++;
     players.push_back(p);
     cout << “Player ” << p->getName() << “ is added.” << endl;

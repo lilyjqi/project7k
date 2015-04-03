@@ -9,6 +9,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <map>
 #include "tile.h"
 #include "owner.h"
 #include "boardDisplay.h"
@@ -19,10 +20,18 @@ class Tile;
 class GameBoard{
     static GameBoard *instance = 0;
     Tile* tiles[NUM_TILES];
+<<<<<<< HEAD
     vector<Player *> players;
     School* admin;
     BoardDisplay* theDisplay;
     Player * curPlayer
+=======
+    vector<Player *> players (NUM_PLAYERS);
+    std::map<std::string, Player *> pNamesMap;
+    Owner* admin;
+    BoardDisplay* theDisplay;
+    Player* curPlayer
+>>>>>>> a3425ce69a8c5fd0ec0835d2e985127dbebaf9d2
     int numPlayers;
   
 public:
@@ -31,6 +40,10 @@ public:
     static GameBoard getInstance();
 
     Player* getCurPlayer();
+<<<<<<< HEAD
+=======
+    Player * getPlayer(std::string s);
+>>>>>>> a3425ce69a8c5fd0ec0835d2e985127dbebaf9d2
     void setCurPlayer();
 
     BoardDisplay * getDisplay();
