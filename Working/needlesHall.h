@@ -7,10 +7,15 @@
 
 class needlesHall: public Tile
 {
+	int fee;
+	const int cards[7];
+	const int cardsDistribution[7];
 public:
-	needlesHall();
+	needlesHall(string name, int index, int row, int col);
 	~needlesHall();
 
-	int drawCards();
+	void drawCards();
+	int getFee() const;
+	void action(Player* p);
 };
 #endif

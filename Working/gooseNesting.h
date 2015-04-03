@@ -8,9 +8,9 @@
 class gooseNesting: public Tile
 {
 public:
-	gooseNesting();
+	gooseNesting(string name, int index, int row, int col);
 	~gooseNesting();
 
-	/* data */
+	void attacked() const;
 };
 #endif

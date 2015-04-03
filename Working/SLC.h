@@ -7,11 +7,16 @@
 
 class SLC: public Tile
 {
+	bool winRim;
+	const int cards[8]; // add goToTims or movetoIndex to Player
+	const int cardsDistribution[8];
 public:
-	SLC(arguments);
+	SLC(string name, int index, int row, int col);
 	~SLC();
 
-	int drawCard();
+	void drawCard();
+	int getMove() const;
+	void action(Player* p);
 
 };
 #endif

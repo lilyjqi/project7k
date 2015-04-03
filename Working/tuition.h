@@ -7,11 +7,13 @@
 
 class tuition: public Tile
 {
-	int payTuition;
+	int pay;
 public:
-	tuition(:);
+	tuition(string name, int index, int row, int col);
 	~tuition();
 
-	/* data */
+	int getTuition() const;
+	void action(Player* p);
 };
+
 #endif

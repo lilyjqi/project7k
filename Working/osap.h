@@ -1,16 +1,19 @@
 #ifndef __OSAP_H__
 #define __OSAP_H__ 
 
-#include <iostream>
-#include <cstdlib>
 #include "tile.h"
 
-class OSAP: public Tile
+class Osap: public Tile
 {
-	int payOSAP;
+	int collect;
 public:
-	osap(std::string, int, int, int);
-        void collect(Player *);
+	Osap(std::string name, int index, int row, int col);
+	~Osap();
+
+	int collectOSAP() const;
+	void action(Player* p);
 };
 
 #endif
+
+/* add canCollectOSAP field to player */

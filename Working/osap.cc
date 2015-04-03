@@ -2,9 +2,16 @@
 
 using namespace std;
 
-OSAP::osap(string name, int position, int rindex, int cindex):
-    Tile(name, position, rindex, cindex), payOSAP(200) {};
+Osap::Osap(std::string name, int index, int row, int col):
+	Tile(name, index, row, col), collect(200){
+}
 
-void OSAP::collect(Player *p) {
-    p->setBalance(payOSAP);
+Osap::~Osap(){}
+
+int Osap::collectOSAP(){ return collect; }
+
+void Osap::action(Player* p) {
+	visit(p);
+	p->setBalance(collectOSAP());
+	devisit();
 }

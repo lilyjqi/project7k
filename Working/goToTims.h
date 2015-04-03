@@ -8,10 +8,10 @@
 class goToTims: public Tile
 {
 public:
-	goToTims();
+	goToTims(std::string name, int index, int row, int col);
 	~goToTims();
 
-	/* data */
+	void action(Player* p);
 };
 
 #endif
