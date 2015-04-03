@@ -11,6 +11,6 @@ public:
 	gooseNesting(string name, int index, int row, int col);
 	~gooseNesting();
 
-	void attacked() const;
+	void action(Player * p);
 };
 #endif

@@ -1,4 +1,5 @@
 #include "owner.h"
+#include <vector>
 
 using namespace std;
 
@@ -8,22 +9,18 @@ Owner::Owner(string name):
     };
 
 void Owner::addBuilding(Building *b) {
-    for (int i=0; i<28; i++) {
-        if (ownBuilding[i]==NULL) {
-            ownBuilding[i]=b;
-            numBuilding++;
-        }
-    }
+    ownBuilding.push_back(b);
+    numBuilding++;
 }
 
 void Owner::deleteBuilding(Building *b) {
-    for (int i=0; i<28; i++) {
+    for (int i=0; i<ownBuilding.size(); ++i) {
         if (ownBuilding[i]==b) {
-            ownBuilding[i]=NULL;
+            ownBuilding.erase(ownBuilding.begin()+i);
             numBuilding—;
+            break;
         }
     }
-   
 }
 
 
@@ -31,6 +28,6 @@ int Owner::getBalance() {
     return balance;
 }
 
-void Owner::setBalance(int b) {
+void Owner::addBalance(int b) {
     balance += b;
 }

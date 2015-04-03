@@ -14,14 +14,15 @@ class Owner
   protected:
 	std::string name;
 	int balance;
-    int numBuilding;
-	Building *ownBuilding;
+        int numBuilding;
+	std::vector<Building *> ownBuilding;
   public:
 	Owner();
 
 	void addBuilding(Building *);
+        void deleteBuilding(Building *);
 	int getBalance();
-	void setBalance(int b);
+	void addBalance(int b);
 };
 
 #endif

@@ -24,10 +24,11 @@ class GameBoard{
     boardDisplay* display;
     Owner* curPlayer
     int numPlayers;
+  
+public:
     rollUpRim *cups[NUM_CUPS];
-  public:
     GameBoard();
-    GameBoard *getInstance();
+    GameBoard getInstance();
     Owner* getCurPlayer();
     void setCurPlayer();
     Tile* getTile(int t);
@@ -35,7 +36,7 @@ class GameBoard{
     int getCindex(int pos);
     void addPlayer(string name, char c);
     void deletePlayer(string name);
-    void cleanup();
+    static void cleanup();
 };
 
 #endif

@@ -163,6 +163,6 @@ GameBoard::~GameBoard() {
     delete admin;
 }
 
-void GameBoard::cleanup() {
+static void GameBoard::cleanup() {
     delete instance;
 }
