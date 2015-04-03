@@ -14,5 +14,4 @@ int coopFee::getFee(){
 void coopFee::action(Player* p){
 	visit(p);
 	p->setBalance(-getFee());
-	devisit();
 }

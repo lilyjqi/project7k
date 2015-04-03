@@ -17,26 +17,35 @@
 class Tile;
 
 class GameBoard{
-    GameBoard *instance = 0;
+    static GameBoard *instance = 0;
     Tile* tiles[NUM_TILES];
     vector<Player *> players (NUM_PLAYERS);
     Owner* admin;
-    boardDisplay* display;
+   BoardDisplay* theDisplay;
     Owner* curPlayer
     int numPlayers;
   
 public:
     rollUpRim *cups[NUM_CUPS];
     GameBoard();
-    GameBoard getInstance();
+    static GameBoard getInstance();
+
     Owner* getCurPlayer();
     void setCurPlayer();
+
+    BoardDisplay * getDisplay();
+
+    void setTile(Tile *);
     Tile **getTiles();
     Tile* getTile(int t);
+
     int getRindex(int pos);
     int getCindex(int pos);
-    void addPlayer(string name, char c);
+
+    void addPlayer(string, char);
+    void addPlayer(string, char, int);
     void deletePlayer(string name);
+
     static void cleanup();
 };
 

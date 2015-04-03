@@ -12,6 +12,5 @@ int Osap::collectOSAP(){ return collect; }
 
 void Osap::action(Player* p) {
 	visit(p);
-	p->setBalance(collectOSAP());
-	devisit();
+	p->addBalance(collectOSAP());
 }

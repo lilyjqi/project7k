@@ -1,4 +1,6 @@
 #include "acadBuilding.h"
+#include "gameBoard.h"
+#include <string>
 
 using namespace std;
 
@@ -82,8 +84,18 @@ void AcadBuilding::addNeighbour(Building *b) {
     }
 }
 
+void AcadBuilding::improv() {
+    AcadBuilding *ab = new Improvement(this);
+    notifyGB(ab);
+}
+
 void AcadBuilding::notify() {
     for (int i=0; i< numNeighbour; i++) {
         neighbours[i]->setPay();
     }
+}
+
+void notifyGB(AcadBuilding *ab) {
+    GameBoard * gb = GameBoard::getInstance();
+    gb->setTile(ab);
 }

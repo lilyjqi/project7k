@@ -12,6 +12,9 @@ public:
 	Improvements(int curLevel,AcadBuilding *ab): ABDecorator(ab),curLevel(curLevel) {};
         int getCurLevel();
         std::string getName();
+        int getPos();
+        int getRindex();
+        int getCindex();
 	int getCost();
         int getPay();
 };

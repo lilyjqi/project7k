@@ -1,13 +1,25 @@
-#include "improvement.h"
+#include "improvements.h”
 
 using namespace std;
 
 int Improvements::getCurLevel() {
-    return curLevel;
+    return 1 + ab->curLevel;
 }
 
 string Improvements::getName() {
     return ab->getName();
+}
+
+int Improvements::getPos() {
+    return ab->getPos();
+}
+
+int Improvements::getRindex() {
+    return ab->getRindex();
+}
+
+int Improvements::getCindex() {
+    return ab->getCindex();
 }
 
 int Improvements::getCost() {

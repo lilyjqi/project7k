@@ -24,16 +24,14 @@ Tile::~Tile () {
 
 void Tile::visit(Player *player){
 	visitors.push_back(player);
-	//updateVisitorDisplay();
 }
 
 void Tile::devisit(Player * player) {
 	list <Player *>::iterator it = visitors.begin();
-	while (*it != player)
-		it++;
-
+	while (*it != player) {
+	    it++;
+        }
 	visitors.erase(it);
-	//updateVisitorDisplay();
 }
 
 string Tile::getName() const {

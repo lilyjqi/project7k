@@ -13,6 +13,7 @@ class Player: public Owner
 	int position;
 	int rindex;
 	int cindex;
+        bool landed;
         GameBoard *gb;
   public:
 	Player(string, char, int, int, int);
@@ -22,9 +23,13 @@ class Player: public Owner
         string getName();
         char getChar();
         int getWorth();
+        void setLanded(bool);
+
   	bool isDouble();
   	void makeMove();
   	void notify(Tile *);
+        void notifyDisplay(Tile *);
+        void goToTims();
 };
 
 #endif

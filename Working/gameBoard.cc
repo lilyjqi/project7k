@@ -2,8 +2,8 @@
 
 using namespace std;
 
-GameBoard::GameBoard(Owner *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups): 
-     admin(admin), display(display),curPlayer(NULL),numPlayer(numPlayer),cups(cups) 
+GameBoard::GameBoard(Owner *admin, BoardDiaply *theDisplay, int numPlayers, rollUpRim *cups): 
+     admin(admin), theDisplay(theDisplay),curPlayer(NULL),numPlayer(numPlayer),cups(cups) 
 {
     for (int i=0; i<40; i++) {
         if (i == 1) {tils[i] = new AcadBuilding("AL", 1, 51，9, "Arts1");}
@@ -130,6 +130,12 @@ void GameBoard::setCurPlayer() {
     }
 }
 
+void GameBoard::setTile(Tile *t) {
+    int p = t->getPos();
+    tils[p] = t;
+    theDisplay->updateImpro(t);
+}
+
 Tile ** GameBoard::getTiles() {
    return tiles;
 }
@@ -152,6 +158,15 @@ void GameBoard::addPlayer(string name, char c) {
     int r = getRindex(p);
     int c = getCindex(p);
     Player *newplayer = new Player(name, c, pos, r, c);
+    numPlayers ++;
+    players.push_back(newplayer);
+    cout << “Player ” << newplayer->getName() << “ is added.” << endl;
+}
+
+void GameBoard::addPlayer(string name, char c, int p) {
+    int r = getRindex(p);
+    int c = getCindex(p);
+    Player *newplayer = new Player(name, c, p, r, c);
     numPlayers ++;
     players.push_back(newplayer);
     cout << “Player ” << newplayer->getName() << “ is added.” << endl;

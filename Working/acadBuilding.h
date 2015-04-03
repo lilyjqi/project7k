@@ -19,7 +19,9 @@ public:
 	void setCost();
 	void setPay();
 	void addNeighbour(Building *);
+        void improv();
 	void notify();
+        void notifyGB();
 };
 
 #endif
