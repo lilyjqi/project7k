@@ -360,11 +360,11 @@ void updateImpro(Tile *t) {
 
     int cl = t->getCurLevel();
     string lvl = "";
-    if (cl == 1) {lvl = "*";}
-    else if (cl == 2) {lvl = "**";}
-    else if (cl == 3) {lvl = "***";}
-    else if (cl == 4) {lvl = "****";}
-    else if (cl == 5) {lvl = "*****";}
+    if (cl == 1) {lvl = "I";}
+    else if (cl == 2) {lvl = "II";}
+    else if (cl == 3) {lvl = "III";}
+    else if (cl == 4) {lvl = "IIII";}
+    else if (cl == 5) {lvl = "IIIII";}
 
     display[i][j] = "|" + lvl + drawString(lvl.length()) + "|";
 }

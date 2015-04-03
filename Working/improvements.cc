@@ -32,10 +32,6 @@ void Improvements::setOwner(Owner *o) {
     ab->setOwner(o);
 }
 
-void Improvements::setMort(bool m) {
-    ab->setMort(m);
-} 
-
 // methods in acadBuilding.h
 int Improvements::getCurLevel() {
     return 1 + ab->curLevel;
@@ -136,8 +132,8 @@ int Improvements::getPay() {
 }
 
 void Improvements::improv() {
-    AcadBuilding *ab = new Improvements(this);
-    notifyGB(ab);
+    AcadBuilding *newAb = new Improvements(this);
+    notifyGB(newAb);
 }
 
 void Improvements::notifyGB(AcadBuilding *ab) {

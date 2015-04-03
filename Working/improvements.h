@@ -1,8 +1,6 @@
 #ifndef __IMPROVEMENTS_H__
 #define __IMPROVEMENTS_H__ 
 
-#include <iostream>
-#include <cstdlib>
 #include "ABDecorator.h"
 
 class Improvements: public ABDecorator
@@ -20,11 +18,10 @@ public:
         
         // from building.h
         void setOwner(Owner *);
-        void setMort(bool);
 
         // frim acadBuilding.h
         int getPay();
-	int getCost();
+	    int getCost();
         bool isMono();
         std::string getmonoBlock();
         int getCurLevel();
