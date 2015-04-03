@@ -159,7 +159,7 @@ void GameBoard::setCurPlayer() {
 }
 
 BoardDisplay * GameBoard::getDisplay() {
-    return theDisplay();
+    return theDisplay;
 }
 
 void GameBoard::setTile(Tile *t) {
