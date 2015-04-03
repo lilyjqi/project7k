@@ -186,6 +186,7 @@ int GameBoard::getCindex(int pos) {
 
 void GameBoard::addPlayer(Player *p) {
     players.push_back(p);
+    pNamesMap[p->getName()]=p;
     numPlayer++;
 }
 
