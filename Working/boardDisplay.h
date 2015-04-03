@@ -8,15 +8,14 @@
 
 class BoardDisplay
 {
-	int rows;
-	int cols;
-	char ** theDisplay;
+        static BoardDisplay *instance = 0;
+        string **display;
 public:
-	boardDisplay();
-	~boardDisplay();
-
-	void playPos(Owner* o, int n);
-	void makeImpro(Tile* t);
+	BoardDisplay();
+        static BoardDisplay *getInstance();
+        static void cleanup();
+        void updateImpro(Tile *);
+        void updatePos(Tile *);
 	std::ostream& operator<<(std::ostream& out, const boardDisplay& d);
 };
 

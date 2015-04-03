@@ -19,6 +19,8 @@ class Player: public Owner
 
   	int getRow();
   	int getCol();
+        string getName();
+        char getChar();
         int getWorth();
   	bool isDouble();
   	void makeMove();

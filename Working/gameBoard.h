@@ -31,6 +31,7 @@ public:
     GameBoard getInstance();
     Owner* getCurPlayer();
     void setCurPlayer();
+    Tile **getTiles();
     Tile* getTile(int t);
     int getRindex(int pos);
     int getCindex(int pos);

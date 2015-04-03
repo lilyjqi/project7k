@@ -15,6 +15,14 @@ int Player::getCol() {
     return cindex;
 }
 
+string Player::getName() {
+    return name;
+}
+
+char getChar() {
+    return character;
+}
+
 int Player::getWorth() {
     int w=balance;
     for (int i=0; i<numBuilding; i++) {
