@@ -1,13 +1,3 @@
-/*******************************************
- *  BB7K | CS246 Fall 2014                 *
- *  Developed by Eric Bai and Jerry Yu     *
- *  https://github.com/hweetty/bb7k        *
- *                                         *
- *  Please do not use any portion of this  *
- *  code in future academic assignments.   *
- *  You have been warned.                  *
- *******************************************/
- 
 #include "tile.h"
 #include "board.h"
 #include "player.h"
@@ -24,14 +14,16 @@ Tile::~Tile () {
 
 void Tile::visit(Player *player){
 	visitors.push_back(player);
+	//updateVisitorDisplay();
 }
 
 void Tile::devisit(Player * player) {
 	list <Player *>::iterator it = visitors.begin();
-	while (*it != player) {
-	    it++;
-        }
+	while (*it != player)
+		it++;
+
 	visitors.erase(it);
+	//updateVisitorDisplay();
 }
 
 string Tile::getName() const {
@@ -48,6 +40,10 @@ int Tile::getRow() const{
 
 int Tile::getCol() const {
 	return col;
+}
+
+Player* Tile::getVisitor() const {
+	return visitors;
 }
 // void Tile::setDisplay(Display * d){
 // 	display = d;
