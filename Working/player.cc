@@ -5,7 +5,7 @@
 using namespace std;
 
 Player::Player(string name, char c, int position, int rindex, int cindex): 
-    Owner(name), character(c), position(position), rindex(rindex), cindex(cindex),
+    Owner(name), character(c), position(position), rindex(rindex), cindex(cindex), rollDoubleFailCount(0),
     landed(true) {gb = GameBoard::getInstance();}
 
 int Player::getRow() {
@@ -45,6 +45,9 @@ bool Player::isDouble() {
     }
     return false;
 }
+
+void Player::getRollDoubleFailCount(){ return rollDoubleFailCount; }
+void Player::setRollDoubleFailCount(int n) { rollDoubleFailCount=n; }
 
 void Player::makeMove() {
 
