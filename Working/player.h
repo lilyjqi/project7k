@@ -13,6 +13,7 @@ class Player: public Owner
 	int position;
 	int rindex;
 	int cindex;
+	int rollDoubleFailCount;
         bool landed;
         GameBoard *gb;
   public:
@@ -31,6 +32,8 @@ class Player: public Owner
   	void notify(Tile *);
         void notifyDisplay(Tile *);
         void goToTims();
+        void getRollDoubleFailCount();
+        void setRollDoubleFailCount();
 };
 
 #endif
