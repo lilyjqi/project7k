@@ -74,6 +74,17 @@ int AcadBuilding::getCost() {
     return cost;
 }
 
+int AcadBuilding::getImprCost() {
+    string name = ab->getName();
+    if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" || name == "HH") 
+    {return 50;}
+    else if (name == "RCH" || name == "DWE" || name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
+    {return 100;}
+    else if (name == "EV1" || name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || name == "B2") 
+    {return 150;}
+    else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
+    {return 200;}}
+
 void AcadBuilding::addNeighbour(Building *b) {
     if (neighbours==NULL) {
         neighbours = new Building *[numNeighbour];

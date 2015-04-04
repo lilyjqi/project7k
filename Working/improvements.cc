@@ -61,6 +61,10 @@ int Improvements::getCost() {
     {return ab->getCost() + 200;}
 }
 
+int Improvements::getImprCost() {
+    return ab->getImprCost();
+}
+
 int Improvements::getPay() {
     string name = this->getName();
     if (this->getCurLevel() == 1) {
@@ -139,6 +143,11 @@ void Improvements::improv() {
     AcadBuilding *newAb = new Improvements(this);
     notifyGB(newAb);
     notifyOwner(newAb);
+}
+
+void Improvements::deImprov() {
+    notifyGB(ab);
+    notifyOwner(ab);
 }
 
 void Improvements::notifyGB(AcadBuilding *newAb) {

@@ -11,26 +11,32 @@ class Player: public Owner
 	int rindex;
 	int cindex;
 	int rollDoubleFailCount;
-        bool landed;
-        GameBoard *gb;
+    bool landed;
+    GameBoard *gb;
   public:
 	Player(string, char, int, int, int);
 
   	int getRow();
   	int getCol();
-        char getChar();
-        int getWorth();
-        void setLanded(bool);
-        void updateBuilding(AcadBuilding *);
+    char getChar();
+    int getWorth();
+    void setLanded(bool);
+    void updateBuilding(AcadBuilding *);
 
   	bool isDouble();
-        int rollDices();
-        void makeMove(int); 
+    int rollDices();
+    void makeMove(int); 
   	void notify(Tile *);
-        void notifyDisplay(Tile *);
-        void goToTims();
-        void getRollDoubleFailCount();
-        void setRollDoubleFailCount();
+    void notifyDisplay(Tile *);
+    void goToTims();
+    void getRollDoubleFailCount();
+    void setRollDoubleFailCount();
+    void threeOptions(string);
+    void makeTrade(string);
+    void makeImprove(string);
+    void makeMortgage(string);
+    void unMortgage(string);
+    void asset();
 };
 
 #endif

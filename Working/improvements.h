@@ -22,7 +22,8 @@ public:
 
         // frim acadBuilding.h
         int getPay();
-	int getCost();
+	    int getCost();
+        int getImprCost();
         bool isMono();
         std::string getmonoBlock();
         int getCurLevel();

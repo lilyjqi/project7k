@@ -10,7 +10,7 @@ class ABDecorator: public AcadBuilding
 protected:
 	AcadBuilding* ab;
 	ABDecorator(AcadBuilding *ab): ab(ab) {}
-	~ABDecorator() {delete ab};
+	~ABDecorator() {};
 
 };
 

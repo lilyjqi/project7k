@@ -11,16 +11,17 @@ public:
 	AcadBuilding(string, int, int, int, string);
 	~AcadBuilding();
         
-        bool isMono();
-        std::string getmonoBlock();
-        int getCurLevel();
+    bool isMono();
+    std::string getmonoBlock();
+    int getCurLevel();
 	void setCost();
 	void setPay();
-        int getCost();
-        int getPay();
+    int getCost();
+    int getImprCost();
+    int getPay();
 	void addNeighbour(Building *);
-        void improv();
-        void notifyGB(AcadBuilding *);
+    void improv();
+    void notifyGB(AcadBuilding *);
 };
 
 #endif

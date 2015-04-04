@@ -3,6 +3,7 @@
 #include "school.h"
 #include <string>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
@@ -114,8 +115,8 @@ void Player::makeMove(int m) {
                     if (aBuild) {
                         // if t is in a monopoly
                         if (t->isMono()) {
-                            int c = ;
-                            cout << "Cost of improvement is " << 
+                            int c = t->getImprCost();
+                            cout << "Cost of improvement is " << c << endl;
                             cout << "Do you want to make improvement to your building?(y/n)" << endl;
                             string d = "";
                             while (cin >> d) {
@@ -124,8 +125,8 @@ void Player::makeMove(int m) {
                                 if (decision == "y") {
                                     if (c > this->getBalance()) {
                                         cout << "You don't have enough money." << endl
-                                        cout << "You have four options." << endl;
-                                        cout << "bankrupt/Trade/Mortgage/Sell Improvements" << endl;
+                                        cout << "You have five options." << endl;
+                                        cout << "asset/bankrupt/Trade/Mortgage/Sell Improvements" << endl;
                                         cout << "Please enter <enough> to continue making improvements!" << endl;
                                         
                                         string command = "";
@@ -141,6 +142,9 @@ void Player::makeMove(int m) {
                                                 }
                                                 this->addBalance(-1-(this->getBalance()));
                                                 return;
+                                            }
+                                            else if (command = "asset") {
+                                                this->asset();
                                             }
                                             else {
                                                 this->threeOptions(command);
@@ -257,7 +261,7 @@ void Player::makeMove(int m) {
                         if (c > this->getBalance()) {
                             cout << "You don't have enough money." << endl
                             cout << "You have four options." << endl;
-                            cout << "bankrupt/Trade/Mortgage/Sell Improvements" << endl;
+                            cout << "asset/bankrupt/Trade/Mortgage/Sell Improvements" << endl;
                             cout << "Please enter <enough> to continue paying!" << endl;
                                         
                             string command = "";
@@ -273,6 +277,9 @@ void Player::makeMove(int m) {
                                     }
                                     this->setBalance(-1-(this->getBalance()));
                                     return;
+                                }
+                                else if (command == "asset") {
+                                    this->asset();
                                 }
                                 else {
                                     this->threeOptions(command);
@@ -346,8 +353,8 @@ void Player::threeOptions(string com) {
 }
 
 void Player::makeTrade(string com) {
-    istringstream iss(com.str()) 
-    string c = ""
+    istringstream iss(com.str()); 
+    string c = "";
     iss >> c;
 
     string otherPlayer = "";
@@ -421,8 +428,8 @@ void Player::makeTrade(string com) {
 }
 
 void Player::makeImprove(string com) {
-    istringstream iss(com.str()) 
-    string c = ""
+    istringstream iss(com.str()); 
+    string c = "";
     iss >> c;
     
     string propert="";
@@ -432,9 +439,10 @@ void Player::makeImprove(string com) {
     iss >> bors;
     
     AcadBuilding *p = gb->getTile(property);
+    int lvl = p->getCurLevel();
+    int price = p->getImprCost();
+
     if (bors == "buy") {
-        int lvl = p->getCurLevel();
-        int price = p->lvlCost(lvl+1);
         cout << "Price is " << price << endl;
         if (this->getBalance() < price) {
             cout << "You don't have enough money!" << endl;
@@ -445,10 +453,11 @@ void Player::makeImprove(string com) {
         }
     }
     else {
-        Improvements *b = dynamic_cast<Improvements *>(p);
-        if (b) {
+        int lvl = p->getCurLevel();
+        if (lvl!=0) {
             this->addBalance(price);
             p->deImprovde();
+            delete p;
         }
         else {
             cout << "No improvement!" << endl;
@@ -457,5 +466,54 @@ void Player::makeImprove(string com) {
 }
 
 void Player::makeMortgage(string com) {
+    istringstream iss(com.str()); 
+    string c = ""
+    iss >> c;
+    
+    string propert="";
+    iss >> property;
+    
+    Building *prop = gb->getTile(property);
 
+    // check if it's an academix building with improvements
+    AcadBuilding *isAB = dynamic_cast<AcadBuilding *>(prop);
+    if (isAB) {
+        if (isAB->getCurLevel() != 0) {
+            cout << "Please sell improvements first!" << endl;
+            return;
+        }
+    }
+
+    int cost = prop->getCost();
+    prop->setMort(true);
+    this->addBalance(cost*0.5);
+}
+
+void Player::unMortgage(string com) {
+    istringstream iss(com.str()); 
+    string c = ""
+    iss >> c;
+    
+    string propert="";
+    iss >> property;
+    
+    Building *prop = gb->getTile(property);
+    
+    if (!(prop->isMort())) {
+        cout << "Property " << property << " is not on mortgage!" < endl;
+        return;
+    }
+
+    int cost = prop->getCost();
+    prop->setMort(false);
+    this->addBalance(-(cost*0.5)*1.1);
+}
+
+void Player::asset() {
+    cout << "Player "this->getName() << "'s Assets:"<< endl;    
+    
+    cout << "Balance: " << this->getBalance << endl;
+    for (int i=0; i<numBuilding; ++i) {
+        cout << ownBuilding[i]->getName() << ": cost is " << ownBuilding[i]->getCost() << endl;
+    }
 }
