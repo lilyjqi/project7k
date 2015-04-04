@@ -2,7 +2,7 @@
 
 using namespace std;
 
-GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, int numPlayers, rollUpRim *cups): 
+GameBoard::GameBoard(players(vector <Player*>), School *admin, BoardDiaply *theDisplay, int numPlayers, rollUpRim *cups): 
      admin(admin), theDisplay(theDisplay),curPlayer(NULL),numPlayer(numPlayer),cups(cups) 
 {
     for (int i=0; i<40; i++) {
