@@ -21,7 +21,7 @@ void Owner::deleteBuilding(Building *b) {
     for (int i=0; i<ownBuilding.size(); ++i) {
         if (ownBuilding[i]==b) {
             ownBuilding.erase(ownBuilding.begin()+i);
-            numBuilding—;
+            numBuilding--;
             break;
         }
     }
