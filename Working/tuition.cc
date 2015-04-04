@@ -13,5 +13,6 @@ int Tuition::getTuition() const {
 }
 
 void Tuition::action(Player* p){
+	visit(p);
 	p->setBalance(-getTuition());
 }
