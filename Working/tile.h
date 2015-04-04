@@ -4,7 +4,7 @@
 #define MAX_PLAYER 8
 
 #include <string>
-#include <vector>
+#include <list>
 #include <iostream>
 
 //class Display;
@@ -15,8 +15,8 @@ protected:
 	std::string name;
 //	Display * display;
 	int pos, row, col;
-	//std::vector <Player*> visitors; // List of Players currently at this Tile
-	Player* curPlayer; //the current player is the last in the vector, use pushback to retrieve
+	std::list <Player*> visitors; // List of Players currently at this Tile
+	//Player* curPlayer; //the current player is the first in the list
 
 public:
 	Tile (std::string name, int pos);
@@ -27,15 +27,18 @@ public:
 
 	// Used to determine which Players are on this Tile (for displaying Board)
 	void visit(Player *player);
-	void devisit();
+	void devisit(Player *player);
 	//void devisit(Player *player); /* replace unvisit by devisit */
 
 	// Getters
 	std::string getName() const;
+
 	int getIndex() const;
 	int getRow() const;
 	int getCol() const;
-
+	Player* getVisitor() const;
+//	void setDisplay(Display * d);
+//	void updateVisitorDisplay();
 };
 
 #endif

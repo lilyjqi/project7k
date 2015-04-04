@@ -23,6 +23,7 @@ dcTimsLine::~dcTimsLine(){
 
 void dcTimsLine::action(Player* p){
 	//p->setRollDoubleFailCount(0);  to be set in main.cc
+	if (p->getLanded()) return;
 	visit(p);
 	int i;
 	if (p->getRollDoubleFailCount() == 2) {
