@@ -18,4 +18,5 @@ bool Building::isMort() {
     return mort;
 }
 
+void Building::getOwner() const{ return o; }
 
