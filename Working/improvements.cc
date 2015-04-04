@@ -2,6 +2,11 @@
 
 using namespace std;
 
+Improvements(AcadBuilding *ab): ABDecorator(ab) {};
+
+void Improvements::action(Player* player){ return; }
+void Improvements::auction(){ return; }
+
 // methods in tile.h
 void Improvemebts::visit(Player *p) {
     ab->visit(p);

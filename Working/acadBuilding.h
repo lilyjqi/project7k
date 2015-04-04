@@ -1,5 +1,5 @@
-#ifndef __ACADBUILDING
-#define __ACADBUILDING 
+#ifndef __ACADBUILDING_H__
+#define __ACADBUILDING_H__
 
 #include "building.h"
 

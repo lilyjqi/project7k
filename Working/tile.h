@@ -23,7 +23,7 @@ public:
 	virtual ~Tile() = 0;
 	
 	// action is invoked when the player lands on the tile	
-	virtual void action(Player * player) = 0; /* replace execute by action */
+	virtual void action(Player * player) = 0;
 
 	// Used to determine which Players are on this Tile (for displaying Board)
 	void visit(Player *player);
@@ -34,8 +34,10 @@ public:
 	std::string getName() const;
 
 	int getIndex() const;
-	int getRow() const;
-	int getCol() const;
+	int getRindex() const;
+	int getCindex() const;
+
+	int getNumVisitor() const;
 	Player* getVisitor() const;
 //	void setDisplay(Display * d);
 //	void updateVisitorDisplay();

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "boardDisplay.h"
+#include "tile.h"
 
 class Owner;
 

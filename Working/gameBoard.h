@@ -30,8 +30,8 @@ class GameBoard{
   
 public:
     rollUpRim *cups[NUM_CUPS];
-    GameBoard(School *admin, BoardDisplay *theDisplay, int numPlayers, rollUpRim *cups);
-    static GameBoard getInstance(School *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups);
+    GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim *cups);
+    static GameBoard* getInstance(School *admin, BoardDisplay *display, rollUpRim *cups);
 
     Player* getCurPlayer();
     Player* getPlayer(std::string);

@@ -1,5 +1,6 @@
 #include "acadBuilding.h"
 #include "gameBoard.h"
+#include "Improvements.h"
 #include <string>
 
 using namespace std;
@@ -17,8 +18,9 @@ string AcadBuilding::getmonoBlock() {
 }
 
 bool AcadBuilding::isMono() {
-    for (int i=0; i< numNeighbour; i++) {
-        if (neighbours[i]->getmonoBlock() != this->getmonoBlock()) {
+    for (int i=0; i< numNeighbours; i++) {
+        AcadBuilding* ab = dynamic_cast<AcadBuilding *>(neighbours[i]);
+        if (ab != NULL && ab->getmonoBlock() != this->getmonoBlock()) {
             return false;
         }
     }
@@ -75,7 +77,7 @@ int AcadBuilding::getCost() {
 }
 
 int AcadBuilding::getImprCost() {
-    string name = ab->getName();
+    string name = this->getName();
     if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" || name == "HH") 
     {return 50;}
     else if (name == "RCH" || name == "DWE" || name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
@@ -83,15 +85,17 @@ int AcadBuilding::getImprCost() {
     else if (name == "EV1" || name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || name == "B2") 
     {return 150;}
     else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
-    {return 200;}}
+    {return 200;}
+    return 0;
+}
 
 void AcadBuilding::addNeighbour(Building *b) {
     if (neighbours==NULL) {
-        neighbours = new Building *[numNeighbour];
+        neighbours = new Building *[numNeighbours];
         neighbours[0]= b;
     }
     else {
-        for (int i=0; i< numNeighbour; i++) {
+        for (int i=0; i< numNeighbours; i++) {
             if (neighbours[i]==NULL) {
                 neighbours[i]=b;
                 break;
@@ -100,12 +104,12 @@ void AcadBuilding::addNeighbour(Building *b) {
     }
 }
 
-void AcadBuilding::improv() {
-    AcadBuilding *ab = new Improvement(this);
-    notifyGB(ab);
-}
+// void AcadBuilding::improv() {
+//     AcadBuilding *ab = new Improvements(this);
+//     notifyGB(ab);
+// }
 
 void AcadBuilding::notifyGB(AcadBuilding *ab) {
-    GameBoard * gb = GameBoard::getInstance();
+    GameBoard* gb = GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());
     gb->setTile(ab);
 }

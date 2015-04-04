@@ -1,11 +1,12 @@
 #include "boardDisplay.h"
 #include "gameBoard.h"
+#include "acadBuilding.h"
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-BoardDisplay::BoardDisplay(): {
+BoardDisplay::BoardDisplay(){
     display = new string *[56];
     for (int i=0; i<56; ++i) {
         display[i] = new string[11];
@@ -103,7 +104,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|OPT     |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|EIT     |"
+                    display[i][j] = "|EIT     |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -117,7 +118,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|BMH     |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|ESC     |"
+                    display[i][j] = "|ESC     |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -131,7 +132,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|SLC     |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|SLC     |"
+                    display[i][j] = "|SLC     |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -145,7 +146,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|LHI     |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|C2      |"
+                    display[i][j] = "|C2      |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -159,7 +160,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|UWP     |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|REV     |"
+                    display[i][j] = "|REV     |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -173,7 +174,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|        |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|NEEDLES |"
+                    display[i][j] = "|NEEDLES |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -187,7 +188,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|--------|";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|HALLS   |"
+                    display[i][j] = "|HALLS   |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -201,7 +202,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|CPH     |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|        |"
+                    display[i][j] = "|        |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -215,7 +216,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|DWE     |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|MC      |"
+                    display[i][j] = "|MC      |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -229,20 +230,20 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|PAC     |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|COOP    |"
+                    display[i][j] = "|COOP    |";
                 }
                 else {
                     display[i][j] = "          ";
                 }
             }
-
+        }
         if (i == 42) {
             for (int j =0; j<11; ++j) {
                 if (j == 0) {
                     display[i][j] = "|        |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|FEE     |"
+                    display[i][j] = "|FEE     |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -256,7 +257,7 @@ BoardDisplay::BoardDisplay(): {
                     display[i][j] = "|RCH     |";
                 }
                 else if (j == 10) {
-                    display[i][j] = "|DC      |"
+                    display[i][j] = "|DC      |";
                 }
                 else {
                     display[i][j] = "          ";
@@ -266,7 +267,7 @@ BoardDisplay::BoardDisplay(): {
 
         if (i == 50) {
             for (int j =0; j<11; ++j) {
-                if (j == 0 || J == 10) {
+                if (j == 0 || j == 10) {
                     display[i][j] = "|________|";
                 }
                 else {
@@ -331,8 +332,9 @@ BoardDisplay::BoardDisplay(): {
     }
 }
 
-static BoardDisplay::BoardDisplay *instance = 0;
-static BoardDisplay::getInstance() {
+BoardDisplay* BoardDisplay::instance = 0;
+
+BoardDisplay* BoardDisplay::getInstance() {
     if (instance == NULL) {
         instance = new BoardDisplay();
         atexit(cleanup);
@@ -340,11 +342,11 @@ static BoardDisplay::getInstance() {
     return instance;
 }
 
-static void BoardDisplay::cleanup() {
+void BoardDisplay::cleanup() {
     delete instance;
 }
 
-static string drawString(int i) {
+string BoardDisplay::drawString(int i) {
     if (i == 0) {return "        ";}
     else if (i == 1) {return "       ";}
     else if (i == 2) {return "      ";}
@@ -353,13 +355,16 @@ static string drawString(int i) {
     else if (i == 5) {return "   ";}
     else if (i == 6) {return "  ";}
     else if (i == 7) {return " ";}
+    return "";
 }
 
-void updateImpro(Tile *t) {
+void BoardDisplay::updateImpro(Tile *t) {
     int r = t->getRindex();
     int c = t->getCindex();
 
-    int cl = t->getCurLevel();
+    AcadBuilding * ab=dynamic_cast<AcadBuilding *>(t);
+    if (ab == NULL){ return; }
+    int cl = ab->getCurLevel();
     string lvl = "";
     if (cl == 1) {lvl = "I";}
     else if (cl == 2) {lvl = "II";}
@@ -367,25 +372,25 @@ void updateImpro(Tile *t) {
     else if (cl == 4) {lvl = "IIII";}
     else if (cl == 5) {lvl = "IIIII";}
 
-    display[i][j] = "|" + lvl + drawString(lvl.length()) + "|";
+    display[r][c] = "|" + lvl + drawString(lvl.length()) + "|";
 }
 
-void updatePos(Tile *t) {
+void BoardDisplay::updatePos(Tile *t) {
     int r = t->getRindex();
     int c = t->getCindex();
 
-    vector<Player *> visitors = t->getVisitors();
+    Player* visitors = t->getVisitor();
     string p = "";
-    for (int i =0; i<visitors.size(); ++i) {
-        p += visitors[i]->getChar();
+    for (int i =0; i<t->getNumVisitor(); ++i) {
+        p += (visitors+i)->getChar();
     }
     display[r+3][c] = "|" + p + drawString(p.length()) + "|";
 }
 
-ostream & opearator<<(ostream& out, const boardDisplay& d) {
+ostream &operator<<(ostream& out, const BoardDisplay& d) {
     for (int i = 0; i<56; ++i) {
         for (int j=0; j<11; ++j) {
-            out << d[i][j];
+            out << d.display[i][j];
         }
         out << endl;
     }

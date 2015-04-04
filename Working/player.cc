@@ -1,6 +1,6 @@
 #include "player.h"
-#include "gameboard.h"
-#include "school.h"
+//#include "school.h"
+//#include "gameBoard.h"
 #include <string>
 #include <sstream>
 #include <iostream>

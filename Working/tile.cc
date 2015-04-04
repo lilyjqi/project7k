@@ -34,12 +34,17 @@ int Tile::getIndex() const { /* replace by getPos ??? */
 	return pos;
 }
 
-int Tile::getRow() const{
+int Tile::getRindex() const{
 	return row;
 }
 
-int Tile::getCol() const {
+int Tile::getCindex() const {
 	return col;
+}
+
+
+int Tile::getNumVisitor() const{
+	return visitors.size();
 }
 
 Player* Tile::getVisitor() const {

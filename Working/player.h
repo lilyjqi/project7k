@@ -3,7 +3,12 @@
 
 #include <string>
 #include "owner.h"
-#include "gameBoard.h"
+
+//#include "gameBoard.h"
+
+class GameBoard;
+class Tile;
+class AcadBuilding;
 
 class Player: public Owner
 {

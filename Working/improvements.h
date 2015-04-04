@@ -6,7 +6,7 @@
 class Improvements: public ABDecorator
 {
 public:
-	Improvements(AcadBuilding *ab): ABDecorator(ab) {};
+	Improvements(AcadBuilding *ab);
         
         // from tile.h
         void visit(Player *);

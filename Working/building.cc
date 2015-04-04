@@ -1,6 +1,8 @@
 #include "building.h"
 #include "school.h"
 
+using namespace std;
+
 Building::Building(string name, int position, int rindex, int cindex, int numNeighbours):
     Tile(name, position, rindex, cindex),
     numNeighbours(numNeighbours),neighbours(NULL),cost(0),mort(0),
