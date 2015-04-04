@@ -37,7 +37,7 @@ void dcTimsLine::action(Player* p){
 				p->setBalance(-50);
 				p->setLanded(true);
 				p->setRollDoubleFailCount(0);
-				devisit();
+				//devisit();
 				return;
 			} else if (i == 2) {
 				for (int j=0; j<4; j++){
@@ -45,7 +45,7 @@ void dcTimsLine::action(Player* p){
 						(rollUpRim::getInstance()+j)->setOwner(NULL);
 						p->setRollDoubleFailCount(0);
 						p->setLanded(true);
-						devisit();
+						//devisit();
 						return;
 					}
 				}
@@ -54,7 +54,7 @@ void dcTimsLine::action(Player* p){
 				p->setBalance(-50);
 				p->setLanded(true);
 				p->setRollDoubleFailCount(0);
-				devisit();
+				//devisit();
 				return;
 			} else {
 				cout << "Please choose the correct option." << endl;
@@ -76,7 +76,7 @@ void dcTimsLine::action(Player* p){
 				if (success) {
 					p->setLanded(true);
 					p->setRollDoubleFailCount(0);
-					devisit();
+					//devisit();
 					return;
 				} else {
 					p->setRollDoubleFailCount(p->getRollDoubleFailCount()++);
@@ -89,7 +89,7 @@ void dcTimsLine::action(Player* p){
 					p->setBalance(-50);
 					p->setLanded(true);
 					p->setRollDoubleFailCount(0);
-					devisit();
+					//devisit();
 					return;
 			} else if (i == 3) {
 
@@ -98,7 +98,7 @@ void dcTimsLine::action(Player* p){
 						(rollUpRim::getInstance()+j)->setOwner(NULL);
 						p->setRollDoubleFailCount(0);
 						p->setLanded(true);
-						devisit();
+						//devisit();
 						return;
 					}
 				}
