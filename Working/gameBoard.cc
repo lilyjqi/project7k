@@ -142,7 +142,7 @@ static GameBoard * GameBoard::getInstance(School *admin, BoardDiaply *display, i
 }
 
 Player * GameBoard::getCurPlayer() {
-    cout << “Current Player is ” << curPlayer->getName() << endl;
+    cout << "Current Player is " << curPlayer->getName() << endl;
     return curPlayer;
 }
 
