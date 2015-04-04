@@ -1,8 +1,6 @@
 #ifndef __ABDECORATOR_H__
 #define __ABDECORATOR_H__ 
 
-#include <iostream>
-#include <cstdlib>
 #include "acadBuilding.h"
 
 class ABDecorator: public AcadBuilding
