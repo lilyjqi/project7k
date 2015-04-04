@@ -27,9 +27,7 @@ bool AcadBuilding::isMono() {
     return true;
 }
 
-
 void AcadBuilding::setCost() {
-    string name = this->getName();
     if (name == "AL") {cost = 40;}
     else if (name == "ML") {cost = 60;}
     else if (name == "ECH" || name == "PAS") {cost = 100;}
@@ -69,25 +67,112 @@ void AcadBuilding::setPay() {
 }
 
 int AcadBuilding::getPay() {
-    return pay;
+    int loop = 0;
+    int cost = pay;
+    while (loop <= CurLevel) {
+        if (loop == 1) {
+            if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" ||
+                name == "HH" || name == "RCH" || name == "DWE" || name == "CPH" || 
+                name == "LHI" || name == "BMH" || name == "OPT" || name == "EV1" || 
+                name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || 
+                name == "B2" || name == "EIT" || name == "ESC")
+            { cost *= 5;}
+            else if (name == "C2") { cost += 122;}
+            else if (name == "MC") { cost += 140;}
+            else if (name == "DC") { cost += 150;}
+        }
+        else if (loop == 2) {
+            if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" || 
+                name == "RCH" || name == "DWE" || name == "CPH" || name == "EV3" || 
+                name == "PHYS" || name == "B1" || name == "B2" || name == "EIT" || 
+                name == "ESC" || name == "C2" || name == "DC")
+            {cost *= 3;}
+            else if (name == "HH") {cost += 60;}
+            else if (name == "LHI" || name == "BMH") { cost += 130;} 
+            else if (name == "OPT") { cost += 140;}
+            else if (name == "EV1" || name == "EV2") {cost += 160;} 
+            else if (name == "MC") { cost += 325;}
+        }
+        else if (loop == 3) {
+            if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" ||
+                name == "HH" || name == "RCH" || name == "DWE")
+            { cost *= 3;}
+            else if (name == "CPH") { cost += 320;}
+            else if (name == "LHI" || name == "BMH") {cost += 350;}
+            else if (name == "OPT") { cost += 380;}
+            else if (name == "EV1" || name == "EV2" || name == "EV3")
+            { cost += 450;}
+            else if (name == "PHYS" || name == "B1") { cost += 470;}
+            else if (name == "B2") { cost += 490;}
+            else if (name == "EIT" || name == "ESC") { cost += 510;}
+            else if (name == "C2") { cost += 550;}
+            else if (name == "MC") { cost += 600;}
+            else if (name == "DC") { cost += 800;}
+        }
+        else if (loop == 4) {
+            if (name == "AL") { cost += 70;}
+            else if (name == "ML") { cost += 140;} 
+            else if (name == "ECH" || name == "PAS") { cost += 130;} 
+            else if (name == "HH") { cost += 150;} 
+            else if (name == "RCH" || name == "DWE") { cost += 175;}
+            else if (name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
+            { cost += 200;}
+            else if (name == "EV1" || name == "EV2" || name == "EV3" || 
+                    name == "PHYS" || name == "B1" || name == "B2") 
+            { cost += 175;}
+             else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC") 
+            { cost += 200;}
+            else if (name == "DC") { cost += 300;}
+        }
+        else if (loop == 5) {
+            if (name == "AL") { cost += 90;}
+            else if (name == "ML") { cost += 130;} 
+            else if (name == "ECH" || name == "PAS" || name == "HH") 
+            { cost += 150;} 
+            else if (name == "RCH" || name == "DWE") { cost += 125;}
+            else if (name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
+            { cost += 200;}
+            else if (name == "EV1" || name == "EV2" || name == "EV3" || 
+                name == "PHYS" || name == "B1" || name == "B2" || 
+                name == "EIT" || name == "ESC")
+        { cost += 175;}
+        else if (name == "C2" || name == "MC") 
+        { cost += 200;}
+        else if (name == "DC") { cost += 300;}
+        }
+        loop++;
+    }
+    return cost;
 }
 
 int AcadBuilding::getCost() {
-    return cost;
-}
+    string name = ab->getName();
+    if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" || name == "HH") 
+    {return cost + curLevel * 50;}
+    else if (name == "RCH" || name == "DWE" || name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
+    {return cost + curLevel * 100;}
+    else if (name == "EV1" || name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || name == "B2") 
+    {return cost + curLevel * 150;}
+    else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
+    {return cost + curLevel * 200;}}
 
 int AcadBuilding::getImprCost() {
     string name = this->getName();
     if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" || name == "HH") 
-    {return 50;}
+    {return cost + curLevel * 50;}
     else if (name == "RCH" || name == "DWE" || name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
-    {return 100;}
+    {return cost + curLevel * 100;}
     else if (name == "EV1" || name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || name == "B2") 
-    {return 150;}
+    {return cost + curLevel * 150;}
     else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
+<<<<<<< HEAD
     {return 200;}
     return 0;
 }
+=======
+    {return cost + curLevel * 200;}}
+
+>>>>>>> e7176ea7a6d16ef3cf9e4fdb6da2f766661b65b3
 
 void AcadBuilding::addNeighbour(Building *b) {
     if (neighbours==NULL) {
@@ -104,6 +189,7 @@ void AcadBuilding::addNeighbour(Building *b) {
     }
 }
 
+<<<<<<< HEAD
 // void AcadBuilding::improv() {
 //     AcadBuilding *ab = new Improvements(this);
 //     notifyGB(ab);
@@ -112,4 +198,19 @@ void AcadBuilding::addNeighbour(Building *b) {
 void AcadBuilding::notifyGB(AcadBuilding *ab) {
     GameBoard* gb = GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());
     gb->setTile(ab);
+=======
+void AcadBuilding::improv() {
+    curLevel++;
+    this->notifyDisplay();
+}
+
+void AcadBuilding::deImprov() {
+    curLevel--;
+    this->notifyDisplay();
+}
+
+void AcadBuilding::notifyDisplay() {
+    GameBoard * gb = GameBoard::getInstance();
+    gb->getDisplay()->updateImpro(this);
+>>>>>>> e7176ea7a6d16ef3cf9e4fdb6da2f766661b65b3
 }

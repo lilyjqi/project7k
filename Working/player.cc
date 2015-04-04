@@ -488,7 +488,6 @@ void Player::makeImprove(string com) {
         if (lvl!=0) {
             this->addBalance(price);
             p->deImprovde();
-            delete p;
         }
         else {
             cout << "No improvement!" << endl;

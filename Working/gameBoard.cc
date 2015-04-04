@@ -249,12 +249,6 @@ BoardDisplay * GameBoard::getDisplay() {
     return theDisplay;
 }
 
-void GameBoard::setTile(Tile *t) {
-    int p = t->getPos();
-    tils[p] = t;
-    theDisplay->updateImpro(t);
-}
-
 Tile ** GameBoard::getTiles() {
    return tiles;
 }
