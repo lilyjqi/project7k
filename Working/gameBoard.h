@@ -29,8 +29,8 @@ class GameBoard{
   
 public:
     rollUpRim *cups[NUM_CUPS];
-    GameBoard();
-    static GameBoard getInstance();
+    GameBoard(School *admin, BoardDiaply *theDisplay, int numPlayers, rollUpRim *cups);
+    static GameBoard getInstance(School *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups);
 
     Player* getCurPlayer();
     Player* getPlayer(string s);
