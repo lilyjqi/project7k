@@ -195,7 +195,7 @@ void Player::makeMove(int m) {
                     cout << "Please pay " << payAmount << endl;
 
                     if (payAmount > this->getBalance()) {
-                        this->noMoney();
+                        this->noMoney(t->getOwner());
                         if (this->getBalance() == -1) {return;}
                         cout << "You have paid " << payAmount << " dollars to " << ownerName << endl;
                         this->addBalance(-payAmount);
