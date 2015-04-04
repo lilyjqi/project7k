@@ -67,8 +67,7 @@ void AcadBuilding::setPay() {
 }
 
 int AcadBuilding::getPay() {
-    if (this->isMono() && this->getCurLevl() == 0) {return 2*pay;}
-    else {return pay;}
+    return pay;
 }
 
 int AcadBuilding::getCost() {

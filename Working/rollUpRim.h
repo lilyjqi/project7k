@@ -14,6 +14,7 @@ class rollUpRim
 public:
 	rollUpRim(Owner *);
 	void setOwner(Owner* );
+        Owner *getOwner();
         rollUpRim *getCup();
 	static rollUpRim* getInstance();
         static void cleanup();

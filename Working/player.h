@@ -1,10 +1,7 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__ 
 
-#include <iostream>
 #include <string>
-#include <cstdlib>
-#include <ctime>
 #include "owner.h"
 
 class Player: public Owner
@@ -21,14 +18,13 @@ class Player: public Owner
 
   	int getRow();
   	int getCol();
-        string getName();
         char getChar();
         int getWorth();
         void setLanded(bool);
         void updateBuilding(AcadBuilding *);
 
   	bool isDouble();
-  	void makeMove();
+        int rollDices();
         void makeMove(int); 
   	void notify(Tile *);
         void notifyDisplay(Tile *);

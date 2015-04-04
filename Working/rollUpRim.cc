@@ -21,6 +21,10 @@ void rollUpRim::setOwner(Owner *o) {
     owner = o;
 }
 
+Owner *rollUpRim::getOwner() {
+    return owner;
+}
+
 rollUpRim * rollUpRim::getCup() {
     for (int i=0; i<4; ++i) {
         if (instance[i]->owner->getName() != "School") {

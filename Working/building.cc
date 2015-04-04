@@ -3,7 +3,8 @@
 
 Building::Building(string name, int position, int rindex, int cindex, int numNeighbours):
     Tile(name, position, rindex, cindex),
-    numNeighbours(numNeighbours),neighbours(NULL),cost(0),mort(false),o(School::getInstance()) {}
+    numNeighbours(numNeighbours),neighbours(NULL),cost(0),mort(false),
+    owner(School::getInstance()) {}
 
 void Building::setOwner(Owner * o) {
     owner = o;

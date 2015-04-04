@@ -8,6 +8,10 @@ Owner::Owner(string name):
         ownBuilding = new Building *[28];
     };
 
+string Owner::getName() {
+    return name;
+}
+
 void Owner::addBuilding(Building *b) {
     ownBuilding.push_back(b);
     numBuilding++;

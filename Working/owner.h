@@ -3,7 +3,6 @@
 
 #include <string>
 #include "building.h"
-//#include "window.h"
 
 class Owner
 {
@@ -15,6 +14,7 @@ class Owner
   public:
 	Owner();
         
+        std::string getName();
 	void addBuilding(Building *);
         void deleteBuilding(Building *);
 	int getBalance();

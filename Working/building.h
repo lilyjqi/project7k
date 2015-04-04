@@ -14,7 +14,7 @@ class Building: public Tile{
         int pay;
 	bool mort;
         int numNeighbours;
-        Owner* o;
+        Owner* owner;
   public:
         Building();
 	virtual ~Building() = 0 ;
