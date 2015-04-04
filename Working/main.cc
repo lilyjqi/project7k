@@ -1,9 +1,10 @@
 #include "gameBoard.h"
-//#include "textdisplay.h"
+#include "boardDisplay.h"
+#include "rollUpRim.h"
 
 #include "owner.h"
 #include "player.h"
-
+#include "school.h"
 //#include "normalStream.h"
 
 #include "ownedTile.h"
@@ -58,8 +59,10 @@ tileNameMap["REV"]=35;
 tileNameMap["MC"]=37;
 tileNameMap["DC"]=39;
 
-// initialize player
-void initPlayer() {
+// initialize player; return the number of player
+int initPlayer(GameBoard* board) {
+	map<string, int> checkNameDup;
+
 	cout << "Please enter the number of players - choose a number from TWO to EIGHT."
 	int numPlayer;
 	while (true) {
@@ -76,15 +79,18 @@ void initPlayer() {
 
 	string name;
 	char charPiece;
-	//Player* p;
+	Player* p;
 
 	for (int i=0; i<numPlayer; i++){
 		// getting name
 		cout << "Enter a name for Player" << i << ": "
 		cin >> ws;
-		cin >> name; // need formatting??
-
-		/*if (gameBoard->checkNameDuplicates(name)*/
+		cin >> name;
+		while (checkNameDup.count(name)>0) {
+			cout << "The name is already taken. Please pick another: ";
+			cin >> name;
+		}
+		checkNameDup[name]=i;
 
 		// getting char
 		while (true) {
@@ -102,14 +108,15 @@ void initPlayer() {
    		int pos = rand()%40;
    		while (pos ==  30) { pos = rand()%40; } // make sure pos != 30
 		p = new Player(name, charPiece, pos, board->getRindex(pos), board->getCindex(pos));
-		gameBoard->addPlayer(p);
-		//p->setBalance(START_MONEY);
+		board->addPlayer(p);
 		p->setRollDoubleFailCount(0);
 		cout << name << " with char " << charPiece << " is created" << endl;
 	}
+
+	return numPlayer;
 }
 
-bool loadGame(ifstream &in){
+int loadGame(ifstream &in, GameBoard* board){
 	int numPlayer, money, index, cups;
 	int timsCup = 0;
 	int timsLine = 0;
@@ -121,7 +128,7 @@ bool loadGame(ifstream &in){
 	in >> numPlayer;
 	for(int i = 0; i < numPlayer; i++){
 		in >> name;
-		//name = formatName(playerName);
+
 		in >> c;
 		in >> money;
 		in >> cups;
@@ -130,12 +137,12 @@ bool loadGame(ifstream &in){
 
 		if(index == 30 || index < 0 || index >= 40){
 			cerr << "Invalid position for " << name << endl;
-			return false;
+			return 0;
 		}
 
 		if (cups < 0 || cups > 4) { 
 			cerr << "Invalid cups for " << name << endl; 
-			return false;
+			return 0;
 		} 
 
 		if(index == 10){
@@ -144,25 +151,27 @@ bool loadGame(ifstream &in){
 				in >> timsTurn;
 				if(timsTurn < 1 || timsTurn > 3){
 					cerr << "Invalid number of turns in line for " << name << endl;
-					return false;
+					return 0;
 				}
 			}
 		}
 		// if total cups greater than 4, terminate
 		if (totalCups > 4) {
 			cerr << "Invalid number of Cups for " << name << endl;
-			return false;
+			return 0;
 		}
 
 		// load player to the gameboard
 		p = new Player(name, c, index, board->getRindex(index), board->getCindex(index));
 		p->setBalance(money);
-		gameBoard->addPlayer(p);
+		board->addPlayer(p);
 		for (int j=0; j<cups; j++){
 			rollUpRim::getInstance()+j)->owner == p;
 		}
 		p->setRollDoubleFailCount(timsTurn);
 		cout << name << " with char " << charPiece << " is loaded" << endl;
+
+		BoardDisplay::getInstance()->updatePos(board->getTile(index));
 	}
 
 		/****** loading Players to board finished; now loading Tiles ******/
@@ -173,11 +182,11 @@ bool loadGame(ifstream &in){
 		tileIndex = tileNameMap[tileName];
 		if(tileIndex == 0){ // if key tileName does not exist in map, default value of int - zero - is returned
 			cerr << "Invalid tile name: " << tileName << endl;
-			return false;
+			return 0;
 		}
 
 		// get Tile and set Owner
-		Building* ownedTile = gameBoard->getTile(tileIndex);
+		Building* ownedTile = board->getTile(tileIndex);
 		in >> owner;
 		if(owner == "BANK"){
 			ownedTile->setOwner(School::getInstance());
@@ -190,37 +199,28 @@ bool loadGame(ifstream &in){
 		// set Improvements
 		in >> improvements;
 		if(improvements == -1){
-			ownedTile->mortgage(); 
-			/****** mortgage implementation unfinished ******/
-			/****** mortgage implementation unfinished ******/
-			/****** mortgage implementation unfinished ******/
-			/****** mortgage implementation unfinished ******/
-			/****** mortgage implementation unfinished ******/
-			/****** mortgage implementation unfinished ******/
-		}
-		else if(improvements < 0 || improvements > 5){
+			ownedTile->setMort(ownedTile->getCost());
+		} else if (improvements < 0 || improvements > 5){
 			cerr << "Invalid number of improvements for " << tileName << endl;
-			return false;
-		}
-		else{
+			return 0;
+		} else {
 			AcadBuilding *acadTile = dynamic_cast<AcadBuilding *>(ownedTile);
 			if(acadTile){
 				for(int j=0; j<improvements; j++){
 					acadTile->improv();
 				}
-			}
-			else if(improvements != 0){
+				BoardDisplay::getInstance()->updateImpro(acadTile);
+			} else if(improvements != 0){
 				cerr << "Invalid number of improvements for " << tileName << endl;
-				return false;
+				return 0;
 			}
 		}
 	}
 
-	//check if all tiles with more than 0 improvements is part of a monopoly?
-	return true;
+	return numPlayer;
 }
 
-void Board::save(string file){
+void saveGame(string file, GameBoard* board){
 	ofstream oof;
 	int numPlayer;
 	numPlayer = board->players.size();
@@ -253,7 +253,7 @@ void Board::save(string file){
 	/********** Player info saved; now saving Tile info ***********/
 
 	for(int i = 0; i < 28; i++){
-		Building* ownedTile = gameBoard->getTile(ownableTileIndex[i]);
+		Building* ownedTile = board->getTile(ownableTileIndex[i]);
 		oof<<ownedTile->getName()<<" "<<ownedTile->getOwner()->getName()<< " "; 
 
 		// mortgage and improvements
@@ -266,3 +266,65 @@ void Board::save(string file){
 		oof << endl;
 	}
 }
+
+int main(int argc, char* argv[]) {
+	int numPlayer;
+	// set up gameBoard
+	GameBoard* board=GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());
+	for(int i=0; i<4; i++){
+		(rollUpRim::getInstance()+i)->setOwner(School::getInstance());
+	}
+
+	while (true){
+		if (argv[1] == "-load") {
+			string file = argv[2];
+			ifstream ifs(file.c_str());
+			if(ifs.good()){
+				numPlayer = load(ifs);
+				if(numPlayer == 0){
+					cerr << "The save file has incorrect format. "
+					cerr << "Please choose another file to start a new game. " << endl;
+				} else { 
+					bool loaded = true;
+					break; 
+				}
+			}else{
+				cerr << "There is no such saved game. " 
+				cerr << "Please choose the correct file to start a new game." << endl;
+			}
+		}
+	
+		// else if (argv[1] = "-testing") {...;}
+		else if (argc > 1) {
+			cerr << "Invalid command. Starting a new game..."
+		}
+		else {
+			cout << "The game is about to START." << endl;
+			numPlayer = initPlayer(board);
+		}
+	}
+
+	int dice;
+	Player *p;
+	int bankruptPlayer = 0;
+	while (bankruptPlayer + 1 != numPlayer){
+		while (true){
+			board->setCurPlayer();
+			*p = board->getCurPlayer();
+			if (p->getBalance() != -1) { break; }
+		}
+
+		dice = p->rollDice();
+		if (dice == -1) { p->goToIndex(10); }
+		else { p->makeMove(dice); }
+		if (p->getBalance() == -1){
+			bankruptPlayer++;
+			cout << p->getName() << " is bankrupt."
+			board->deletePlayer(p->getChar());
+		}
+	}
+
+	cout << p->getName() << " wins the game!" << endl;
+	cout << "Game existing...." << endl;
+	return 1;
+}	
