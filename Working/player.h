@@ -28,7 +28,7 @@ class Player: public Owner
     void makeMove(int); 
   	void notify(Tile *);
     void notifyDisplay(Tile *);
-    void goToTims();
+    void goToIndex(int);
     void getRollDoubleFailCount();
     void setRollDoubleFailCount();
     void threeOptions(string);
