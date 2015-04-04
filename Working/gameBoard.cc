@@ -218,6 +218,8 @@ GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, rollUpRim *cups):
     }
 }
 
+static GameBoard *instance = 0;
+
 static GameBoard * GameBoard::getInstance(School *admin, BoardDiaply *display, rollUpRim *cups) {
     if (!instance) {
         instance = new GameBoard(admin, display, cups);
