@@ -18,15 +18,17 @@ public:
         
         // from building.h
         void setOwner(Owner *);
+        Owner *getOwner();
 
         // frim acadBuilding.h
         int getPay();
-	    int getCost();
+	int getCost();
         bool isMono();
         std::string getmonoBlock();
         int getCurLevel();
         void improv();
         void notifyGB(AcadBuilding *);
+        void notifyOwner(AcadBuilding *);
 
 };
 

@@ -34,6 +34,15 @@ int Player::getWorth() {
 
 void setLanded(bool isLanded) {landed = isLanded;}
 
+void Player::updateBuilding(AcadBuilding *newAb) {
+    for (int i=0; i<numBuilding; ++i) {
+        if (ownBuilding[i]->getIndex() == newAb->getIndex()) {
+            ownBuilding[i] = newAb;
+            break;
+        }
+    }
+}
+
 bool Player::isDouble() {
     srand(time(NULL));
     int dice1 = rand()%6+1;
@@ -78,6 +87,7 @@ void Player::makeMove() {
             position = newpos;
             rindex = t->getRow();
             cindex = t->getCol();
+
             this->setLanded(true);
             notify(t);
             notifyDisplay(t);

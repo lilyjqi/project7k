@@ -25,6 +25,7 @@ class Player: public Owner
         char getChar();
         int getWorth();
         void setLanded(bool);
+        void updateBuilding(AcadBuilding *);
 
   	bool isDouble();
   	void makeMove();

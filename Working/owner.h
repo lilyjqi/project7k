@@ -14,7 +14,7 @@ class Owner
 	std::vector<Building *> ownBuilding;
   public:
 	Owner();
-
+        
 	void addBuilding(Building *);
         void deleteBuilding(Building *);
 	int getBalance();

@@ -32,6 +32,10 @@ void Improvements::setOwner(Owner *o) {
     ab->setOwner(o);
 }
 
+Owner *Improvements::getOwner() {
+    return ab->getOwner();
+}
+
 // methods in acadBuilding.h
 int Improvements::getCurLevel() {
     return 1 + ab->curLevel;
@@ -134,9 +138,15 @@ int Improvements::getPay() {
 void Improvements::improv() {
     AcadBuilding *newAb = new Improvements(this);
     notifyGB(newAb);
+    notifyOwner(newAb);
 }
 
-void Improvements::notifyGB(AcadBuilding *ab) {
+void Improvements::notifyGB(AcadBuilding *newAb) {
     GameBoard *gb = GameBoard::getInstance();
-    gb->setTile(ab);
+    gb->setTile(newAb);
+}
+
+void Improvements::notifyOwner(AcadBuilding *newAb) {
+    Player *p = getOwner();
+    p->updateBuilding(newAb);
 }
