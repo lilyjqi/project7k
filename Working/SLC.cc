@@ -26,10 +26,10 @@ void SLC::action(Player* p){
 
 	if(i <= 5) { p->moveToIndex(cards[i]); } // move by cards[i] steps
 	else if (i == 6) { 
-		p->moveToIndex(dcTimesLine); 
-		p->setLanded(false);
+		p->setLanded(false); 
+		p->gotoIndex(10);
 	} //
-	else { p->moveToIndex(OSAP); }
+	else { p->goToIndex(0); }
 
 	int random = Board::getBoard()->getRand(100); 
 	if (random == 1) {
