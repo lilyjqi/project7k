@@ -62,7 +62,7 @@ bool Player::isDouble() {
 void Player::getRollDoubleFailCount(){ return rollDoubleFailCount; }
 void Player::setRollDoubleFailCount(int n) { rollDoubleFailCount=n; }
 
-int Player::rollDices() {
+int Player::rollDice() {
     // roll dices
     int numRoll=0;
     for (int i=0; i<3; ++i) {
