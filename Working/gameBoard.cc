@@ -220,7 +220,7 @@ GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, int numPlayers, rol
 
 static GameBoard * GameBoard::getInstance(School *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups) {
     if (!instance) {
-        instance = new GameBoard(Owner *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups);
+        instance = new GameBoard(admin, display, numPlayers, cups);
         atexist(cleanup);
     }
     return instance;
