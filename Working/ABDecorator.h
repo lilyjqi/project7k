@@ -7,8 +7,8 @@ class ABDecorator: public AcadBuilding
 {
 protected:
 	AcadBuilding* ab;
-	ABDecorator(AcadBuilding *ab): ab(ab) {}
-	~ABDecorator() {};
+	ABDecorator(AcadBuilding *ab);
+    ~ABDecorator();
 
 };
 

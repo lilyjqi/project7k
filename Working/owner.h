@@ -2,6 +2,7 @@
 #define __OWNER_H__
 
 #include <string>
+#include <vector>
 #include "building.h"
 
 class Owner
