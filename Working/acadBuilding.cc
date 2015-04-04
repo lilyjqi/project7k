@@ -1,6 +1,5 @@
 #include "acadBuilding.h"
 #include "gameBoard.h"
-#include "Improvements.h"
 #include <string>
 
 using namespace std;
@@ -165,14 +164,7 @@ int AcadBuilding::getImprCost() {
     else if (name == "EV1" || name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || name == "B2") 
     {return cost + curLevel * 150;}
     else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
-<<<<<<< HEAD
     {return 200;}
-    return 0;
-}
-=======
-    {return cost + curLevel * 200;}}
-
->>>>>>> e7176ea7a6d16ef3cf9e4fdb6da2f766661b65b3
 
 void AcadBuilding::addNeighbour(Building *b) {
     if (neighbours==NULL) {
@@ -189,16 +181,6 @@ void AcadBuilding::addNeighbour(Building *b) {
     }
 }
 
-<<<<<<< HEAD
-// void AcadBuilding::improv() {
-//     AcadBuilding *ab = new Improvements(this);
-//     notifyGB(ab);
-// }
-
-void AcadBuilding::notifyGB(AcadBuilding *ab) {
-    GameBoard* gb = GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());
-    gb->setTile(ab);
-=======
 void AcadBuilding::improv() {
     curLevel++;
     this->notifyDisplay();
@@ -212,5 +194,4 @@ void AcadBuilding::deImprov() {
 void AcadBuilding::notifyDisplay() {
     GameBoard * gb = GameBoard::getInstance();
     gb->getDisplay()->updateImpro(this);
->>>>>>> e7176ea7a6d16ef3cf9e4fdb6da2f766661b65b3
 }
