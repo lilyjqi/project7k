@@ -38,6 +38,4 @@ void needlesHall::action(Player* p){
 		}
 		cout << "Dang the RollUpRims are all occupied. Time to buy a lottery ticket! " << endl;
 	}
-
-	devisit();
 }

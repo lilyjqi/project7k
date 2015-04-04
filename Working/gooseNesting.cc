@@ -11,5 +11,4 @@ gooseNesting::~gooseNesting(){}
 void gooseNesting::action (Player *p) {
 	visit(p);
 	cout << "Attacked by geese" << endl;
-	devisit();
 }

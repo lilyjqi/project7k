@@ -22,6 +22,7 @@ void SLC::drawCard(){
 int SLC::getMove() const { return move; }
 
 void SLC::action(Player* p){
+	visit(p);
 	int i = drawCard();
 
 	if(i <= 5) { p->moveToIndex(cards[i]); } // move by cards[i] steps
