@@ -1,0 +1,28 @@
+#include "building.h"
+#include "school.h"
+
+Building::Building(string name, int position, int rindex, int cindex, int numNeighbours):
+    Tile(name, position, rindex, cindex),
+    numNeighbours(numNeighbours),neighbours(NULL),cost(0),mort(0),
+    owner(School::getInstance()) {}
+
+void Building::setOwner(Owner * o) {
+    owner = o;
+}
+
+
+void Building::setMort(int b) {
+    mort = b;
+}
+
+bool Building::isMort() {
+    if (mort == 0) { return false;}
+    else {return true;}
+}
+
+int Building::getMort() {
+    return mort;
+}
+
+void Building::getOwner() const{ return o; }
+
