@@ -2,8 +2,8 @@
 
 using namespace std;
 
-GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, int numPlayers, rollUpRim *cups): 
-     players(vector <Player*>), admin(admin), theDisplay(theDisplay),curPlayer(NULL),numPlayer(numPlayer),cups(cups) 
+GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, rollUpRim *cups): 
+     players(vector <Player*>), admin(admin), theDisplay(theDisplay),curPlayer(NULL),numPlayer(0),cups(cups) 
 {
     for (int i=0; i<40; i++) {
         if (i == 1) {tiles[i] = new AcadBuilding("AL", 1, 51，9, "Arts1");
@@ -218,9 +218,9 @@ GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, int numPlayers, rol
     }
 }
 
-static GameBoard * GameBoard::getInstance(School *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups) {
+static GameBoard * GameBoard::getInstance(School *admin, BoardDiaply *display, rollUpRim *cups) {
     if (!instance) {
-        instance = new GameBoard(admin, display, numPlayers, cups);
+        instance = new GameBoard(admin, display, cups);
         atexist(cleanup);
     }
     return instance;
