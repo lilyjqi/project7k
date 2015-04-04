@@ -262,12 +262,11 @@ void Player::notifyDisplay(Tile *t) {
     gb->getDisplay()->updatePos(t);
 }
 
-void Player::goToTims() {
-    Tile *t = gb->getTile(10);
-    this->setLanded(false);
+void Player::goToIndex(int index) {
+    Tile *t = gb->getTile(index);
     notify(t);
     notifyDisplay(t);
-    position = 10;
+    position = index;
     rindex = t->getRow();
     cindex = t->getCol();
 }
