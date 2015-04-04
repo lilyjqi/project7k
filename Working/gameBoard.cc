@@ -293,7 +293,7 @@ void GameBoard::deletePlayer(char c) {
     for (int i=0; i<players.size(); ++i) {
         if (players.at(i)->getChar() == c) {
             players.erase(players.begin()+i); 
-            cout << “Player ” << players.at(i)->getName() << “ is deleted.“ << endl;
+            cout << "Player " << players.at(i)->getName() << " is deleted." << endl;
             break;
         }
     }

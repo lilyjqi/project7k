@@ -105,6 +105,7 @@ void Player::makeMove(int m) {
         // if move to an ownable building
         if (build) {
             
+            t->visit(this);
             notifyDisplay(t);
             // if building is owned by someone
             if (t->getOwner()!=school) {
