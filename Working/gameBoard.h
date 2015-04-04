@@ -39,7 +39,6 @@ public:
 
     BoardDisplay* getDisplay();
 
-    void setTile(Tile*);
     Tile** getTiles();
     Tile* getTile(int t);
     Tile* getTile(std::string); // can only be used on Buildings

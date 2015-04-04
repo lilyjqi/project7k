@@ -21,7 +21,8 @@ public:
     int getPay();
 	void addNeighbour(Building *);
     void improv();
-    void notifyGB(AcadBuilding *);
+    void deImprov();
+    void notifyDisplay();
 };
 
 #endif
