@@ -25,6 +25,7 @@ class Building: public Tile{
         virtual int getCost() = 0;
 
         void setOwner(Owner*);
+        void getOwner() const;
 	void setMort(bool);
 	bool isMort();
 	void auction() = 0;
