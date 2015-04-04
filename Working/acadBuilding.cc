@@ -182,12 +182,12 @@ void AcadBuilding::addNeighbour(Building *b) {
 }
 
 void AcadBuilding::improv() {
-    CurLevel++;
+    curLevel++;
     this->notifyDisplay();
 }
 
 void AcadBuilding::deImprov() {
-    CurLevel--;
+    curLevel--;
     this->notifyDisplay();
 }
 

@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -MMD
 EXEC = main
-OBJECTS = ABDecorator.o acadBuilding.o boardDisplay.o building.o coopFee.o dcTimsLine.o gameBoard.o gooseNesting.o goToTims.o gym.o improvements.o needlesHall.o osap.o owner.o player.o residence.o rollUpRim.o school.o SLC.o tile.o tuition.o
+OBJECTS = acadBuilding.o boardDisplay.o building.o coopFee.o dcTimsLine.o gameBoard.o gooseNesting.o goToTims.o gym.o needlesHall.o osap.o owner.o player.o residence.o rollUpRim.o school.o SLC.o tile.o tuition.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
