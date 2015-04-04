@@ -32,6 +32,7 @@ class Player: public Owner
     void getRollDoubleFailCount();
     void setRollDoubleFailCount();
     void threeOptions(string);
+    void noMoney();
     void makeTrade(string);
     void makeImprove(string);
     void makeMortgage(string);

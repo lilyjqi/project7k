@@ -3,7 +3,7 @@
 
 Building::Building(string name, int position, int rindex, int cindex, int numNeighbours):
     Tile(name, position, rindex, cindex),
-    numNeighbours(numNeighbours),neighbours(NULL),cost(0),mort(false),
+    numNeighbours(numNeighbours),neighbours(NULL),cost(0),mort(0),
     owner(School::getInstance()) {}
 
 void Building::setOwner(Owner * o) {
@@ -11,11 +11,16 @@ void Building::setOwner(Owner * o) {
 }
 
 
-void Building::setMort(bool b) {
+void Building::setMort(int b) {
     mort = b;
 }
 
 bool Building::isMort() {
+    if (mort == 0) { return false;}
+    else {return true;}
+}
+
+int Building::getMort() {
     return mort;
 }
 

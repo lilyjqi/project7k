@@ -11,23 +11,24 @@ class Building: public Tile{
   protected:
 	Building** neighbours;
 	int cost;
-        int pay;
-	bool mort;
-        int numNeighbours;
-        Owner* owner;
+    int pay;
+	int mort;
+    int numNeighbours;
+    Owner* owner;
   public:
-        Building();
+    Building();
 	virtual ~Building() = 0 ;
 	virtual void setCost() = 0;
 	virtual void setPay() = 0;
 	virtual void addNeighbour(Building *) = 0;
 	virtual int getPay() = 0;
-        virtual int getCost() = 0;
+    virtual int getCost() = 0;
 
-        void setOwner(Owner*);
-        void getOwner() const;
-	void setMort(bool);
+    void setOwner(Owner*);
+    void getOwner() const;
+	void setMort(int);
 	bool isMort();
+    int getMort();
 	void auction() = 0;
 };
 

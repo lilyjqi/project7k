@@ -55,6 +55,7 @@ bool Player::isDouble() {
         cout << "Get out of Tims Line!"
         return true;
     }
+    cout << "Fail!" << endl;
     return false;
 }
 
@@ -103,9 +104,10 @@ void Player::makeMove(int m) {
         School *school = School::getInstance();
         // if move to an ownable building
         if (build) {
-
+            
+            notifyDisplay(t);
             // if building is owned by someone
-            if (t->getOwner()!==school) {
+            if (t->getOwner()!=school) {
 
                 // if current player is the owner of t
                 if (t->getOwner() == this) {
@@ -118,39 +120,14 @@ void Player::makeMove(int m) {
                             int c = t->getImprCost();
                             cout << "Cost of improvement is " << c << endl;
                             cout << "Do you want to make improvement to your building?(y/n)" << endl;
-                            string d = "";
-                            while (cin >> d) {
+                            string decision = "";
+                            while (cin >> decision) {
 
                                 // make improvement
                                 if (decision == "y") {
                                     if (c > this->getBalance()) {
-                                        cout << "You don't have enough money." << endl
-                                        cout << "You have five options." << endl;
-                                        cout << "asset/bankrupt/Trade/Mortgage/Sell Improvements" << endl;
-                                        cout << "Please enter <enough> to continue making improvements!" << endl;
-                                        
-                                        string command = "";
-                                        while (getline(cin, command)) {
-                                            if (command == "enough") {break;}
-                                            else if (command == "bankrupt") {
-                                                for (int i=0; i<numBuilding; ++i) {
-                                                    ownBuilding[i]->auction();
-                                                    this->deleteBuilding(ownBuilding[i]);
-                                                }
-                                                for (int i=0; i<4; ++i) {
-                                                    if (gb->cups[i]->getOwner == this) {gb->cups[i]->setOwner(school);}
-                                                }
-                                                this->addBalance(-1-(this->getBalance()));
-                                                return;
-                                            }
-                                            else if (command = "asset") {
-                                                this->asset();
-                                            }
-                                            else {
-                                                this->threeOptions(command);
-                                                cout << "You now have " << this->getBalance() << endl;
-                                            }
-                                        }
+                                        this->noMoney();
+                                        if (this->getBalance() == -1) {return;}
                                         this->addBalance(-c);
                                         t->improv();
                                         break;
@@ -188,6 +165,11 @@ void Player::makeMove(int m) {
                     string ownerName = t->getOwner()->getName();
                     int payAmount = 0;
                     AcadBuilding *Abuild = dynamic_cast<AcadBuilding *>(t);
+                    
+                    if (t->isMort()) {
+                        cout << "This builiding is on mortgage. You don't need to pay!" << endl;
+                        return;
+                    }
 
                     // if t is an academic building
                     if (Abuild) {
@@ -208,35 +190,13 @@ void Player::makeMove(int m) {
                     else {
                         payAmount = t->getPay();
                     }
-
+          
                     cout << "You have entered " << ownerName << "'s Building." << endl;
                     cout << "Please pay " << payAmount << endl;
 
                     if (payAmount > this->getBalance()) {
-                        cout << "You don't have enough money." << endl
-                        cout << "You have four options." << endl;
-                        cout << "bankrupt/Trade/Mortgage/Sell Improvements" << endl;
-                        cout << "Please enter <enough> to continue paying!" << endl;
-                                        
-                        string command = "";
-                        while (getline(cin, command)) {
-                            if (command == "enough") {break;}
-                            else if (command == "bankrupt") {
-                                for (int i=0; i<numBuilding; ++i) {
-                                        t->getOwner()->addBuilding(ownBuilding[i]);
-                                        this->deleteBuilding(ownBuilding[i]);
-                                }
-                                for (int i=0; i<4; ++i) {
-                                    if (gb->cups[i]->getOwner == this) {gb->cups[i]->setOwner(school);}
-                                }
-                                this->setBalance(-1-(this->getBalance()));
-                                return;
-                            }
-                            else {
-                                this->threeOptions(command);
-                                cout << "You now have " << this->getBalance << endl;
-                            }
-                        }
+                        this->noMoney();
+                        if (this->getBalance() == -1) {return;}
                         cout << "You have paid " << payAmount << " dollars to " << ownerName << endl;
                         this->addBalance(-payAmount);
                         t->getOwner()->addBalance(payAmount);
@@ -259,33 +219,8 @@ void Player::makeMove(int m) {
                 while (cin >> decision) {
                     if (decision == "y") {
                         if (c > this->getBalance()) {
-                            cout << "You don't have enough money." << endl
-                            cout << "You have four options." << endl;
-                            cout << "asset/bankrupt/Trade/Mortgage/Sell Improvements" << endl;
-                            cout << "Please enter <enough> to continue paying!" << endl;
-                                        
-                            string command = "";
-                            while (getline(cin, command)) {
-                                if (command == "enough") {break;}
-                                else if (command == "bankrupt") {
-                                    for (int i=0; i<numBuilding; ++i) {
-                                        ownBuilding[i]->auction();
-                                        this->deleteBuilding(ownBuilding[i]);
-                                    }
-                                    for (int i=0; i<4; ++i) {
-                                        if (gb->cups[i]->getOwner == this) {gb->cups[i]->setOwner(school);}
-                                    }
-                                    this->setBalance(-1-(this->getBalance()));
-                                    return;
-                                }
-                                else if (command == "asset") {
-                                    this->asset();
-                                }
-                                else {
-                                    this->threeOptions(command);
-                                    cout << "You now have " << this->getBalance << endl;
-                                }
-                            }
+                            this->noMoney();
+                            if (this->getBalance() == -1) {return;}
                             this->addBalance(-c);
                             this->addBuilding(t);
                             school->deleteBuilding(t);
@@ -312,8 +247,8 @@ void Player::makeMove(int m) {
         // if moved to an unownable building
         else {
             this->setLanded(true);
-            notify(t);
             notifyDisplay(t);
+            notify(t);
             return;
         }
     }
@@ -349,6 +284,102 @@ void Player::threeOptions(string com) {
     }
     else {
         this->makeMortgage(com);
+    }
+}
+
+void Player::noMoney() {
+    cout << "You don't have enough money." << endl
+    cout << "You have five options." << endl;
+    cout << "asset/bankrupt/Trade/Mortgage/Sell Improvements" << endl;
+    cout << "Please enter <enough> to continue making improvements!" << endl;
+                                        
+    string command = "";
+    while (getline(cin, command)) {
+        if (command == "enough") {break;}
+
+        else if (command == "bankrupt") {
+            // buildings goes to auction
+            for (int i=0; i<numBuilding; ++i) {
+                ownBuilding[i]->auction();
+                this->deleteBuilding(ownBuilding[i]);
+            }
+            // destroy rim cups
+            for (int i=0; i<4; ++i) {
+                if (gb->cups[i]->getOwner == this) {gb->cups[i]->setOwner(school);}
+            }
+            
+            this->addBalance(-1-(this->getBalance()));
+            return;
+        }
+        
+        else if (command = "asset") {
+            this->asset();
+        }
+        
+        else {
+            this->threeOptions(command);
+            cout << "You now have " << this->getBalance() << endl;
+        }
+    }
+}
+
+void Player::noMoney(Player *owes) {
+    cout << "You don't have enough money." << endl
+    cout << "You have five options." << endl;
+    cout << "asset/bankrupt/Trade/Mortgage/Sell Improvements" << endl;
+    cout << "Please enter <enough> to continue making improvements!" << endl;
+                                        
+    string command = "";
+    while (getline(cin, command)) {
+        if (command == "enough") {break;}
+
+        else if (command == "bankrupt") {
+            for (int i=0; i<numBuilding; ++i) {
+                owes->addBuilding(ownBuilding[i]);
+                ownBuilding[i]->setOwner(owes);
+                
+                // if building is on mortgage
+                if (ownBuilding[i]->isMort()) {
+                    int mortAmount = ownBuilding[i]->getMort();
+                    owes->addBalance(-0.1*principle);
+
+                    cout << "Do you want to unmortgage now? (y/n)" << endl;
+                    string decision = "";
+                    while (cin >> decision) {
+                        if (decision == "y") {
+                            owes->addBalance(-principle);
+                            ownBuilding[i]->setMort(0);
+                            break;
+                        }
+                        else if (decision == "n") {
+                            ownBuilding[i]->setMort(mortAmount*1.1);
+                            break;
+                        }
+                        else {
+                            cout << "Please enter <y> or <n>." << endl;
+                        }
+                    }
+
+                }
+                this->deleteBuilding(ownBuilding[i]);
+            }
+            
+            for (int i=0; i<4; ++i) {
+                if (gb->cups[i]->getOwner == this) {gb->cups[i]->setOwner(school);}
+            }
+            
+            this->addBalance(-1-(this->getBalance()));
+            return;
+        }
+        
+        else if (command = "asset") {
+            this->asset();
+        }
+        
+        else {
+            this->threeOptions(command);
+            cout << "You now have " << this->getBalance() << endl;
+        }
     }
 }
 
@@ -485,7 +516,7 @@ void Player::makeMortgage(string com) {
     }
 
     int cost = prop->getCost();
-    prop->setMort(true);
+    prop->setMort(cost*0.5);
     this->addBalance(cost*0.5);
 }
 
@@ -504,9 +535,9 @@ void Player::unMortgage(string com) {
         return;
     }
 
-    int cost = prop->getCost();
-    prop->setMort(false);
-    this->addBalance(-(cost*0.5)*1.1);
+    int mortAmount = prop->getMort();
+    prop->setMort(0);
+    this->addBalance(-mortAmount*1.1);
 }
 
 void Player::asset() {
