@@ -4,6 +4,8 @@
 #include <iostream>
 #include "boardDisplay.h"
 
+class Owner;
+
 class Building: public Tile{
 
   protected:
@@ -12,6 +14,7 @@ class Building: public Tile{
         int pay;
 	bool mort;
         int numNeighbours;
+        Owner* o;
   public:
         Building();
 	virtual ~Building() = 0 ;
