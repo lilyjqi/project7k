@@ -8,7 +8,7 @@ class AcadBuilding: public Building
 	std::string monoBlock;
         int curLevel;
 public:
-	AcadBuilding(string, int, int, int, string);
+	AcadBuilding(std::string, int, int, int, std::string);
 	~AcadBuilding();
         
     bool isMono();

@@ -9,10 +9,10 @@ class Owner;
 class Building: public Tile{
 
   protected:
-	Building** neighbours;
-	int cost;
+    Building** neighbours;
+    int cost;
     int pay;
-	int mort;
+    int mort;
     int numNeighbours;
     Owner* owner;
   public:
@@ -29,7 +29,7 @@ class Building: public Tile{
 	void setMort(int);
 	bool isMort();
     int getMort();
-	void auction() = 0;
+	virtual void auction() = 0;
 };
 
 #endif

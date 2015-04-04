@@ -331,7 +331,8 @@ BoardDisplay::BoardDisplay(): {
     }
 }
 
-BoardDisplay::getInstance() {
+static BoardDisplay::BoardDisplay *instance = 0;
+static BoardDisplay::getInstance() {
     if (instance == NULL) {
         instance = new BoardDisplay();
         atexit(cleanup);
@@ -339,7 +340,7 @@ BoardDisplay::getInstance() {
     return instance;
 }
 
-void BoardDisplay::cleanup() {
+static void BoardDisplay::cleanup() {
     delete instance;
 }
 
