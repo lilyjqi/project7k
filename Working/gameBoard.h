@@ -41,6 +41,7 @@ public:
     void setTile(Tile*);
     Tile** getTiles();
     Tile* getTile(int t);
+    Tile* getTile(string); // can only be used on Buildings
 
     int getRindex(int pos);
     int getCindex(int pos);
