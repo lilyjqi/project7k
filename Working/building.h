@@ -16,7 +16,7 @@ class Building: public Tile{
     int numNeighbours;
     Owner* owner;
   public:
-    Building();
+    Building(std::string, int, int, int, int);
 	virtual ~Building() = 0 ;
 	virtual void setCost() = 0;
 	virtual void setPay() = 0;

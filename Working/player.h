@@ -3,6 +3,7 @@
 
 #include <string>
 #include "owner.h"
+#include "gameBoard.h"
 
 class Player: public Owner
 {
@@ -14,7 +15,7 @@ class Player: public Owner
     bool landed;
     GameBoard *gb;
   public:
-	Player(string, char, int, int, int);
+	Player(std::string, char, int, int, int);
 
   	int getRow();
   	int getCol();
@@ -31,13 +32,13 @@ class Player: public Owner
     void goToIndex(int);
     void getRollDoubleFailCount();
     void setRollDoubleFailCount();
-    void threeOptions(string);
+    void threeOptions(std::string);
     void noMoney();
     void noMoney(Player *);
-    void makeTrade(string);
-    void makeImprove(string);
-    void makeMortgage(string);
-    void unMortgage(string);
+    void makeTrade(std::string);
+    void makeImprove(std::string);
+    void makeMortgage(std::string);
+    void unMortgage(std::string);
     void asset();
 };
 

@@ -14,13 +14,14 @@
 #include "owner.h"
 #include "boardDisplay.h"
 #include "rollUpRim.h"
+#include "school.h"
 
 class Tile;
 
 class GameBoard{
-    static GameBoard *instance = 0;
+    static GameBoard *instance;
     Tile* tiles[NUM_TILES];
-    vector<Player*> players;
+    std::vector<Player*> players;
     std::map<std::string, Player*> pNamesMap;
     Owner* admin;
     BoardDisplay* theDisplay;
@@ -29,11 +30,11 @@ class GameBoard{
   
 public:
     rollUpRim *cups[NUM_CUPS];
-    GameBoard(School *admin, BoardDiaply *theDisplay, int numPlayers, rollUpRim *cups);
+    GameBoard(School *admin, BoardDisplay *theDisplay, int numPlayers, rollUpRim *cups);
     static GameBoard getInstance(School *admin, BoardDiaply *display, int numPlayers, rollUpRim *cups);
 
     Player* getCurPlayer();
-    Player* getPlayer(string s);
+    Player* getPlayer(std::string);
     void setCurPlayer();
 
     BoardDisplay* getDisplay();
@@ -41,13 +42,13 @@ public:
     void setTile(Tile*);
     Tile** getTiles();
     Tile* getTile(int t);
-    Tile* getTile(string); // can only be used on Buildings
+    Tile* getTile(std::string); // can only be used on Buildings
 
     int getRindex(int pos);
     int getCindex(int pos);
 
     void addPlayer(Player*);
-    void deletePlayer(string name);
+    void deletePlayer(std::string);
 
     static void cleanup();
 };
