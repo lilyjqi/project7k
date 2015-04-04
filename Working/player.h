@@ -24,7 +24,7 @@ class Player: public Owner
     void updateBuilding(AcadBuilding *);
 
   	bool isDouble();
-    int rollDices();
+    int rollDice();
     void makeMove(int); 
   	void notify(Tile *);
     void notifyDisplay(Tile *);
