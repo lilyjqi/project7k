@@ -10,16 +10,9 @@ SLC::~SLC(){}
 
 void: SLC::drawCard(){
 	int total = 24;
-// <<<<<<< HEAD
-	srand(time(NULL));
-    int random = rand()%total+1;
-	for (int i = 0, i < total, i++){
-		if (random <= cardsDistritbuion[i]) { return i; }
-// =======
-// 	int random = Board::getBoard()->getRand(total);
-// 	for (int i = 0; i < total; i++){
-// 		if (random <= cardsDistritbution[i]) { return i; }
-// >>>>>>> 3c8fbdebb4f57d32599c970497cc4851e6b01ad9
+	int random = Board::getBoard()->getRand(total);
+	for (int i = 0; i < total; i++){
+		if (random <= cardsDistritbution[i]) { return i; }
 	}
 	return;
 }
@@ -30,15 +23,14 @@ void SLC::action(Player* p){
 	visit(p);
 	int i = drawCard();
 
-	if(i <= 5) { p->makeMove(cards[i]); } 
+	if(i <= 5) { p->moveToIndex(cards[i]); } // move by cards[i] steps
 	else if (i == 6) { 
 		p->setLanded(false); 
 		p->gotoIndex(DC_TIMS_LINE);
 	} //
 	else { p->goToIndex(OSAP_LINE); }
 
-	srand(time(NULL));
-    int random = rand()%100+1;
+	int random = Board::getBoard()->getRand(100); 
 	if (random == 1) {
 		for (int j=0; j<4; j++){
 			if ((*(rollUpRim::getInstance()+j))->getOwner() != NULL) {

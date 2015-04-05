@@ -52,10 +52,10 @@ void Player::updateBuilding(Tile *newAb) {
 
 bool Player::isDouble() {
     srand(time(NULL));
-    int die1 = rand()%6+1;
-    int die2 = rand()%6+1;
-    cout << "Player " << name << " rolled " << die1 << " and " << die2 << endl;
-    if (die1 == die2) {
+    int dice1 = rand()%6+1;
+    int dice2 = rand()%6+1;
+    cout << "Player " << name << " rolled " << dice1 << " and " << dice2 << endl;
+    if (dice1 == dice2) {
         cout << "Get out of Tims Line!";
         return true;
     }
@@ -67,35 +67,15 @@ int Player::getRollDoubleFailCount(){ return rollDoubleFailCount; }
 void Player::setRollDoubleFailCount(int n) { rollDoubleFailCount=n; }
 
 int Player::rollDice() {
-    string d1, d2;
-    int die1, die2;
-    if (gb->getTesting()==true) {
-        cout<< "Controlled dice: pick two numbers from ONE to SIX, separated by space: ";
-        while(cin>>d1 && cin>>d2){
-            istringstream ss1(d1);
-            istringstream ss2(d2);
-            if(ss1>>die1 && ss2>>die2){
-                if(die1>=1 && die1 <=6 && die2>=1 && die2<=6){
-                    break;
-                } else {
-                    cerr<<"Please enter numbers within [1-6], separated by space: "<<endl;
-                }
-            } else {
-                cerr<<"Please enter valid numbers, separated by space: "<<
-            }
-        }
-        return die1+die2;
-    }
-
     for (int i=0; i<3; ++i) {
         srand(time(NULL));
-        die1 = rand()%6+1;
-        die2 = rand()%6+1;
+        int dice1 = rand()%6+1;
+        int dice2 = rand()%6+1;
         cout << "Player " << name << " rolled" << dice1+dice2 << endl;
 
         // if didn't roll doubles
-        if (die1 != die2) {  
-            return die1 + die2; 
+        if (dice1 != dice2) {  
+            return dice1 + dice2;
         }
 
         cout << "Doubles! Roll again!" << endl;
