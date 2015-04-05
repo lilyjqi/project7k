@@ -70,16 +70,17 @@ int Player::rollDice() {
     string d1, d2;
     int die1, die2;
     if (gb->getTesting()==true) {
-        cout<< "Controlled dice: pick two numbers from ONE to SIX, separated by space: ";
+        cout<< "Controlled dice: pick two numbers, separated by space: ";
         while(cin>>d1 && cin>>d2){
             istringstream ss1(d1);
             istringstream ss2(d2);
             if(ss1>>die1 && ss2>>die2){
-                if(die1>=1 && die1 <=6 && die2>=1 && die2<=6){
-                    break;
-                } else {
-                    cerr<<"Please enter numbers within [1-6], separated by space: "<<endl;
-                }
+                // if(die1>=1 && die1 <=6 && die2>=1 && die2<=6){
+                //     break;
+                // } else {
+                //     cerr<<"Please enter numbers within [1-6], separated by space: "<<endl;
+                // }
+                break;
             } else {
                 cerr<<"Please enter valid numbers, separated by space: ";
             }

@@ -28,7 +28,7 @@ const int ownableTileIndex[28]={1,3,5,6,8,9,11,12,13,14,15,16,18,19,21,23,24,25,
 int initPlayer(GameBoard* board) {
 	map<string, int> checkNameDup;
 
-    cout << "Please enter the number of players - choose a number from TWO to EIGHT." << endl;;
+    cout << "Please enter the number of players - choose a number from TWO to EIGHT: "; 
 	int numPlayer;
 	while (true) {
 		if (!(cin >> numPlayer)) {
@@ -59,7 +59,7 @@ int initPlayer(GameBoard* board) {
 
 		// getting char
 		while (true) {
-			cout << "Please pick a char of the following to represent yourself:" << playerChar <<":";
+			cout << "Please pick a char of the following to represent yourself -" << playerChar <<":";
 			cin >> ws;
 			cin >> charPiece;
 			if (playerChar.find(charPiece) == -1) { cout << "Please pick the correct char." << endl;}
