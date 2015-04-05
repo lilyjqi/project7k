@@ -8,12 +8,18 @@ SLC::SLC(string name, int index, int row, int col, BoardDisplay *theDisplay):
 
 SLC::~SLC(){}
 
-void SLC::drawCard(){
+void: SLC::drawCard(){
 	int total = 24;
+// <<<<<<< HEAD
 	srand(time(NULL));
     int random = rand()%total+1;
 	for (int i = 0, i < total, i++){
 		if (random <= cardsDistritbuion[i]) { return i; }
+// =======
+// 	int random = Board::getBoard()->getRand(total);
+// 	for (int i = 0; i < total; i++){
+// 		if (random <= cardsDistritbution[i]) { return i; }
+// >>>>>>> 3c8fbdebb4f57d32599c970497cc4851e6b01ad9
 	}
 	return;
 }

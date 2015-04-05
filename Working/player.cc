@@ -363,7 +363,7 @@ void Player::noMoney(Owner *owes) {
                 owes->addBuilding(ownBuilding[i]);
                 ownBuilding[i]->setOwner(owes);
                 
-                Building *build = ownBuilding[i];
+                Building *build = dynamic_cast<Building *>(ownBuilding[i]);
                 // if building is on mortgage
                 if (build->isMort()) {
                     int principle = build->getMort();
@@ -568,7 +568,9 @@ void Player::unMortgage(string com) {
 void Player::asset() {
     cout << "Player " << this->getName() << "'s Assets:"<< endl;      
     cout << "Balance: " << this->getBalance() << endl;
+    Building *build;
     for (int i=0; i<numBuilding; ++i) {
-        cout << ownBuilding[i]->getName() << ": cost is " << ownBuilding[i]->getCost() << endl;
+        build = dynamic_cast<Building *>(ownBuilding[i]);
+        cout << build->getName() << ": cost is " << build->getCost() << endl;
     }
 }
