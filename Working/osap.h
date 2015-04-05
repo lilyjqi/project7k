@@ -22,4 +22,3 @@ public:
 
 #endif
 
-/* add canCollectOSAP field to player */

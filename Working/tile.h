@@ -26,7 +26,6 @@ public:
 	// Used to determine which Players are on this Tile (for displaying Board)
 	void visit(Player *player);
 	void devisit(Player *player);
-	//void devisit(Player *player); /* replace unvisit by devisit */
 
 	// Getters
 	std::string getName() const;

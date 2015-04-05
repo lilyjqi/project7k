@@ -16,7 +16,6 @@ public:
     void setPay();
     int getCost();
     int getPay();
-	void setOwner(Owner *);
 	void addNeighbour(Tile*);
 };
 

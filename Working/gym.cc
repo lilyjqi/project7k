@@ -36,4 +36,3 @@ void Gym::addNeighbour(Tile *b) {
     neighbours[0] = b;
 }
 
-void Gym::setOwner(Owner * o) {return;}

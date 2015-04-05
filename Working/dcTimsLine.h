@@ -15,15 +15,11 @@ class Owner;
 class dcTimsLine: public Tile
 {
 
-	//bool landed; // defaults to true
 public:
 	dcTimsLine(std::string name, int index, int row, int col, BoardDisplay *);
 	~dcTimsLine();
 
-	//void setFee();
-	//int payFee();
-	void action(Player* p);
-	//void setLanded(bool isLanded);
+    void action(Player* p);
 
 	void setCost();
     void setOwner(Owner*);
@@ -32,4 +28,3 @@ public:
 
 #endif
 
-/* methods for roll doubles or using RollUpRim to be implemented in player?*/
