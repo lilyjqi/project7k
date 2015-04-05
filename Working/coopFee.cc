@@ -14,6 +14,7 @@ int coopFee::getFee(){
 
 void coopFee::action(Player* p){
 	visit(p);
+    cout << "Paid Coop Fee of $150." << endl;
 	p->addBalance(-getFee());
 }
 

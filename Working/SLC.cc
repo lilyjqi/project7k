@@ -23,16 +23,8 @@ int SLC::drawCard(){
 }
 
 void SLC::action(Player* p){
-	visit(p);
-	int i = drawCard();
-
-	if(i <= 5) { p->makeMove(cards[i]); } // move by cards[i] steps
-	else if (i == 6) { 
-		p->setLanded(false); 
-		p->goToIndex(DC_TIMS_LINE);
-	} //
-	else { p->goToIndex(OSAP_LINE); }
-
+	this->visit(p);
+    cout << "You are now in SLC." << endl;
 	srand(time(NULL));
     int random = rand()%100+1;
 	if (random == 1) {
@@ -45,6 +37,20 @@ void SLC::action(Player* p){
 		}
 		cout << "Dang the RollUpRims are all occupied. Time to buy a lottery ticket! " << endl;
 	}
+    else {
+	    int i = drawCard();
+
+	    if(i <= 5) { 
+            cout << "Move " << cards[i] << " Steps." << endl;
+            p->makeMove(cards[i]);
+        } // move by cards[i] steps
+	    else if (i == 6) { 
+	    	p->setLanded(false);
+		    p->goToIndex(DC_TIMS_LINE);
+            cout << "You are now in DC Tims Line." << endl;
+	    } //
+	    else { p->goToIndex(OSAP_LINE); cout << "You are now in SOAP Line." << endl; }
+    }
 }
 
 void SLC::setCost(){ return; }

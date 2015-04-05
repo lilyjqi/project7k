@@ -21,16 +21,17 @@ void needlesHall::drawCards(){
 	for (i = 0;i < total;i++){
 		if (random <= cardsDistribution_n[i]) { break; }
 	}
-
+    
 	fee = cards_n[i];
+    if (fee < 0) {cout << "Please pay " << -fee << endl;}
+    else {cout << "Congrats! You have earned Manulife Scholarship for " << fee << endl;}
 }
 
 int needlesHall::getFee() const { return fee; }
 
 void needlesHall::action(Player* p){
-	visit(p);
-	drawCards();
-	p->addBalance(getFee());
+	this->visit(p);
+    cout << "You are now in Needles Hall." << endl;
 
 	srand(time(NULL));
     int random = rand()%100+1;
@@ -44,6 +45,11 @@ void needlesHall::action(Player* p){
 		}
 		cout << "Dang the RollUpRims are all occupied. Time to buy a lottery ticket! " << endl;
 	}
+
+    else {
+	    drawCards();
+	    p->addBalance(getFee());
+    }
 }
 
 void needlesHall::setCost(){ return; }

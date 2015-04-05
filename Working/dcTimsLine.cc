@@ -10,16 +10,16 @@ dcTimsLine::~dcTimsLine() {}
 
 void dcTimsLine::action(Player* p){
 	//p->setRollDoubleFailCount(0);  to be set in main.cc
-	if (p->getLanded()) return;
-	visit(p);
-	int i;
-	if (p->getRollDoubleFailCount() == 2) {
+	if (p->getLanded()) {this->visit(p);return;}
+    int i;
+	if (p->getRollDoubleFailCount() == 3) {
 		cout << "Choose one of the following two options because you've failed too many roll doubles attempts:" << endl;
 		cout << "1. Pay $50" << endl;
 		cout << "2. Use Roll Up the Rim (if you have one)" << endl;
 		cout << "Type 1 or 2: ";
 
 		while (cin >> i) {
+            cin.ignore();
 			if (i == 1) {
 				p->addBalance(-50);
 				p->setLanded(true);
@@ -44,8 +44,17 @@ void dcTimsLine::action(Player* p){
 				cout << "Please choose the correct option." << endl;
 			}
 		}
+        cin.ignore();
 
-	} else {
+	} 
+    else if (p->getRollDoubleFailCount() == 0) {
+        this->visit(p);
+        cout << "Stay in DC Tims Line." << endl;
+        p->setRollDoubleFailCount(1);
+        return;
+    }
+    
+    else {
 		cout << "Choose one of the following three options:" << endl;
 		cout << "1. Roll doubles" << endl;
 		cout << "2. Pay $50" << endl;
@@ -53,9 +62,8 @@ void dcTimsLine::action(Player* p){
 		cout << "Type 1, 2 or 3: ";
 
 		while (cin >> i){
-
+            cin.ignore();
 			if (i == 1) {
-
 				bool success = p->isDouble();
 				if (success) {
 					p->setLanded(true);
@@ -86,9 +94,8 @@ void dcTimsLine::action(Player* p){
 				cout << "It seems you don't have any RollUpRims. Please choose 1 or 2: ";
 			} else {
 				cout << "Please choose the correct option." << endl;
-			}
-			
-		}
+			}			
+		}// while
 	}
 }
 

@@ -1,7 +1,5 @@
 #include "tile.h"
-//#include "board.h"
 #include "player.h"
-//#include "display.h"
 #include <iostream>
 using namespace std;
 
@@ -18,11 +16,13 @@ void Tile::visit(Player *player){
 }
 
 void Tile::devisit(Player * player) {
-	vector <Player *>::iterator it = visitors.begin();
-	while (*it != player)
-		it++;
-
-	visitors.erase(it);
+    for (int i=0; i<visitors.size(); ++i) {
+        if (visitors[i] == player) {
+	        visitors.erase(visitors.begin()+i);
+            return;
+        }
+    }
+    return;
 }
 
 string Tile::getName() const {

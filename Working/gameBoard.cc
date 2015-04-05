@@ -248,7 +248,6 @@ GameBoard* GameBoard::getInstance(BoardDisplay *display, rollUpRim **cups) {
 }
 
 Player * GameBoard::getCurPlayer() {
-    cout << "Current Player is " << curPlayer->getName() << endl;
     return curPlayer;
 }
 
@@ -260,7 +259,12 @@ void GameBoard::setCurPlayer() {
         curPlayer = players[0];
     }
     else {
-        curPlayer = *(&curPlayer + 1);
+        for (int i=0; i<numPlayers; ++i) {
+            if (curPlayer == players[i]) {
+                curPlayer = players[i+1];
+                return;
+            }
+        }
     }
 }
 

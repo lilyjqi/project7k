@@ -73,6 +73,9 @@ int initPlayer(GameBoard* board) {
    		int pos = rand()%40;
    		while (pos ==  30) { pos = rand()%40; } // make sure pos != 30
 		p = new Player(name, charPiece, pos, board->getRindex(pos), board->getCindex(pos));
+        Tile *t = board->getTile(p->getPos());
+        t->visit(p);
+        p->notifyDisplay(t);
 		board->addPlayer(p);
 		p->setRollDoubleFailCount(0);
 		cout << name << " with char " << charPiece << " is created" << endl;
@@ -329,27 +332,26 @@ int main(int argc, char* argv[]) {
 			break;
 		}
 	}
-
+    
 	cmd = "";
 	string options;
 	int dice;
-	Player *p;
+    board->setCurPlayer();
+	Player *p = board->getCurPlayer();
 	int bankruptPlayer = 0;
+    cin.ignore();
 	while (bankruptPlayer + 1 != numPlayer){
-		while (true){
-			board->setCurPlayer();
-			p = board->getCurPlayer();
-			cout << p->getName() << "'s turn begins" << endl;
-			if (p->getBalance() != -1) { break; }
-		}
+        p = board->getCurPlayer();
+        cout << (*(board->getDisplay()));
+		cout << p->getName() << "'s turn begins" << endl;
+        cout << "Command?" << endl;
 
-		while (getline(cin, options)) {
-			istringstream iss(options.c_str());
+        while (getline(cin, options)) {
+			istringstream iss(options);
 			iss >> cmd;
-
-			if (cmd == "trade") { p->makeTrade(options); }
+			if (cmd == "trade") { p->makeTrade(options); cout << "End of Trade" << endl;}
 			else if (cmd == "improve") { p->makeImprove(options); }
-			else if (cmd == "mortgage") { p->makeImprove(options); }
+			else if (cmd == "mortgage") { p->makeMortgage(options); }
 			else if (cmd == "unmortgage") {p->unMortgage(options); }
 			else if (cmd == "asset") { p->asset(); }
 			else if (cmd == "save") { 
@@ -358,19 +360,31 @@ int main(int argc, char* argv[]) {
 				saveGame(file, board); 
 			}
 			else if (cmd == "roll") {
-				dice = p->rollDice();
-				if (dice == -1) { p->goToIndex(10); }
-				else {
-					p->makeMove(dice); 
-					cout << p->getName() <<"'s turn is over." << endl;
-					break;
-				}
+                if (p->getLanded() == false) {
+                    cout << "You are in DC Tims Line." << endl;
+                    (board->getTile(10))->action(p);
+                }
+
+                else {
+                    dice = p->rollDice();
+				    if (dice == -1) {
+                        cout << "You have been sent to DC Tims Line." << endl; 
+                        p->goToIndex(10); 
+                    }
+				    else {
+					    p->makeMove(dice); 
+				    }
+                }
+				cout << p->getName() <<"'s turn is over." << endl;
+                break;
 			}
 			else {
 				cerr << "Please enter a valid command. " << endl;
 			}
 			//else if (cmd == "next") { break; }
-		}
+		}// while
+
+        board->setCurPlayer();
 
 		if (p->getBalance() == -1){
 			bankruptPlayer++;

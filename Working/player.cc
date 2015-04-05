@@ -91,6 +91,8 @@ int Player::rollDice() {
         srand(time(NULL));
         die1 = rand()%6+1;
         die2 = rand()%6+1;
+        cout << "Die 1 is " << die1 << endl;
+        cout << "Die 2 is " << die2 << endl;
         cout << "Player " << name << " rolled " << die1+die2 << endl;
 
         // if didn't roll doubles
@@ -107,7 +109,8 @@ void Player::makeMove(int m) {
             
         // devisit previous tile
         gb->getTile(position)->devisit(this);
-        
+        notifyDisplay(gb->getTile(position));
+
         int newpos = position + m;
         // collectOSAP if pass by
         if (newpos > 40) {
@@ -171,6 +174,7 @@ void Player::makeMove(int m) {
                                     cout << "Please enter (y) or (n)." << endl;
                                 }
                             }// while
+                            cin.ignore();
                         }// if t is in a monopoly
 
                         // if t is not in a monopoly
@@ -238,7 +242,7 @@ void Player::makeMove(int m) {
             else {
                 int c = build->getCost();
                 string n = build->getName();
-                cout << "Cost of " << n << "is " << c << endl;
+                cout << "Cost of " << n << " is " << c << endl;
                 cout << "Do you want to buy it?(y/n)" << endl;
                 string decision="";
                 while (cin >> decision) {
@@ -248,12 +252,14 @@ void Player::makeMove(int m) {
                             if (this->getBalance() == -1) {return;}
                             this->addBalance(-c);
                             this->addBuilding(t);
+                            t->setOwner(this);
                             school->deleteBuilding(t);
                             break;
                         }
                         else {
                             this->addBalance(-c);
                             this->addBuilding(t);
+                            t->setOwner(this);
                             school->deleteBuilding(t);
                             break;
                         }
@@ -266,14 +272,15 @@ void Player::makeMove(int m) {
                         cout << "Please enter (y) or (n)." << endl;
                     }
                 }// while
+                cin.ignore();
             }// if building is not owned by anyone
         }// if moved to an ownable building
 
         // if moved to an unownable building
         else {
             this->setLanded(true);
-            notifyDisplay(t);
             notify(t);
+            notifyDisplay(t);
             return;
         }// if moved to an unownable building
 }
@@ -287,12 +294,18 @@ void Player::notifyDisplay(Tile *t) {
 }
 
 void Player::goToIndex(int index) {
+    Tile *currentTile = gb->getTile(this->getPos());
+    currentTile->devisit(this);
+    notifyDisplay(currentTile);
+
     Tile *t = gb->getTile(index);
-    notify(t);
-    notifyDisplay(t);
+    cout << t->getName() << endl;
     position = index;
     rindex = t->getRindex();
     cindex = t->getCindex();
+    if (index == 10) {this->setLanded(false);}
+    notify(t);
+    notifyDisplay(t);
 }
 
 void Player::threeOptions(string com) {
@@ -325,7 +338,9 @@ void Player::noMoney() {
             // buildings goes to auction
             for (int i=0; i<numBuilding; ++i) {
                 //ownBuilding[i]->auction();
+                ownBuilding[i]->setOwner(school);
                 this->deleteBuilding(ownBuilding[i]);
+                school->addBuilding(ownBuilding[i]);
             }
             // destroy rim cups
             for (int i=0; i<4; ++i) {
@@ -385,6 +400,7 @@ void Player::noMoney(Owner *owes) {
                             cout << "Please enter <y> or <n>." << endl;
                         }
                     }
+                    cin.ignore();
 
                 }
                 this->deleteBuilding(ownBuilding[i]);
@@ -482,6 +498,7 @@ void Player::makeTrade(string com) {
             cout << "Please enter (y) or (n)." << endl;
         }
     }// while
+    cin.ignore();
 }
 
 void Player::makeImprove(string com) {
