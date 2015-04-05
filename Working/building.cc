@@ -3,15 +3,9 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-Building::Building(string name, int position, int rindex, int cindex, int numNeighbours):
-    Tile(name, position), rindex(rindex), cindex(cindex),
-    numNeighbours(numNeighbours),neighbours(NULL),cost(0),mort(0),
-=======
 Building::Building(string name, int position, int rindex, int cindex, int numNeighbours, BoardDisplay *theDisplay):
     Tile(name, position, rindex, cindex, theDisplay),
     neighbours(NULL),cost(0),mort(0),numNeighbours(numNeighbours),
->>>>>>> b2898725b4d53faa56a2fca99a2002beb12676ce
     owner(School::getInstance()) {}
 
 Building::~Building() {

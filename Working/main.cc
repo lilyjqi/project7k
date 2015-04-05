@@ -199,7 +199,7 @@ int loadGame(ifstream &in, GameBoard* board){
 		// set Improvements
 		in >> improvements;
 		if(improvements == -1){
-			ownedTile->setMort(ownedTile->getCost());
+			ownedTile->setMort(ownedTile->getCost()/2);
 		} else if (improvements < 0 || improvements > 5){
 			cerr << "Invalid number of improvements for " << tileName << endl;
 			return 0;
@@ -208,6 +208,7 @@ int loadGame(ifstream &in, GameBoard* board){
 			if(acadTile){
 				for(int j=0; j<improvements; j++){
 					acadTile->improv();
+					int pay = acadTIle->getPay();
 				}
 				BoardDisplay::getInstance()->updateImpro(acadTile);
 			} else if(improvements != 0){
