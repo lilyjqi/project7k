@@ -21,9 +21,9 @@ int Player::getCol() {
     return cindex;
 }
 
-// string Player::getName() {
-//     return name;
-// }
+int Player::getPos() {
+    return position;
+}
 
 char Player::getChar() {
     return character;

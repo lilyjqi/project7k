@@ -265,6 +265,10 @@ void GameBoard::setCurPlayer() {
     }
 }
 
+int GameBoard::getNumPlayer() const {
+  return numPlayers;
+}
+
 BoardDisplay * GameBoard::getDisplay() {
     return theDisplay;
 }

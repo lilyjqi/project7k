@@ -24,6 +24,7 @@ class Player: public Owner
 
   	int getRow();
   	int getCol();
+    int getPos();
     char getChar();
     int getWorth();
     void setLanded(bool);

@@ -34,6 +34,7 @@ public:
     Player* getCurPlayer();
     Player* getPlayer(std::string);
     void setCurPlayer();
+    int getNumPlayer() const;
 
     BoardDisplay* getDisplay();
 
