@@ -1,12 +1,24 @@
 #include "gameBoard.h"
+#include "acadBuilding.h"
+#include "SLC.h"
+#include "tuition.h"
+#include "residence.h"
+#include "needleshall.h"
+#include "dcTimsLine.h"
+#include "coopFee.h"
+#include "gooseNesting.h"
+#include "gym.h"
+#include "goToTims.h"
+#include "osap.h"
 
 using namespace std;
 
-GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, rollUpRim *cups): 
-     players(vector <Player*>), admin(admin), theDisplay(theDisplay),curPlayer(NULL),numPlayer(0),cups(cups) 
+GameBoard::GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim **cups): 
+     players(0), admin(admin), theDisplay(theDisplay),curPlayer(NULL),numPlayers(0),cups(cups) 
 {
+    tiles = new Tile *[40];
     for (int i=0; i<40; i++) {
-        if (i == 1) {tiles[i] = new AcadBuilding("AL", 1, 51，9, "Arts1", theDisplay);
+        if (i == 1) {tiles[i] = new AcadBuilding("AL", 1, 51, 9, "Arts1", theDisplay);
                      tiles[i]->setCost();
         	         tiles[i]->setOwner(admin);
         	         admin->addBuilding(tiles[i]);
@@ -55,7 +67,7 @@ GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, rollUpRim *cups):
         	        	   tiles[i]->setOwner(admin);
         	         	   admin->addBuilding(tiles[i]);
         }
-        else if (i == 14) {tiles[i] = new Acadbuilding("CPH", 14, 31, 0, "Eng", theDisplay);
+        else if (i == 14) {tiles[i] = new AcadBuilding("CPH", 14, 31, 0, "Eng", theDisplay);
                            tiles[i]->setCost();
         		           tiles[i]->setOwner(admin);
         	   	           admin->addBuilding(tiles[i]);
@@ -65,7 +77,7 @@ GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, rollUpRim *cups):
         		           tiles[i]->setOwner(admin);
         	   	           admin->addBuilding(tiles[i]);
         }
-        else if (i == 16) {tiles[i] = new Acadbuilding("LHI", 16, 21, 0, "Health", theDisplay);
+        else if (i == 16) {tiles[i] = new AcadBuilding("LHI", 16, 21, 0, "Health", theDisplay);
                            tiles[i]->setCost();
         		           tiles[i]->setOwner(admin);
         	   	           admin->addBuilding(tiles[i]);
@@ -76,7 +88,7 @@ GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, rollUpRim *cups):
         		           tiles[i]->setOwner(admin);
         	   	           admin->addBuilding(tiles[i]);
         }
-        else if (i == 19) {tiles[i] = new Acadbuilding("OPT", 19, 6, 0, "Health", theDisplay);
+        else if (i == 19) {tiles[i] = new AcadBuilding("OPT", 19, 6, 0, "Health", theDisplay);
                            tiles[i]->setCost();
         		           tiles[i]->setOwner(admin);
         	   	           admin->addBuilding(tiles[i]);
@@ -140,7 +152,7 @@ GameBoard::GameBoard(School *admin, BoardDiaply *theDisplay, rollUpRim *cups):
         		           tiles[i]->setOwner(admin);
         	   	           admin->addBuilding(tiles[i]);
         }
-        else if (i == 35) {tiles[i] = Residence("REV", 35, 26, 10, theDisplay);
+        else if (i == 35) {tiles[i] = new Residence("REV", 35, 26, 10, theDisplay);
                            tiles[i]->setCost();
         		           tiles[i]->setOwner(admin);
         	   	           admin->addBuilding(tiles[i]);

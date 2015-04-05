@@ -5,6 +5,7 @@
 
 class Player;
 class BoardDisplay;
+class Owner;
 
 class Tile {
 protected:
@@ -18,7 +19,7 @@ public:
 	~Tile();
 	
 	// action is invoked when the player lands on the tile	
-	virtual void action(Player * player) = 0;
+	//virtual void action(Player * player) = 0;
 
 	// Used to determine which Players are on this Tile (for displaying Board)
 	void visit(Player *player);
@@ -36,6 +37,9 @@ public:
 	Player* getVisitor() const;
 
     BoardDisplay *getDisplay();
+
+    virtual void setCost() = 0;
+    virtual void setOwner(Owner *) = 0;
 };
 
 #endif

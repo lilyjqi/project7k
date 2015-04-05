@@ -8,7 +8,7 @@
 class Gym: public Building
 {
 public:
-	Gym(string, int, int, int, BoardDisplay *);
+	Gym(std::string, int, int, int, BoardDisplay *);
 	~Gym();
 
 	void setCost();
@@ -17,4 +17,5 @@ public:
         int getPay();
 	void addNeighbour(Building *);
 };
+
 #endif

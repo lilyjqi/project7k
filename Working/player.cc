@@ -60,7 +60,7 @@ bool Player::isDouble() {
     return false;
 }
 
-void Player::getRollDoubleFailCount(){ return rollDoubleFailCount; }
+int Player::getRollDoubleFailCount(){ return rollDoubleFailCount; }
 void Player::setRollDoubleFailCount(int n) { rollDoubleFailCount=n; }
 
 int Player::rollDice() {

@@ -11,7 +11,7 @@ class needlesHall: public Tile
 	const int cards[7];
 	const int cardsDistribution[7];
 public:
-	needlesHall(string name, int index, int row, int col, BoardDisplay *);
+	needlesHall(std::string name, int index, int row, int col, BoardDisplay *);
 	~needlesHall();
 
 	void drawCards();

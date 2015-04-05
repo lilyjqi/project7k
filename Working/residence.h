@@ -5,17 +5,17 @@
 #include <cstdlib>
 #include "building.h"
 
-class Residence
+class Residence: public Building
 {
 public:
-	Residence(string, int, int, int, BoardDisplay *);
+	Residence(std::string, int, int, int, BoardDisplay *);
 	~Residence();
 
 	void setCost();
 	void setPay();
         int getCost();
         int getPay();
-	void addNeighbour();
+	void addNeighbour(Building *);
 };
 
 #endif
