@@ -144,12 +144,17 @@ int AcadBuilding::getPay() {
 }
 
 int AcadBuilding::getCost() {
+
+    string name = this->getName();
     if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" || name == "HH") 
     {return cost + curLevel * 50;}
     else if (name == "RCH" || name == "DWE" || name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
     {return cost + curLevel * 100;}
     else if (name == "EV1" || name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || name == "B2") 
     {return cost + curLevel * 150;}
+
+    else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
+    {return cost + curLevel * 200;}
     else {return cost + curLevel * 200;}
 }
 
@@ -189,5 +194,7 @@ void AcadBuilding::deImprov() {
 }
 
 void AcadBuilding::notifyDisplay() {
+    GameBoard * gb = GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());
+    gb->getDisplay()->updateImpro(this);
     theDisplay->updateImpro(this);
 }

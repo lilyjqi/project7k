@@ -17,7 +17,11 @@ void dcTimsLine::action(Player* p){
 		cout << "Choose one of the following two options because you've failed too many roll doubles attempts:" << endl;
 		cout << "1. Pay $50" << endl;
 		cout << "2. Use Roll Up the Rim (if you have one)" << endl;
+<<<<<<< HEAD
 		cout << "Type 1 or 2" << endl;
+=======
+		cout << "Type 1 or 2";
+>>>>>>> 5436440ceeba075043959f42abfc083e408d1e81
 
 		while (cin >> i) {
 			if (i == 1) {
@@ -35,7 +39,11 @@ void dcTimsLine::action(Player* p){
 					}
 				}
 
+<<<<<<< HEAD
 				cout << "It seems you don't have any RollUpRims pass. Sorry you must pay." << endl;
+=======
+				cout << "It seems you don't have any RollUpRims pass. Sorry you must pay.";
+>>>>>>> 5436440ceeba075043959f42abfc083e408d1e81
 				p->addBalance(-50);
 				p->setLanded(true);
 				p->setRollDoubleFailCount(0);
@@ -50,7 +58,11 @@ void dcTimsLine::action(Player* p){
 		cout << "1. Roll doubles" << endl;
 		cout << "2. Pay $50" << endl;
 		cout << "3. Use Roll Up the Rim (if you have one)" << endl;
+<<<<<<< HEAD
 		cout << "Type 1, 2 or 3." << endl;
+=======
+		cout << "Type 1, 2 or 3.";
+>>>>>>> 5436440ceeba075043959f42abfc083e408d1e81
 
 		while (cin >> i){
 
@@ -63,8 +75,14 @@ void dcTimsLine::action(Player* p){
 					return;
 				} else {
 					p->setRollDoubleFailCount(p->getRollDoubleFailCount()+1);
+<<<<<<< HEAD
 					cout << "Sorry you have to stay in the Tims line for the next round." << endl;
 					p->setLanded(false);
+=======
+					cout << "Sorry you have to say in the Tims line for the next round." << endl;
+					p->setLanded(false);
+					devisit(p);
+>>>>>>> 5436440ceeba075043959f42abfc083e408d1e81
 					return; // player does not leave the line
 				}
 			} else if (i == 2) {
@@ -82,7 +100,11 @@ void dcTimsLine::action(Player* p){
 						return;
 					}
 				}
+<<<<<<< HEAD
 				cout << "It seems you don't have any RollUpRims. Please choose 1 or 2." << endl;
+=======
+				cout << "It seems you don't have any RollUpRims. Please choose 1 or 2.";
+>>>>>>> 5436440ceeba075043959f42abfc083e408d1e81
 			} else {
 				cout << "Please choose the correct option." << endl;
 			}
