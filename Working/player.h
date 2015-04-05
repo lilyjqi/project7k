@@ -28,7 +28,7 @@ class Player: public Owner
     int getWorth();
     void setLanded(bool);
     bool getLanded() const;
-    void updateBuilding(AcadBuilding *);
+    void updateBuilding(Tile *);
 
   	bool isDouble();
     int rollDice();
@@ -40,7 +40,7 @@ class Player: public Owner
     void setRollDoubleFailCount(int);
     void threeOptions(std::string);
     void noMoney();
-    void noMoney(Player *);
+    void noMoney(Owner *);
     void makeTrade(std::string);
     void makeImprove(std::string);
     void makeMortgage(std::string);
