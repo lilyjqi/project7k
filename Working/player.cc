@@ -91,7 +91,7 @@ int Player::rollDice() {
         srand(time(NULL));
         die1 = rand()%6+1;
         die2 = rand()%6+1;
-        cout << "Player " << name << " rolled" << die1+die2 << endl;
+        cout << "Player " << name << " rolled " << die1+die2 << endl;
 
         // if didn't roll doubles
         if (die1 != die2) {  
