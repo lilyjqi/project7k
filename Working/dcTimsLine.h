@@ -13,7 +13,7 @@ class Player;
 
 class dcTimsLine: public Tile
 {
-	bool landed; // defaults to true
+	//bool landed; // defaults to true
 public:
 	dcTimsLine(std::string name, int index, int row, int col, BoardDisplay *);
 	~dcTimsLine();

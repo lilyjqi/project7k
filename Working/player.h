@@ -27,6 +27,7 @@ class Player: public Owner
     char getChar();
     int getWorth();
     void setLanded(bool);
+    bool getLanded() const;
     void updateBuilding(AcadBuilding *);
 
   	bool isDouble();
@@ -35,8 +36,8 @@ class Player: public Owner
   	void notify(Tile *);
     void notifyDisplay(Tile *);
     void goToIndex(int);
-    void getRollDoubleFailCount();
-    void setRollDoubleFailCount();
+    int getRollDoubleFailCount();
+    void setRollDoubleFailCount(int);
     void threeOptions(std::string);
     void noMoney();
     void noMoney(Player *);
