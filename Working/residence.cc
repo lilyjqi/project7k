@@ -6,6 +6,8 @@ using namespace std;
 Residence::Residence(string name, int position, int rindex, int cindex, BoardDisplay *theDisplay):
     Building (name, position, rindex, cindex,3, theDisplay) {}
 
+Residence::~Residence(){}
+
 void Residence::setCost() {
     cost = 200;
 }

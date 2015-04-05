@@ -15,8 +15,8 @@ using namespace std;
 
 // const int ownableTileIndex2[28]={1,3,5,6,8,9,11,12,13,14,15,16,18,19,21,23,24,25,26,27,28,29,31,32,34,35,37,39};
 
-GameBoard::GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim **cups): 
-     players(0), admin(admin), theDisplay(theDisplay),curPlayer(NULL),testingDice(false), numPlayers(0),cups(cups) 
+GameBoard::GameBoard(BoardDisplay *theDisplay, rollUpRim **cups): 
+     players(0), theDisplay(theDisplay),curPlayer(NULL),testingDice(false), numPlayers(0),cups(cups) 
 {     
     tiles = new Tile *[40];
 
@@ -240,9 +240,9 @@ GameBoard::GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim **cups):
 
 GameBoard* GameBoard::instance = 0;
 
-GameBoard* GameBoard::getInstance(School *admin, BoardDisplay *display, rollUpRim **cups) {
+GameBoard* GameBoard::getInstance(BoardDisplay *display, rollUpRim **cups) {
     if (!instance) {
-        instance = new GameBoard(admin, display, cups);
+        instance = new GameBoard(display, cups);
         atexit(cleanup);
     }
     return instance;

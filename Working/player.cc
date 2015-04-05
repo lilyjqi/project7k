@@ -11,7 +11,7 @@ using namespace std;
 
 Player::Player(string name, char c, int position, int rindex, int cindex): 
     Owner(name), character(c), position(position), rindex(rindex), cindex(cindex), rollDoubleFailCount(0),
-    landed(true) {gb = GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());}
+    landed(true) {gb = GameBoard::getInstance(BoardDisplay::getInstance(), rollUpRim::getInstance());}
 
 int Player::getRow() {
     return rindex;
@@ -41,14 +41,14 @@ int Player::getWorth() {
 void Player::setLanded(bool isLanded) {landed = isLanded;}
 bool Player::getLanded() const {return landed;}
 
-void Player::updateBuilding(Tile *newAb) {
-    for (int i=0; i<numBuilding; ++i) {
-        if (ownBuilding[i]->getIndex() == newAb->getIndex()) {
-            ownBuilding[i] = newAb;
-            break;
-        }
-    }
-}
+// void Player::updateBuilding(Tile *newAb) {
+//     for (int i=0; i<numBuilding; ++i) {
+//         if (ownBuilding[i]->getIndex() == newAb->getIndex()) {
+//             ownBuilding[i] = newAb;
+//             break;
+//         }
+//     }
+// }
 
 bool Player::isDouble() {
     srand(time(NULL));

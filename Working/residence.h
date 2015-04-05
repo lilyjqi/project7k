@@ -13,8 +13,8 @@ public:
 
 	void setCost();
 	void setPay();
-        int getCost();
-        int getPay();
+    int getCost();
+    int getPay();
 	void addNeighbour(Tile *);
 };
 

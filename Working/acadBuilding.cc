@@ -8,6 +8,9 @@ AcadBuilding::AcadBuilding(string name, int position, int rindex, int cindex, st
     Building(name, position, rindex, cindex, 3, theDisplay), 
     monoBlock(monoBlock), curLevel(0) {}
 
+AcadBuilding::~AcadBuilding(){
+}
+
 int AcadBuilding::getCurLevel() {
     return curLevel;
 }
@@ -194,7 +197,7 @@ void AcadBuilding::deImprov() {
 }
 
 void AcadBuilding::notifyDisplay() {
-    GameBoard * gb = GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());
+    GameBoard * gb = GameBoard::getInstance(BoardDisplay::getInstance(), rollUpRim::getInstance());
     gb->getDisplay()->updateImpro(this);
     theDisplay->updateImpro(this);
 }

@@ -6,6 +6,8 @@ using namespace std;
 Gym::Gym(string name, int position,int rindex, int cindex, BoardDisplay *theDisplay): 
     Building(name, position, rindex, cindex,1, theDisplay) {}
 
+Gym::~Gym(){}
+
 void Gym::setCost() {
     cost = 150;
 }

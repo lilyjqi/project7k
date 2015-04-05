@@ -278,7 +278,8 @@ int main(int argc, char* argv[]) {
 	int numPlayer;
 	string cmd;
 	// set up gameBoard
-	GameBoard* board=GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());
+	School::getInstance();
+	GameBoard* board=GameBoard::getInstance(BoardDisplay::getInstance(), rollUpRim::getInstance());
 	for(int i=0; i<4; i++){
 		(*(rollUpRim::getInstance()+i))->setOwner(School::getInstance());
 	}

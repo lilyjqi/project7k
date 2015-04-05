@@ -18,14 +18,13 @@ class Building: public Tile{
     Owner* owner;
   public:
     Building(std::string, int, int, int, int, BoardDisplay *);
-	~Building();
+	virtual ~Building();
 	virtual void setCost() = 0;
 	virtual void setPay() = 0;
-	void addNeighbour(Tile *);
 	virtual int getPay() = 0;
     virtual int getCost() = 0;
-    //virtual void setOwner(Owner *) = 0;
-
+    virtual void addNeighbour(Tile *) = 0;
+ 
     void action(Player* p);
     void setOwner(Owner*);
     Owner * getOwner() const;

@@ -3,6 +3,8 @@
 
 using namespace std;
 
+School* School::instance = 0;
+
 School *School::getInstance() {
     if (!instance) {
         instance = new School;
