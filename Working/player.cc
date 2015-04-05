@@ -94,8 +94,8 @@ int Player::rollDice() {
         cout << "Player " << name << " rolled" << die1+die2 << endl;
 
         // if didn't roll doubles
-        if (dice1 != dice2) {  
-            return dice1 + dice2;
+        if (die1 != die2) {  
+            return die1 + die2;
         }
 
         cout << "Doubles! Roll again!" << endl;

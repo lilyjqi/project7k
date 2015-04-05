@@ -26,14 +26,15 @@ void SLC::action(Player* p){
 	visit(p);
 	int i = drawCard();
 
-	if(i <= 5) { p->moveToIndex(cards[i]); } // move by cards[i] steps
+	if(i <= 5) { p->makeMove(cards[i]); } // move by cards[i] steps
 	else if (i == 6) { 
 		p->setLanded(false); 
 		p->goToIndex(DC_TIMS_LINE);
 	} //
 	else { p->goToIndex(OSAP_LINE); }
 
-	int random = Board::getBoard()->getRand(100); 
+	srand(time(NULL));
+    int random = rand()%100+1;
 	if (random == 1) {
 		for (int j=0; j<4; j++){
 			if ((*(rollUpRim::getInstance()+j))->getOwner() != NULL) {
