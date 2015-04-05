@@ -1,10 +1,6 @@
 #ifndef __GAMEBOARD_H__
 #define __GAMEBOARD_H__
 
-#define NUM_TILES 40
-#define NUM_CUPS 4
-#define NUM_PLAYERS 8
-
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -20,7 +16,7 @@ class Tile;
 
 class GameBoard{
     static GameBoard *instance;
-    Tile* tiles[NUM_TILES];
+    Tile** tiles;
     std::vector<Player*> players;
     std::map<std::string, Player*> pNamesMap;
     Owner* admin;
@@ -29,8 +25,8 @@ class GameBoard{
     int numPlayers;
   
 public:
-    rollUpRim *cups[NUM_CUPS];
-    GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim *cups);
+    rollUpRim **cups;
+    GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim **cups);
     static GameBoard* getInstance(School *admin, BoardDisplay *display, rollUpRim *cups);
 
     Player* getCurPlayer();

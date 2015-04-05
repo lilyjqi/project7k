@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "building.h"
+#include "tile.h"
 
 class Building;
 
@@ -13,13 +13,13 @@ class Owner
 	std::string name;
 	int balance;
     int numBuilding;
-	std::vector<Building *> ownBuilding;
+	std::vector<Tile *> ownBuilding;
   public:
 	Owner();
         
     std::string getName();
-	void addBuilding(Building *);
-    void deleteBuilding(Building *);
+	void addBuilding(Tile *);
+    void deleteBuilding(Tile *);
 	int getBalance();
 	void addBalance(int b);
 };

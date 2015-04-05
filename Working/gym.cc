@@ -15,9 +15,9 @@ void Gym::setPay() {
     else {return 4;}
 }
 
-int getCost() {return cost;}
+int Gym::getCost() {return cost;}
 
-int getPay() {
+int Gym::getPay() {
     cout << "Roll two dices!" << endl;
     srand(time(NULL));
     int dice1 = rand()%6 + 1;

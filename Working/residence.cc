@@ -14,7 +14,7 @@ void Residence::setPay() {
     pay = 25;
 }
 
-int getPay() {
+int Residece::getPay() {
     int count=0;
     for (int i=0; i<numNeighbour; i++) {
         if (neighbours[i]->getOwner()==this->getOwner()) {
@@ -25,7 +25,7 @@ int getPay() {
 
 }
 
-int getCost() {
+int Residece::getCost() {
     return cost;
 }
 

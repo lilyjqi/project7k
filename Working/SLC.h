@@ -10,7 +10,7 @@ class SLC: public Tile
 	const int cards[8]; // add goToTims or movetoIndex to Player
 	const int cardsDistribution[8];
 public:
-	SLC(string name, int index, int row, int col, BoardDisplay *);
+	SLC(std::string name, int index, int row, int col, BoardDisplay *);
 	~SLC();
 
 	void drawCard();
