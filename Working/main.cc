@@ -336,6 +336,6 @@ int main(int argc, char* argv[]) {
 	cout << p->getName() << " wins the game!" << endl;
 	board->deletePlayer(p->getChar());
 	cout << "Game existing...." << endl;
-	GameBoard::cleanup();
+	//GameBoard::cleanup();
 	return 1;
 }	

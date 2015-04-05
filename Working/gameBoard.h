@@ -22,6 +22,7 @@ class GameBoard{
     Owner* admin; /* field never used */
     BoardDisplay* theDisplay;
     Player* curPlayer;
+    bool testingDice;
     int numPlayers;
   
 public:
@@ -40,11 +41,14 @@ public:
     Tile* getTile(int t);
     Tile* getTile(std::string); // can only be used on Buildings
 
-    int getRindex(int pos);
-    int getCindex(int pos);
+    int getRindex(int );
+    int getCindex(int );
 
     void addPlayer(Player*);
     void deletePlayer(char);
+
+    void setTesting(bool);
+    bool getTesting();
 
     static void cleanup();
 };
