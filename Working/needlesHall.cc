@@ -5,18 +5,14 @@
 using namespace std;
 
 needlesHall::needlesHall(string name, int index, int row, int col, BoardDisplay *theDisplay):
-	Tile(name, index, row, col, theDisplay), fee(0)
-	{
-		// cards[7] = {-200, -100, -50, 25, 50, 100, 200};
-		// cardsDistribution[7] = {0, 2, 5, 11, 14, 16, 17};
-}
+	Tile(name, index, row, col, theDisplay), fee(0){}
 
 needlesHall::~needlesHall(){}
 
 void needlesHall::drawCards(){
 	int total = 18;
 	srand(time(NULL));
-    int random = rand()%18+1;// need to change the name of the call
+    int random = rand()%total+1;
 	int i = 0;
 	for (i = 0;i < total;i++){
 		if (random <= cardsDistribution_n[i]) { break; }
