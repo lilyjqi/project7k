@@ -52,10 +52,10 @@ void Player::updateBuilding(Tile *newAb) {
 
 bool Player::isDouble() {
     srand(time(NULL));
-    int die1 = rand()%6+1;
-    int die2 = rand()%6+1;
-    cout << "Player " << name << " rolled " << die1 << " and " << die2 << endl;
-    if (die1 == die2) {
+    int dice1 = rand()%6+1;
+    int dice2 = rand()%6+1;
+    cout << "Player " << name << " rolled " << dice1 << " and " << dice2 << endl;
+    if (dice1 == dice2) {
         cout << "Get out of Tims Line!";
         return true;
     }
@@ -94,8 +94,8 @@ int Player::rollDice() {
         cout << "Player " << name << " rolled" << die1+die2 << endl;
 
         // if didn't roll doubles
-        if (die1 != die2) {  
-            return die1 + die2; 
+        if (dice1 != dice2) {  
+            return dice1 + dice2;
         }
 
         cout << "Doubles! Roll again!" << endl;
