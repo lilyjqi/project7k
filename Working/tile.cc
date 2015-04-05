@@ -55,3 +55,6 @@ Player* Tile::getVisitor() const {
 BoardDisplay *Tile::getDisplay() {
     return theDisplay;
 }
+
+// void Tile::setCost(){ return; }
+// void Tile::setOwner(Owner*){ return; }

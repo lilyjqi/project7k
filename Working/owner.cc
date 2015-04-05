@@ -10,12 +10,12 @@ string Owner::getName() {
     return name;
 }
 
-void Owner::addBuilding(Building *b) {
+void Owner::addBuilding(Tile *b) {
     ownBuilding.push_back(b);
     numBuilding++;
 }
 
-void Owner::deleteBuilding(Building *b) {
+void Owner::deleteBuilding(Tile *b) {
     for (int i=0; i<ownBuilding.size(); ++i) {
         if (ownBuilding[i]==b) {
             ownBuilding.erase(ownBuilding.begin()+i);

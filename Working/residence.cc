@@ -17,7 +17,8 @@ void Residence::setPay() {
 int Residece::getPay() {
     int count=0;
     for (int i=0; i<numNeighbour; i++) {
-        if (neighbours[i]->getOwner()==this->getOwner()) {
+        Residence* rb = dynamic_cast<residence *>(neighbours[i]);
+        if (rb!=NULL && rb->getOwner()==this->getOwner()) {
             count++;
         }
     }
@@ -29,7 +30,7 @@ int Residece::getCost() {
     return cost;
 }
 
-void Residence::addNeighbour(Building *b) {
+void Residence::addNeighbour(Tile *b) {
     // check if this is the first time we add neighbour for residence
     if (neighbours == NULL) {
         neighbours = new Building *[3];

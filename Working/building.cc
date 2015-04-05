@@ -3,6 +3,8 @@
 
 using namespace std;
 
+void Building::action(Player* p){ return ; }
+
 Building::Building(string name, int position, int rindex, int cindex, int numNeighbours, BoardDisplay *theDisplay):
     Tile(name, position, rindex, cindex, theDisplay),
     neighbours(NULL),cost(0),mort(0),numNeighbours(numNeighbours),

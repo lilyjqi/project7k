@@ -6,7 +6,8 @@
 #include "tile.h"
 
 class Player;
-
+class Owner;
+class Building;
 class coopFee: public Tile
 {
 	int fee;
@@ -16,6 +17,10 @@ public:
 
 	int getFee();
 	void action(Player* p);
+
+	void setCost();
+    void setOwner(Owner*);
+    void addNeighbour(Tile*);
 
 };
 #endif

@@ -11,8 +11,9 @@ void Gym::setCost() {
 }
 
 void Gym::setPay() {
-    if (neighbours[0]->getOwner()==this->getOwner()) {return 10;}
-    else {return 4;}
+    Gym* gym = dynamic_cast<Gym *>(neighbours[0]);
+    if (gym->getOwner()==this->getOwner()) {pay = 10;}
+    else {pay = 4;}
 }
 
 int Gym::getCost() {return cost;}
@@ -21,16 +22,16 @@ int Gym::getPay() {
     cout << "Roll two dices!" << endl;
     srand(time(NULL));
     int dice1 = rand()%6 + 1;
-    int dice2 = rang()%6 + 1;
+    int dice2 = rand()%6 + 1;
     int sum = dice1 + dice2;
     cout << "You've rolled " << sum << endl;
     this->setPay();
     return pay * sum;
 }
 
-void Gym::addNeighbour(Building *b) {
-    neighbours = new Building *[numNeighbours];
+void Gym::addNeighbour(Tile *b) {
+    neighbours = new Tile *[numNeighbours];
     neighbours[0] = b;
 }
 
-
+void Gym::setOwner(Owner * o) {return;}

@@ -18,7 +18,6 @@
 #include <sstream>
 #include <fstream>
 
-//#define START_MONEY 1500
 
 using namespace std;
 
@@ -26,7 +25,7 @@ const string playerNames[8] = {"Goose", "GRT Bus", "Doughnut", "Professor", "Stu
 string playerChar = " GBDPS$LT "; // adding space at both end of the string to avoid error when taking substring
 
 GameBoard *board = GameBoard::getInstance();
-int ownableTileIndex[28]={1,3,5,6,8,9,11,12,13,14,15,16,18,19,21,23,24,25,26,27,28,29,31,32,34,35,37,39};
+const int ownableTileIndex[28]={1,3,5,6,8,9,11,12,13,14,15,16,18,19,21,23,24,25,26,27,28,29,31,32,34,35,37,39};
 
 // mapping for building name and index
 map<string, int> tileNameMap;
@@ -294,8 +293,13 @@ int main(int argc, char* argv[]) {
 				cerr << "Please choose the correct file to start a new game." << endl;
 			}
 		}
-	
-		// else if (argv[1] = "-testing") {...;}
+		
+		/* TESTING MODE */
+		/* TESTING MODE */
+		else if (argv[1] = "-testing") { board->setTesting(true); } 
+		/* TESTING MODE */
+		/* TESTING MODE */
+		
 		else if (argc > 1) {
 			cerr << "Invalid command. Starting a new game..."
 		}
@@ -312,12 +316,16 @@ int main(int argc, char* argv[]) {
 		while (true){
 			board->setCurPlayer();
 			*p = board->getCurPlayer();
+			cout << p->getName() << "'s turn begins" << endl;
 			if (p->getBalance() != -1) { break; }
 		}
 
 		dice = p->rollDice();
 		if (dice == -1) { p->goToIndex(10); }
-		else { p->makeMove(dice); }
+		else { 
+			p->makeMove(dice); 
+			cout << p->getName() <<"'s turn is over." << endl;
+		}
 		if (p->getBalance() == -1){
 			bankruptPlayer++;
 			cout << p->getName() << " is bankrupt."
@@ -326,6 +334,8 @@ int main(int argc, char* argv[]) {
 	}
 
 	cout << p->getName() << " wins the game!" << endl;
+	board->deletePlayer(p->getChar());
 	cout << "Game existing...." << endl;
+	GameBoard::cleanup();
 	return 1;
 }	

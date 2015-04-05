@@ -10,7 +10,7 @@ class Owner;
 class Building: public Tile{
 
   protected:
-    Building** neighbours;
+    Tile** neighbours;
     int cost;
     int pay;
     int mort;
@@ -21,10 +21,12 @@ class Building: public Tile{
 	~Building();
 	virtual void setCost() = 0;
 	virtual void setPay() = 0;
-	virtual void addNeighbour(Building *) = 0;
+	void addNeighbour(Tile *);
 	virtual int getPay() = 0;
     virtual int getCost() = 0;
+    //virtual void setOwner(Owner *) = 0;
 
+    void action(Player* p);
     void setOwner(Owner*);
     Owner * getOwner() const;
 	void setMort(int);

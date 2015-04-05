@@ -4,7 +4,8 @@
 #include <iostream>
 #include <cstdlib>
 #include "building.h"
-
+class Owner;
+class Building;
 class Gym: public Building
 {
 public:
@@ -12,10 +13,11 @@ public:
 	~Gym();
 
 	void setCost();
-        void setPay();
-        int getCost();
-        int getPay();
-	void addNeighbour(Building *);
+    void setPay();
+    int getCost();
+    int getPay();
+	void setOwner(Owner *);
+	void addNeighbour(Tile*);
 };
 
 #endif

@@ -168,9 +168,9 @@ int AcadBuilding::getImprCost() {
     else {return 200;}
 }
 
-void AcadBuilding::addNeighbour(Building *b) {
+void AcadBuilding::addNeighbour(Tile *b) {
     if (neighbours==NULL) {
-        neighbours = new Building *[numNeighbours];
+        neighbours = new Tile *[numNeighbours];
         neighbours[0]= b;
     }
     else {

@@ -19,7 +19,7 @@ class GameBoard{
     Tile** tiles;
     std::vector<Player*> players;
     std::map<std::string, Player*> pNamesMap;
-    Owner* admin;
+    Owner* admin; /* field never used */
     BoardDisplay* theDisplay;
     Player* curPlayer;
     int numPlayers;
@@ -27,7 +27,8 @@ class GameBoard{
 public:
     rollUpRim **cups;
     GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim **cups);
-    static GameBoard* getInstance(School *admin, BoardDisplay *display, rollUpRim *cups);
+    static GameBoard* getInstance(School *admin, BoardDisplay *display, rollUpRim **cups);
+    ~GameBoard();
 
     Player* getCurPlayer();
     Player* getPlayer(std::string);
@@ -43,7 +44,7 @@ public:
     int getCindex(int pos);
 
     void addPlayer(Player*);
-    void deletePlayer(std::string);
+    void deletePlayer(char);
 
     static void cleanup();
 };

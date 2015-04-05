@@ -16,3 +16,7 @@ void Tuition::action(Player* p){
 	visit(p);
 	p->setBalance(-getTuition());
 }
+
+void Tuition::setCost(){ return; }
+void Tuition::setOwner(Owner*){ return; }
+void Tuition::addNeighbour(Tile*){ return; }
