@@ -1,6 +1,7 @@
 #include "player.h"
-//#include "school.h"
-//#include "gameBoard.h"
+#include "building.h"
+#include "gameBoard.h"
+#include "acadBuilding.h"
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -9,7 +10,7 @@ using namespace std;
 
 Player::Player(string name, char c, int position, int rindex, int cindex): 
     Owner(name), character(c), position(position), rindex(rindex), cindex(cindex), rollDoubleFailCount(0),
-    landed(true) {gb = GameBoard::getInstance();}
+    landed(true) {gb = GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());}
 
 int Player::getRow() {
     return rindex;
@@ -19,9 +20,9 @@ int Player::getCol() {
     return cindex;
 }
 
-string Player::getName() {
-    return name;
-}
+// string Player::getName() {
+//     return name;
+// }
 
 char Player::getChar() {
     return character;
@@ -30,15 +31,16 @@ char Player::getChar() {
 int Player::getWorth() {
     int w=balance;
     for (int i=0; i<numBuilding; i++) {
-        w += ownBuilding[i]->getCost();
+        Building *pbd = dynamic_cast<Building *>(ownBuilding[i]);
+        if (pbd) { w += pbd->getCost(); }
     }
     return w;
 }
 
 void Player::setLanded(bool isLanded) {landed = isLanded;}
-bool Player::getLanded() {return landed;}
+bool Player::getLanded() const {return landed;}
 
-void Player::updateBuilding(AcadBuilding *newAb) {
+void Player::updateBuilding(Tile *newAb) {
     for (int i=0; i<numBuilding; ++i) {
         if (ownBuilding[i]->getIndex() == newAb->getIndex()) {
             ownBuilding[i] = newAb;
@@ -53,7 +55,7 @@ bool Player::isDouble() {
     int dice2 = rand()%6+1;
     cout << "Player " << name << " rolled " << dice1 << " and " << dice2 << endl;
     if (dice1 == dice2) {
-        cout << "Get out of Tims Line!"
+        cout << "Get out of Tims Line!";
         return true;
     }
     cout << "Fail!" << endl;
@@ -74,7 +76,7 @@ int Player::rollDice() {
 
         // if didn't roll doubles
         if (dice1 != dice2) {  
-            return pos+ dice1 + dice2;
+            return position+ dice1 + dice2;
         }
 
         cout << "Doubles! Roll again!" << endl;
@@ -85,21 +87,21 @@ int Player::rollDice() {
 void Player::makeMove(int m) {
             
         // devisit previous tile
-        gb->getTile(pos)->devisit(this);
+        gb->getTile(position)->devisit(this);
         
         int newpos = position + m;
         // collectOSAP if pass by
         if (newpos > 40) {
             newpos -= 40;
-            this->addBalance(gb->getTile(0)->collectOSAP())；
+            this->addBalance(gb->getTile(0)->collectOSAP());
         }
         else if (newpos == 40) {newpos = 0;}
 
         // move to new pos and take action
         Tile * t = gb->getTile(newpos);
         position = newpos;
-        rindex = t->getRow();
-        cindex = t->getCol();
+        rindex = t->getRindex();
+        cindex = t->getCindex();
             
         Building *build = dynamic_cast<Building *>(t);
         School *school = School::getInstance();

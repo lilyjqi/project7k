@@ -16,3 +16,7 @@ void coopFee::action(Player* p){
 	visit(p);
 	p->addBalance(-getFee());
 }
+
+void coopFee::setCost(){ return; }
+void coopFee::setOwner(Owner*){ return; }
+void coopFee::addNeighbour(Tile*){ return; }

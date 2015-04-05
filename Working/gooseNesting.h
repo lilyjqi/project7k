@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include "tile.h"
 
+class Owner;
+class Building;
 class gooseNesting: public Tile
 {
 public:
@@ -12,5 +14,9 @@ public:
 	~gooseNesting();
 	void attacked() const;
 	void action(Player * p);
+
+	void setCost();
+    void setOwner(Owner*);
+    void addNeighbour(Tile*);
 };
 #endif

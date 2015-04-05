@@ -16,7 +16,7 @@ public:
 	void setOwner(Owner* );
         Owner *getOwner();
         rollUpRim *getCup();
-	static rollUpRim* getInstance();
+	static rollUpRim** getInstance();
         static void cleanup();
 };
 

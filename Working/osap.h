@@ -2,6 +2,8 @@
 #define __OSAP_H__ 
 
 #include "tile.h"
+class Owner;
+class Building;
 
 class Osap: public Tile
 {
@@ -12,6 +14,10 @@ public:
 
 	int collectOSAP() const;
 	void action(Player* p);
+
+	void setCost();
+    void setOwner(Owner*);
+    void addNeighbour(Tile*);
 };
 
 #endif

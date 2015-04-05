@@ -13,12 +13,20 @@
 
 using namespace std;
 
+// const int ownableTileIndex2[28]={1,3,5,6,8,9,11,12,13,14,15,16,18,19,21,23,24,25,26,27,28,29,31,32,34,35,37,39};
+
 GameBoard::GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim **cups): 
      players(0), admin(admin), theDisplay(theDisplay),curPlayer(NULL),numPlayers(0),cups(cups) 
-{
+{     
     tiles = new Tile *[40];
+
+    // for(int j=0; j<28; j++){
+    //   AcadBuilding* tiles[ownableTileIndex2[j]]=dynamic_cast<AcadBuilding *>(tiles[ownableTileIndex2[j]]);
+    // }
+
     for (int i=0; i<40; i++) {
-        if (i == 1) {tiles[i] = new AcadBuilding("AL", 1, 51, 9, "Arts1", theDisplay);
+        if (i == 1) {//AcadBuilding* tiles[i]=dynamic_cast<AcadBuilding *>(tiles[i]);
+                     tiles[i] = new AcadBuilding("AL", 1, 51, 9, "Arts1", theDisplay);
                      tiles[i]->setCost();
         	         tiles[i]->setOwner(admin);
         	         admin->addBuilding(tiles[i]);
@@ -82,7 +90,7 @@ GameBoard::GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim **cups):
         		           tiles[i]->setOwner(admin);
         	   	           admin->addBuilding(tiles[i]);
         }   
-        else if (i == 17) {tiles[i] = new SLC("SLC", 17, 16, 0);}
+        else if (i == 17) {tiles[i] = new SLC("SLC", 17, 16, 0, theDisplay);}
         else if (i == 18) {tiles[i] = new AcadBuilding("BMH", 18, 11, 0, "Health", theDisplay);
                            tiles[i]->setCost();
         		           tiles[i]->setOwner(admin);
@@ -230,12 +238,12 @@ GameBoard::GameBoard(School *admin, BoardDisplay *theDisplay, rollUpRim **cups):
     }
 }
 
-static GameBoard* instance = 0;
+GameBoard* GameBoard::instance = 0;
 
-static GameBoard* GameBoard::getInstance(School *admin, BoardDiaply *display, rollUpRim *cups) {
+GameBoard* GameBoard::getInstance(School *admin, BoardDisplay *display, rollUpRim **cups) {
     if (!instance) {
         instance = new GameBoard(admin, display, cups);
-        atexist(cleanup);
+        atexit(cleanup);
     }
     return instance;
 }
@@ -249,7 +257,7 @@ void GameBoard::setCurPlayer() {
     if (curPlayer == NULL) {
         curPlayer = players[0];
     }
-    else if (curPlayer == players[numPlayer-1]) {
+    else if (curPlayer == players[numPlayers-1]) {
         curPlayer = players[0];
     }
     else {
@@ -270,26 +278,27 @@ Tile *GameBoard::getTile(int t) {
 }
 
 // can not be used on Buildings
-Tile *GameBoard::getTils(string name) {
+Tile* GameBoard::getTile(string name) {
     for (int i=0; i<40; ++i) {
         if (tiles[i]->getName() == name) {
             return tiles[i];
         }
     }
+    return tiles[0];
 }
 
 int GameBoard::getRindex(int pos) {
-    return tiles[pos]->getRow();
+    return tiles[pos]->getRindex();
 }
 
 int GameBoard::getCindex(int pos) {
-    return tiles[pos]->getCol();
+    return tiles[pos]->getCindex();
 }
 
 void GameBoard::addPlayer(Player *p) {
     players.push_back(p);
     pNamesMap[p->getName()]=p;
-    numPlayer++;
+    numPlayers++;
 }
 
 Player * GameBoard::getPlayer(string s){
@@ -309,9 +318,9 @@ void GameBoard::deletePlayer(char c) {
 
 GameBoard::~GameBoard() {
     delete tiles;
-    player.clear();
+    players.clear();
 }
 
-static void GameBoard::cleanup() {
+void GameBoard::cleanup() {
     delete instance;
 }

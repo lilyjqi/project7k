@@ -2,10 +2,12 @@
 #define ___TILE_H___
 
 #include <vector>
+#include <string>
 
 class Player;
 class BoardDisplay;
 class Owner;
+class Building;
 
 class Tile {
 protected:
@@ -19,7 +21,7 @@ public:
 	~Tile();
 	
 	// action is invoked when the player lands on the tile	
-	//virtual void action(Player * player) = 0;
+	virtual void action(Player* p) = 0;
 
 	// Used to determine which Players are on this Tile (for displaying Board)
 	void visit(Player *player);
@@ -39,7 +41,8 @@ public:
     BoardDisplay *getDisplay();
 
     virtual void setCost() = 0;
-    virtual void setOwner(Owner *) = 0;
+    virtual void setOwner(Owner*) = 0;
+    virtual void addNeighbour(Tile*) = 0;
 };
 
 #endif

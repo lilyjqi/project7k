@@ -18,7 +18,6 @@
 #include <sstream>
 #include <fstream>
 
-//#define START_MONEY 1500
 
 using namespace std;
 
@@ -26,7 +25,7 @@ const string playerNames[8] = {"Goose", "GRT Bus", "Doughnut", "Professor", "Stu
 string playerChar = " GBDPS$LT "; // adding space at both end of the string to avoid error when taking substring
 
 GameBoard *board = GameBoard::getInstance();
-int ownableTileIndex[28]={1,3,5,6,8,9,11,12,13,14,15,16,18,19,21,23,24,25,26,27,28,29,31,32,34,35,37,39};
+const int ownableTileIndex[28]={1,3,5,6,8,9,11,12,13,14,15,16,18,19,21,23,24,25,26,27,28,29,31,32,34,35,37,39};
 
 // mapping for building name and index
 map<string, int> tileNameMap;
@@ -337,5 +336,6 @@ int main(int argc, char* argv[]) {
 	cout << p->getName() << " wins the game!" << endl;
 	board->deletePlayer(p->getChar());
 	cout << "Game existing...." << endl;
+	GameBoard::cleanup();
 	return 1;
 }	

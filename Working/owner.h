@@ -15,7 +15,7 @@ class Owner
     int numBuilding;
 	std::vector<Tile *> ownBuilding;
   public:
-	Owner();
+	Owner(std::string);
         
     std::string getName();
 	void addBuilding(Tile *);

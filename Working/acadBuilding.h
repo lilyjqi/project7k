@@ -20,7 +20,7 @@ public:
     int getCost();
     int getImprCost();
     int getPay();
-	void addNeighbour(Building *);
+	void addNeighbour(Tile *);
     void improv();
     void deImprov();
     void notifyDisplay();
