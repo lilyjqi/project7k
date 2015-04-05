@@ -35,7 +35,8 @@ int Player::getWorth() {
     return w;
 }
 
-void setLanded(bool isLanded) {landed = isLanded;}
+void Player::setLanded(bool isLanded) {landed = isLanded;}
+bool Player::getLanded() {return landed;}
 
 void Player::updateBuilding(AcadBuilding *newAb) {
     for (int i=0; i<numBuilding; ++i) {

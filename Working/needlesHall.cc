@@ -2,8 +2,8 @@
 
 using namespace std;
 
-needlesHall::needlesHall(string name, int index, int row, int col):
-	Tile(name, index, row, col), fee(0), winRim(false){
+needlesHall::needlesHall(string name, int index, int row, int col, BoardDisplay *theDisplay):
+	Tile(name, index, row, col, theDisplay), fee(0), winRim(false){
 		cards = {-200, -100, -50, 25, 50, 100, 200}
 		cardsDistritbuion = {0, 2, 5, 11, 14, 16, 17}
 }

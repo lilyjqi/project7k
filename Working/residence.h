@@ -8,7 +8,7 @@
 class Residence
 {
 public:
-	Residence(string, int, int, int);
+	Residence(string, int, int, int, BoardDisplay *);
 	~Residence();
 
 	void setCost();

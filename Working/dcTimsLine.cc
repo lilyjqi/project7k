@@ -2,24 +2,11 @@
 
 using namespace std;
 
-dcTimsLine::dcTimsLine(std::string name, int index, int row, int col):
-	Tile(name, index, row, col){
+dcTimsLine::dcTimsLine(std::string name, int index, int row, int col, BoardDisplay *theDisplay):
+	Tile(name, index, row, col, theDisplay){
 }
 
-dcTimsLine::~dcTimsLine(){
-}
-
-// void dcTimsLine::setFee() {
-// 	if (!landed) { fee = 0; }
-// 	else { fee = 50; }
-// }
-
-// int dcTimsLine::payFee(){
-// 	setFee();
-// 	return fee;
-// }
-
-//void dcTimsLine::setLanded(bool isLanded) { landed = isLanded; }
+dcTimsLine::~dcTimsLine() {}
 
 void dcTimsLine::action(Player* p){
 	//p->setRollDoubleFailCount(0);  to be set in main.cc

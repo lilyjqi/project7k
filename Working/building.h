@@ -17,7 +17,7 @@ class Building: public Tile{
     int numNeighbours;
     Owner* owner;
   public:
-    Building(std::string, int, int, int, int);
+    Building(std::string, int, int, int, int, BoardDisplay *);
 	~Building();
 	virtual void setCost() = 0;
 	virtual void setPay() = 0;
@@ -26,7 +26,7 @@ class Building: public Tile{
     virtual int getCost() = 0;
 
     void setOwner(Owner*);
-    void getOwner() const;
+    Owner * getOwner() const;
 	void setMort(int);
 	bool isMort();
     int getMort();

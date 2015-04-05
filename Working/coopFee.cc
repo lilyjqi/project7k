@@ -1,9 +1,10 @@
 #include "coopFee.h"
+#include "player.h"
 
 using namespace std;
 
-coopFee::coopFee(string name, int index, int row, int col):
-	Tile(name, index, row, col), fee(150){}
+coopFee::coopFee(string name, int index, int row, int col, BoardDisplay *theDisplay):
+	Tile(name, index, row, col, theDisplay), fee(150){}
 
 coopFee::~coopFee(){}
 
@@ -13,5 +14,5 @@ int coopFee::getFee(){
 
 void coopFee::action(Player* p){
 	visit(p);
-	p->setBalance(-getFee());
+	p->addBalance(-getFee());
 }

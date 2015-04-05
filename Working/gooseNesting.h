@@ -8,7 +8,7 @@
 class gooseNesting: public Tile
 {
 public:
-	gooseNesting(string name, int index, int row, int col);
+	gooseNesting(string name, int index, int row, int col, BoardDisplay *);
 	~gooseNesting();
 
 <<<<<<< HEAD:gooseNesting.h

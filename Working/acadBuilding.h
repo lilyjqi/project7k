@@ -2,13 +2,14 @@
 #define __ACADBUILDING_H__
 
 #include "building.h"
+#include "boardDisplay.h"
 
 class AcadBuilding: public Building
 {
 	std::string monoBlock;
         int curLevel;
 public:
-	AcadBuilding(std::string, int, int, int, std::string);
+	AcadBuilding(std::string, int, int, int, std::string, BoardDisplay *);
 	~AcadBuilding();
         
     bool isMono();

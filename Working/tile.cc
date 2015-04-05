@@ -5,11 +5,12 @@
 #include <iostream>
 using namespace std;
 
-Tile::Tile (string name, int pos, int row, int col): name(name), pos(pos), row(row), col(col), visitors(vector <Player*> ()){
+Tile::Tile (string name, int pos, int row, int col, BoardDisplay *theDisplay): name(name), pos(pos), row(row), col(col), visitors(vector <Player*>), theDisplay(theDisplay){
+    
 }
 
 Tile::~Tile () {
-
+    visitors.clear();
 }
 
 void Tile::visit(Player *player){
@@ -18,7 +19,7 @@ void Tile::visit(Player *player){
 }
 
 void Tile::devisit(Player * player) {
-	list <Player *>::iterator it = visitors.begin();
+	vector <Player *>::iterator it = visitors.begin();
 	while (*it != player)
 		it++;
 
@@ -50,29 +51,7 @@ int Tile::getNumVisitor() const{
 Player* Tile::getVisitor() const {
 	return visitors;
 }
-// void Tile::setDisplay(Display * d){
-// 	display = d;
-// }
 
-// void Tile::updateVisitorDisplay(){
-// 	if(pos == DC_LINE_TILE_INDEX){
-// 		list<char> inLine;
-// 		list<char> notInLine;
-// 		for (list<Player *>::iterator it=visitors.begin() ; it != visitors.end(); ++it){
-// 			if((*it)->getTurnsInLine() == -1){
-// 				notInLine.push_back((*it)->getPiece());
-// 			}
-// 			else{
-// 				inLine.push_back((*it)->getPiece());
-// 			}
-// 		}
-// 		display->updateVisitors(pos, notInLine, inLine);
-// 	}
-// 	else{
-// 		list<char> v;
-// 		for (list<Player *>::iterator it=visitors.begin() ; it != visitors.end(); ++it){
-// 			v.push_back((*it)->getPiece());
-// 		}
-// 		display->updateVisitors(pos, v);
-// 	}
-// }
+BoardDisplay *Tile::getDisplay() {
+    return theDisplay;
+}

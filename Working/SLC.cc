@@ -2,8 +2,8 @@
 
 using namespace std;
 
-SLC::SLC(string name, int index, int row, int col):
-	Tile(name, index, row, col), move(0), winRim(false){
+SLC::SLC(string name, int index, int row, int col, BoardDisplay *theDisplay):
+	Tile(name, index, row, col, theDisplay), move(0), winRim(false){
 		cards = {-3, -2, -1, 1, 2, 3, 0, 0}
 		cardsDistritbuion = {2, 6, 10, 13, 17, 21, 22, 23}
 }

@@ -11,10 +11,10 @@ class coopFee: public Tile
 {
 	int fee;
 public:
-	coopFee(string name, int index, int row, int col);
+	coopFee(std::string name, int index, int row, int col, BoardDisplay *);
 	~coopFee();
 
-	int getFee() const;
+	int getFee();
 	void action(Player* p);
 
 };

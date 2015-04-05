@@ -7,7 +7,7 @@ class Osap: public Tile
 {
 	int collect;
 public:
-	Osap(std::string name, int index, int row, int col);
+	Osap(std::string name, int index, int row, int col, BoardDisplay *);
 	~Osap();
 
 	int collectOSAP() const;

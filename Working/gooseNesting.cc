@@ -2,8 +2,8 @@
 
 using namespace std;
 
-gooseNesting::gooseNesting(string name, int index, int row, int col):
-	Tile(name, index, row, col){
+gooseNesting::gooseNesting(string name, int index, int row, int col, BoardDsiplay *theDisplay):
+	Tile(name, index, row, col, theDisplay){
 }
 
 gooseNesting::~gooseNesting(){}
