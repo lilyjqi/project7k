@@ -13,13 +13,13 @@ class Owner
 	std::string name;
 	int balance;
     int numBuilding;
-	std::vector<Tile *> ownBuilding;
+	std::vector<Building *> ownBuilding;
   public:
 	Owner(std::string);
         
     std::string getName();
-	void addBuilding(Tile *);
-    void deleteBuilding(Tile *);
+	void addBuilding(Building *);
+    void deleteBuilding(Building *);
 	int getBalance();
 	void addBalance(int b);
 };
