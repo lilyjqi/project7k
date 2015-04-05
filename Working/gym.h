@@ -8,7 +8,7 @@
 class Gym: public Building
 {
 public:
-	Gym(string, int, int, int);
+	Gym(string, int, int, int, BoardDisplay *);
 	~Gym();
 
 	void setCost();

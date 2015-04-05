@@ -2,8 +2,8 @@
 
 using namespace std;
 
-Osap::Osap(std::string name, int index, int row, int col):
-	Tile(name, index, row, col), collect(200){
+Osap::Osap(std::string name, int index, int row, int col, BoardDisplay *theDisplay):
+	Tile(name, index, row, col, theDisplay), collect(200){
 }
 
 Osap::~Osap(){}

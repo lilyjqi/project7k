@@ -15,7 +15,7 @@ class dcTimsLine: public Tile
 {
 	bool landed; // defaults to true
 public:
-	dcTimsLine(std::string name, int index, int row, int col);
+	dcTimsLine(std::string name, int index, int row, int col, BoardDisplay *);
 	~dcTimsLine();
 
 	//void setFee();

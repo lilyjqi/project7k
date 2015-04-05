@@ -8,7 +8,7 @@
 class goToTims: public Tile
 {
 public:
-	goToTims(std::string name, int index, int row, int col);
+	goToTims(std::string name, int index, int row, int col, BoardDisplay *);
 	~goToTims();
 
 	void action(Player* p);

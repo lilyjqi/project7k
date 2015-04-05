@@ -2,8 +2,8 @@
 
 using namespace std;
 
-goToTims::goToTims(string name, int index, int row, int col):
-	Tile(name, index, row, col){
+goToTims::goToTims(string name, int index, int row, int col, BoardDisplay *theDisplay):
+	Tile(name, index, row, col, theDisplay){
 }
 
 goToTims::~goToTims(){}

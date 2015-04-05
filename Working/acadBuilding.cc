@@ -4,8 +4,8 @@
 
 using namespace std;
 
-AcadBuilding::AcadBuilding(string name, int position, int rindex, int cindex, string monoBlock):
-    Building(name, position, rindex, cindex, 3), 
+AcadBuilding::AcadBuilding(string name, int position, int rindex, int cindex, string monoBlock, BoardDisplay *theDisplay):
+    Building(name, position, rindex, cindex, 3, theDisplay), 
     monoBlock(monoBlock), curLevel(0) {}
 
 int AcadBuilding::getCurLevel() {
@@ -46,7 +46,6 @@ void AcadBuilding::setCost() {
 }
 
 void AcadBuilding::setPay() {
-    string name = this->getName();
     if (name == "AL") {pay = 2;}
     else if (name == "ML") {pay = 4;}
     else if (name == "ECH" || name == "PAS") {pay = 6;}
@@ -145,29 +144,40 @@ int AcadBuilding::getPay() {
 }
 
 int AcadBuilding::getCost() {
+<<<<<<< HEAD
     string name = this->getName();
+=======
+>>>>>>> b2898725b4d53faa56a2fca99a2002beb12676ce
     if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" || name == "HH") 
     {return cost + curLevel * 50;}
     else if (name == "RCH" || name == "DWE" || name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
     {return cost + curLevel * 100;}
     else if (name == "EV1" || name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || name == "B2") 
     {return cost + curLevel * 150;}
+<<<<<<< HEAD
     else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
     {return cost + curLevel * 200;}
     return 0;
+=======
+    else {return cost + curLevel * 200;}
+>>>>>>> b2898725b4d53faa56a2fca99a2002beb12676ce
 }
 
 int AcadBuilding::getImprCost() {
-    string name = this->getName();
     if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" || name == "HH") 
-    {return cost + curLevel * 50;}
+    {return 50;}
     else if (name == "RCH" || name == "DWE" || name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
-    {return cost + curLevel * 100;}
+    {return 100;}
     else if (name == "EV1" || name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || name == "B2") 
+<<<<<<< HEAD
     {return cost + curLevel * 150;}
     else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
     {return 200;}
     return 0;
+=======
+    {return 150;}
+    else {return 200;}
+>>>>>>> b2898725b4d53faa56a2fca99a2002beb12676ce
 }
 
 void AcadBuilding::addNeighbour(Building *b) {
@@ -196,6 +206,10 @@ void AcadBuilding::deImprov() {
 }
 
 void AcadBuilding::notifyDisplay() {
+<<<<<<< HEAD
     GameBoard * gb = GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());
     gb->getDisplay()->updateImpro(this);
+=======
+    theDisplay->updateImpro(this);
+>>>>>>> b2898725b4d53faa56a2fca99a2002beb12676ce
 }

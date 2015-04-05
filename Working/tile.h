@@ -1,26 +1,21 @@
 #ifndef ___TILE_H___
 #define ___TILE_H___
 
-#define MAX_PLAYER 8
+#include <vector>
 
-#include <string>
-#include <list>
-#include <iostream>
-
-//class Display;
 class Player;
+class BoardDisplay;
 
 class Tile {
 protected:
 	std::string name;
-//	Display * display;
 	int pos, row, col;
-	std::list <Player*> visitors; // List of Players currently at this Tile
-	//Player* curPlayer; //the current player is the first in the list
+	std::vector <Player*> visitors; // vector of Players currently at this Tile
+    BoardDisplay *theDisplay;
 
 public:
-	Tile (std::string name, int pos);
-	virtual ~Tile() = 0;
+	Tile (std::string, int, int, int,  BoardDisplay *);
+	~Tile();
 	
 	// action is invoked when the player lands on the tile	
 	virtual void action(Player * player) = 0;
@@ -39,8 +34,8 @@ public:
 
 	int getNumVisitor() const;
 	Player* getVisitor() const;
-//	void setDisplay(Display * d);
-//	void updateVisitorDisplay();
+
+    BoardDisplay *getDisplay();
 };
 
 #endif

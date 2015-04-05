@@ -2,8 +2,8 @@
 
 using namespace std;
 
-Tuition::Tuition(string name, int index, int row, int col):
-	Tile(name, index, row, col), pay(300){
+Tuition::Tuition(string name, int index, int row, int col, BoardDisplay *theDisplay):
+	Tile(name, index, row, col, theDisplay), pay(300){
 }
 
 Tuition::~Tuition(){}
