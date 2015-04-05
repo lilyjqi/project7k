@@ -294,8 +294,13 @@ int main(int argc, char* argv[]) {
 				cerr << "Please choose the correct file to start a new game." << endl;
 			}
 		}
-	
-		// else if (argv[1] = "-testing") {...;}
+		
+		/* TESTING MODE */
+		/* TESTING MODE */
+		else if (argv[1] = "-testing") { board->setTesting(true); } 
+		/* TESTING MODE */
+		/* TESTING MODE */
+		
 		else if (argc > 1) {
 			cerr << "Invalid command. Starting a new game..."
 		}
@@ -312,12 +317,16 @@ int main(int argc, char* argv[]) {
 		while (true){
 			board->setCurPlayer();
 			*p = board->getCurPlayer();
+			cout << p->getName() << "'s turn begins" << endl;
 			if (p->getBalance() != -1) { break; }
 		}
 
 		dice = p->rollDice();
 		if (dice == -1) { p->goToIndex(10); }
-		else { p->makeMove(dice); }
+		else { 
+			p->makeMove(dice); 
+			cout << p->getName() <<"'s turn is over." << endl;
+		}
 		if (p->getBalance() == -1){
 			bankruptPlayer++;
 			cout << p->getName() << " is bankrupt."
@@ -326,6 +335,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	cout << p->getName() << " wins the game!" << endl;
+	board->deletePlayer(p->getChar());
 	cout << "Game existing...." << endl;
 	return 1;
 }	
