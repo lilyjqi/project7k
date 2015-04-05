@@ -4,7 +4,7 @@
 using namespace std;
 
 Building::Building(string name, int position, int rindex, int cindex, int numNeighbours):
-    Tile(name, position, rindex, cindex),
+    Tile(name, position), rindex(rindex), cindex(cindex),
     numNeighbours(numNeighbours),neighbours(NULL),cost(0),mort(0),
     owner(School::getInstance()) {}
 

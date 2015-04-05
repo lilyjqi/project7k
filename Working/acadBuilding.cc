@@ -68,7 +68,7 @@ void AcadBuilding::setPay() {
 int AcadBuilding::getPay() {
     int loop = 0;
     int cost = pay;
-    while (loop <= CurLevel) {
+    while (loop <= curLevel) {
         if (loop == 1) {
             if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" ||
                 name == "HH" || name == "RCH" || name == "DWE" || name == "CPH" || 
@@ -145,7 +145,7 @@ int AcadBuilding::getPay() {
 }
 
 int AcadBuilding::getCost() {
-    string name = ab->getName();
+    string name = this->getName();
     if (name == "AL" || name == "ML" ||name == "ECH" || name == "PAS" || name == "HH") 
     {return cost + curLevel * 50;}
     else if (name == "RCH" || name == "DWE" || name == "CPH" || name == "LHI" || name == "BMH" || name == "OPT") 
@@ -153,7 +153,9 @@ int AcadBuilding::getCost() {
     else if (name == "EV1" || name == "EV2" || name == "EV3" || name == "PHYS" || name == "B1" || name == "B2") 
     {return cost + curLevel * 150;}
     else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
-    {return cost + curLevel * 200;}}
+    {return cost + curLevel * 200;}
+    return 0;
+}
 
 int AcadBuilding::getImprCost() {
     string name = this->getName();
@@ -165,6 +167,8 @@ int AcadBuilding::getImprCost() {
     {return cost + curLevel * 150;}
     else if (name == "EIT" || name == "ESC" || name == "C2" || name == "MC" || name == "DC") 
     {return 200;}
+    return 0;
+}
 
 void AcadBuilding::addNeighbour(Building *b) {
     if (neighbours==NULL) {
@@ -192,6 +196,6 @@ void AcadBuilding::deImprov() {
 }
 
 void AcadBuilding::notifyDisplay() {
-    GameBoard * gb = GameBoard::getInstance();
+    GameBoard * gb = GameBoard::getInstance(School::getInstance(), BoardDisplay::getInstance(), rollUpRim::getInstance());
     gb->getDisplay()->updateImpro(this);
 }
