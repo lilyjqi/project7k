@@ -59,7 +59,7 @@ int initPlayer(GameBoard* board) {
 
 		// getting char
 		while (true) {
-			cout << "Please pick a char of the following to represent yourself:" << playerChar;
+			cout << "Please pick a char of the following to represent yourself:" << playerChar <<":";
 			cin >> ws;
 			cin >> charPiece;
 			if (playerChar.find(charPiece) == -1) { cout << "Please pick the correct char." << endl;}
@@ -330,6 +330,8 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	cmd = "";
+	string options;
 	int dice;
 	Player *p;
 	int bankruptPlayer = 0;
@@ -341,15 +343,38 @@ int main(int argc, char* argv[]) {
 			if (p->getBalance() != -1) { break; }
 		}
 
-		dice = p->rollDice();
-		if (dice == -1) { p->goToIndex(10); }
-		else { 
-			p->makeMove(dice); 
-			cout << p->getName() <<"'s turn is over." << endl;
+		while (getline(cin, options)) {
+			istringstream iss(options.c_str());
+			iss >> cmd;
+
+			if (cmd == "trade") { p->makeTrade(options); }
+			else if (cmd == "improve") { p->makeImprove(options); }
+			else if (cmd == "mortgage") { p->makeImprove(options); }
+			else if (cmd == "unmortgage") {p->unMortgage(options); }
+			else if (cmd == "asset") { p->asset(); }
+			else if (cmd == "save") { 
+				string file;
+				iss >> file;
+				saveGame(file, board); 
+			}
+			else if (cmd == "roll") {
+				dice = p->rollDice();
+				if (dice == -1) { p->goToIndex(10); }
+				else {
+					p->makeMove(dice); 
+					cout << p->getName() <<"'s turn is over." << endl;
+					break;
+				}
+			}
+			else {
+				cerr << "Please enter a valid command. " << endl;
+			}
+			//else if (cmd == "next") { break; }
 		}
+
 		if (p->getBalance() == -1){
 			bankruptPlayer++;
-			cout << p->getName() << " is bankrupt.";
+			cout << "DUANG DUANG! " << p->getName() << " declares bankruptcy. ";
 			board->deletePlayer(p->getChar());
 		}
 	}

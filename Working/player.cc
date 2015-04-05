@@ -502,6 +502,7 @@ void Player::makeImprove(string com) {
         cout << "Price is " << price << endl;
         if (this->getBalance() < price) {
             cout << "You don't have enough money!" << endl;
+            this->noMoney();
         }
         else {
             this->addBalance(-price);
@@ -566,6 +567,10 @@ void Player::unMortgage(string com) {
 }
 
 void Player::asset() {
+    if (this->getPos() == 4) {
+        cerr<<"Duang you are standing on Tuition - cannot display your Asset."<< endl;
+        return;
+    }
     cout << "Player " << this->getName() << "'s Assets:"<< endl;      
     cout << "Balance: " << this->getBalance() << endl;
     Building *build;
