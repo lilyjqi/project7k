@@ -1,5 +1,5 @@
 #include "tuition.h"
-
+#include "player.h"
 using namespace std;
 
 Tuition::Tuition(string name, int index, int row, int col, BoardDisplay *theDisplay):
@@ -14,7 +14,7 @@ int Tuition::getTuition() const {
 
 void Tuition::action(Player* p){
 	visit(p);
-	p->setBalance(-getTuition());
+	p->addBalance(-getTuition());
 }
 
 void Tuition::setCost(){ return; }

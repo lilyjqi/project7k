@@ -379,10 +379,10 @@ void BoardDisplay::updatePos(Tile *t) {
     int r = t->getRindex();
     int c = t->getCindex();
 
-    Player* visitors = t->getVisitor();
+    vector<Player *> visitors = t->getVisitor();
     string p = "";
-    for (int i =0; i<t->getNumVisitor(); ++i) {
-        p += (visitors+i)->getChar();
+    for (int i =0; i<visitors.size(); ++i) {
+        p += visitors[i]->getChar();
     }
     display[r+3][c] = "|" + p + drawString(p.length()) + "|";
 }

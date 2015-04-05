@@ -1,11 +1,11 @@
 #include "tile.h"
-#include "board.h"
+//#include "board.h"
 #include "player.h"
-#include "display.h"
+//#include "display.h"
 #include <iostream>
 using namespace std;
 
-Tile::Tile (string name, int pos, int row, int col, BoardDisplay *theDisplay): name(name), pos(pos), row(row), col(col), visitors(vector <Player*>), theDisplay(theDisplay){
+Tile::Tile (string name, int pos, int row, int col, BoardDisplay *theDisplay): name(name), pos(pos), row(row), col(col), theDisplay(theDisplay){
     
 }
 
@@ -15,7 +15,6 @@ Tile::~Tile () {
 
 void Tile::visit(Player *player){
 	visitors.push_back(player);
-	//updateVisitorDisplay();
 }
 
 void Tile::devisit(Player * player) {
@@ -24,14 +23,13 @@ void Tile::devisit(Player * player) {
 		it++;
 
 	visitors.erase(it);
-	//updateVisitorDisplay();
 }
 
 string Tile::getName() const {
 	return name;
 }
 
-int Tile::getIndex() const { /* replace by getPos ??? */
+int Tile::getIndex() const {
 	return pos;
 }
 
@@ -48,7 +46,7 @@ int Tile::getNumVisitor() const{
 	return visitors.size();
 }
 
-Player* Tile::getVisitor() const {
+vector<Player *> Tile::getVisitor() const {
 	return visitors;
 }
 

@@ -1,4 +1,6 @@
 #include "SLC.h"
+#include "player.h"
+#include "rollUpRim.h"
 
 using namespace std;
 
@@ -8,23 +10,17 @@ SLC::SLC(string name, int index, int row, int col, BoardDisplay *theDisplay):
 
 SLC::~SLC(){}
 
-void: SLC::drawCard(){
+int SLC::drawCard(){
 	int total = 24;
-// <<<<<<< HEAD
+	int i=0;
+
 	srand(time(NULL));
     int random = rand()%total+1;
-	for (int i = 0, i < total, i++){
-		if (random <= cardsDistritbuion[i]) { return i; }
-// =======
-// 	int random = Board::getBoard()->getRand(total);
-// 	for (int i = 0; i < total; i++){
-// 		if (random <= cardsDistritbution[i]) { return i; }
-// >>>>>>> 3c8fbdebb4f57d32599c970497cc4851e6b01ad9
+	for (i = 0; i < total; i++){
+		if (random <= cardsDistribution[i]) { break; }
 	}
-	return;
+	return i;
 }
-
-int SLC::getMove() const { return move; }
 
 void SLC::action(Player* p){
 	visit(p);
@@ -33,7 +29,7 @@ void SLC::action(Player* p){
 	if(i <= 5) { p->makeMove(cards[i]); } 
 	else if (i == 6) { 
 		p->setLanded(false); 
-		p->gotoIndex(DC_TIMS_LINE);
+		p->goToIndex(DC_TIMS_LINE);
 	} //
 	else { p->goToIndex(OSAP_LINE); }
 

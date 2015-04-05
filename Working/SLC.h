@@ -5,6 +5,9 @@
 #include <cstdlib>
 #include "tile.h"
 
+#define DC_TIMS_LINE 10
+#define OSAP_LINE 0
+
 class Owner;
 class Building;
 
@@ -18,8 +21,8 @@ public:
 	SLC(std::string name, int index, int row, int col, BoardDisplay * theDisplay);
 	~SLC();
 
-	void drawCard();
-	int getMove() const;
+	int drawCard();
+	//int getMove() const;
 	void action(Player* p);
 
 	void setCost();

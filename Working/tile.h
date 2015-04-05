@@ -36,7 +36,7 @@ public:
 	int getCindex() const;
 
 	int getNumVisitor() const;
-	Player* getVisitor() const;
+	std::vector<Player *> getVisitor() const;
 
     BoardDisplay *getDisplay();
 
