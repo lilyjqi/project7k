@@ -19,7 +19,6 @@ class GameBoard{
     Tile** tiles;
     std::vector<Player*> players;
     std::map<std::string, Player*> pNamesMap;
-    Owner* admin; /* field never used */
     BoardDisplay* theDisplay;
     Player* curPlayer;
     bool testingDice;

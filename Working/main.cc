@@ -28,7 +28,7 @@ const int ownableTileIndex[28]={1,3,5,6,8,9,11,12,13,14,15,16,18,19,21,23,24,25,
 int initPlayer(GameBoard* board) {
 	map<string, int> checkNameDup;
 
-	cout << "Please enter the number of players - choose a number from TWO to EIGHT.";
+    cout << "Please enter the number of players - choose a number from TWO to EIGHT." << endl;;
 	int numPlayer;
 	while (true) {
 		if (!(cin >> numPlayer)) {
@@ -37,7 +37,7 @@ int initPlayer(GameBoard* board) {
 		} else if (numPlayer > 8 || numPlayer < 2) {
 			cout << "Please enter the correct number of players [2-8].";
 		} else { 
-			cout << "There will be " << numPlayer << " players in this game. ";
+			cout << "There will be " << numPlayer << " players in this game. " << endl;
 			break; 
 		}
 	}
@@ -278,8 +278,12 @@ int main(int argc, char* argv[]) {
 	int numPlayer;
 	string cmd;
 	// set up gameBoard
-	School::getInstance();
-	GameBoard* board=GameBoard::getInstance(BoardDisplay::getInstance(), rollUpRim::getInstance());
+    BoardDisplay *display = BoardDisplay::getInstance();
+    rollUpRim **cups = rollUpRim::getInstance();
+
+    GameBoard* board=GameBoard::getInstance(display,cups);
+
+
 	for(int i=0; i<4; i++){
 		(*(rollUpRim::getInstance()+i))->setOwner(School::getInstance());
 	}

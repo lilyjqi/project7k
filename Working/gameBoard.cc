@@ -1,4 +1,5 @@
 #include "gameBoard.h"
+#include "school.h"
 #include "acadBuilding.h"
 #include "SLC.h"
 #include "tuition.h"
@@ -19,11 +20,7 @@ GameBoard::GameBoard(BoardDisplay *theDisplay, rollUpRim **cups):
      players(0), theDisplay(theDisplay),curPlayer(NULL),testingDice(false), numPlayers(0),cups(cups) 
 {     
     tiles = new Tile *[40];
-
-    // for(int j=0; j<28; j++){
-    //   AcadBuilding* tiles[ownableTileIndex2[j]]=dynamic_cast<AcadBuilding *>(tiles[ownableTileIndex2[j]]);
-    // }
-
+    School *admin = School::getInstance();
     for (int i=0; i<40; i++) {
         if (i == 1) {//AcadBuilding* tiles[i]=dynamic_cast<AcadBuilding *>(tiles[i]);
                      tiles[i] = new AcadBuilding("AL", 1, 51, 9, "Arts1", theDisplay);
@@ -31,7 +28,9 @@ GameBoard::GameBoard(BoardDisplay *theDisplay, rollUpRim **cups):
         	         tiles[i]->setOwner(admin);
         	         admin->addBuilding(tiles[i]);
         }
+
         else if (i == 2) {tiles[i] = new SLC("SLC", 2, 51, 8, theDisplay);}
+
         else if (i == 3) {tiles[i] = new AcadBuilding("ML", 3, 51, 7, "Arts1", theDisplay);
                           tiles[i]->setCost();
         	              tiles[i]->setOwner(admin);
