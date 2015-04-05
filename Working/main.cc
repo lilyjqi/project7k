@@ -290,7 +290,10 @@ int main(int argc, char* argv[]) {
 
 	if (argc > 1) { cmd = argv[1]; }
 
+	cout << "Init finished"<< endl;
+
 	while (true){
+		bool loaded =false;
 		if (cmd == "-load") {
 			string file = argv[2];
 			ifstream ifs(file.c_str());
@@ -300,7 +303,7 @@ int main(int argc, char* argv[]) {
 					cerr << "The save file has incorrect format. ";
 					cerr << "Please choose another file to start a new game. " << endl;
 				} else { 
-					//bool loaded = true;
+					loaded = true;
 					cout << "Game is loaded. "<< endl;
 					break; 
 				}
@@ -316,12 +319,14 @@ int main(int argc, char* argv[]) {
 		/* TESTING MODE */
 		/* TESTING MODE */
 		
-		else if (argc > 1) {
+		else {
 			cerr << "Invalid command. Starting a new game...";
 		}
-		else {
+
+		if (!loaded){
 			cout << "The game is about to START." << endl;
 			numPlayer = initPlayer(board);
+			break;
 		}
 	}
 
