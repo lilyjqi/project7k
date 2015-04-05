@@ -1,4 +1,5 @@
 #include "school.h"
+#include <cstdlib>
 
 using namespace std;
 

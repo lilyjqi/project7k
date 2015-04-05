@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Residence::Residence(string name, int position. int rindex, int cindex, BoardDisplay *theDisplay):
+Residence::Residence(string name, int position, int rindex, int cindex, BoardDisplay *theDisplay):
     Building (name, position, rindex, cindex,3, theDisplay) {}
 
 void Residence::setCost() {
@@ -14,10 +14,10 @@ void Residence::setPay() {
     pay = 25;
 }
 
-int Residece::getPay() {
+int Residence::getPay() {
     int count=0;
-    for (int i=0; i<numNeighbour; i++) {
-        Residence* rb = dynamic_cast<residence *>(neighbours[i]);
+    for (int i=0; i<numNeighbours; i++) {
+        Residence* rb = dynamic_cast<Residence *>(neighbours[i]);
         if (rb!=NULL && rb->getOwner()==this->getOwner()) {
             count++;
         }
@@ -26,14 +26,14 @@ int Residece::getPay() {
 
 }
 
-int Residece::getCost() {
+int Residence::getCost() {
     return cost;
 }
 
 void Residence::addNeighbour(Tile *b) {
     // check if this is the first time we add neighbour for residence
     if (neighbours == NULL) {
-        neighbours = new Building *[3];
+        neighbours = new Tile *[3];
         neighbours[0] = b;
     }//if
 
