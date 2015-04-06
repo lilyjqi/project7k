@@ -106,9 +106,9 @@ int loadGame(ifstream &in, GameBoard* board){
         if (cin.eof()) {return 0;}
 		in >> c;
         if (cin.eof()) {return 0;}
-		in >> money;
-        if (cin.eof()) {return 0;}
 		in >> cups;
+        if (cin.eof()) {return 0;}
+		in >> money;
         if (cin.eof()) {return 0;}
 		in >> index;
         if (cin.eof()) {return 0;}
@@ -252,11 +252,12 @@ void saveGame(string file, GameBoard* board){
 		Player* p = board->getCurPlayer();
 		string name = p->getName();
 
-		oof << name << " " << p->getChar() << " " << p->getBalance() << " ";
+		oof << name << " " << p->getChar() << " ";
 		for (int j=0; j<4; j++){ // get the number of RollUpRims owned by Player p
 			if ( (rollUpRim::getInstance())[j]->getOwner()->getName() == name ) { timsCount++; }
 		}
 		oof << timsCount << " ";
+        oof << p->getBalance() << " ";
 		int pos = p->getPos();
 		oof << pos;
 		// additional information if player is in DC Tims Line
