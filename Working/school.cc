@@ -13,7 +13,7 @@ School *School::getInstance() {
     return instance;
 }
 
-School::School(): Owner("Bank") {};
+School::School(): Owner("BANK") {};
 
 void School::cleanup() {
     delete instance;

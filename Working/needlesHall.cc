@@ -49,7 +49,12 @@ void needlesHall::action(Player* p){
 
     else {
 	    drawCards();
-	    p->addBalance(getFee());
+        while (p->getBalance() < getFee()) {
+            p->noMoney();
+            if (cin.eof()) {return;}
+            if (p->getBalance() == -1) {return;}
+        }	   
+        p->addBalance(getFee());
     }
 }
 

@@ -265,6 +265,8 @@ void Player::makeMove(int m) {
 
         // if moved to an unownable building
         else {
+            if (cin.eof()) {return;}
+            else if (this->getBalance() == -1) {return;}
             this->setLanded(true);
             notify(t);
             notifyDisplay(t);
@@ -370,7 +372,7 @@ void Player::noMoney(Owner *owes) {
                     int principle = build->getMort();
                     owes->addBalance(-0.1*principle);
 
-                    cout << "Do you want to unmortgage now? (y/n)" << endl;
+                    cout << "Player " << owes->getName() << " , do you want to unmortgage now? (y/n)" << endl;
                     string decision = "";
                     while (cin >> decision) {
                         if (cin.eof()) {return;}
@@ -637,6 +639,9 @@ void Player::asset() {
         AcadBuilding *abuild = dynamic_cast<AcadBuilding *>(build);
         if (abuild) {
             cout << ", current level is " << abuild->getCurLevel();
+        }
+        if (build->isMort()) {
+           cout << ", on mortgage.";
         }
         cout << endl;
     }

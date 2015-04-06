@@ -125,7 +125,7 @@ int loadGame(ifstream &in, GameBoard* board){
 			in >> timsLine;
 			if(timsLine == 1){
 				in >> timsTurn;
-				if(timsTurn < 1 || timsTurn > 3){
+				if(timsTurn < 0 || timsTurn > 2){
 					cerr << "Invalid number of turns in line for " << name << endl;
 					return 0;
 				}
@@ -202,7 +202,7 @@ int loadGame(ifstream &in, GameBoard* board){
 		}
 		in >> owner;
 
-		if(owner == "Bank"){
+		if(owner == "BANK"){
  			ownedTile->setOwner(School::getInstance());
 		}else{
 			p = board->getPlayer(owner);
@@ -448,7 +448,7 @@ int main(int argc, char* argv[]) {
         board->setCurPlayer();
 
 		if (p->getBalance() == -1){
-			cout << "DUANG DUANG! " << p->getName()  << " " << p->getChar() << " declares bankruptcy. ";
+			cout << "DUANG DUANG! " << p->getName()  << " " << p->getChar() << " declares bankruptcy. " << endl;
 			board->deletePlayer(p->getChar());
 		}
 	}

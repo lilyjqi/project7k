@@ -1,5 +1,7 @@
 #include "tuition.h"
 #include "player.h"
+#include <iostream>
+
 using namespace std;
 
 Tuition::Tuition(string name, int index, int row, int col, BoardDisplay *theDisplay):
@@ -14,7 +16,12 @@ int Tuition::getTuition() const {
 
 void Tuition::action(Player* p){
 	visit(p);
-	p->addBalance(-getTuition());
+    while (p->getBalance() < getTuition()) {
+        p->noMoney();
+        if (cin.eof()) {return;}
+        if (p->getBalance() == -1) {return;}
+    }		
+    p->addBalance(-getTuition());
 }
 
 void Tuition::setCost(){ return; }
