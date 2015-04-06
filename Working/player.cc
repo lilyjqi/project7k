@@ -524,15 +524,20 @@ void Player::makeImprove(string com) {
     int price = p->getImprCost();
 
     if (bors == "buy") {
-        cout << "Price is " << price << endl;
-        if (this->getBalance() < price) {
-            cout << "You don't have enough money!" << endl;
-            this->noMoney();
+        if (p->isMono()) {
+            cout << "Price is " << price << endl;
+            if (this->getBalance() < price) {
+                cout << "You don't have enough money!" << endl;
+                this->noMoney();
+            }
+            else {
+                this->addBalance(-price);
+                p->improv();
+                cout << "You have improved to Level "<< p->getCurLevel() << endl;
+            }
         }
         else {
-            this->addBalance(-price);
-            p->improv();
-            cout << "You have improved to Level "<< p->getCurLevel() << endl;
+            cout << "You can not make improvement!" << endl;
         }
     }
     else {
@@ -601,6 +606,11 @@ void Player::asset() {
     Building *build;
     for (int i=0; i<numBuilding; ++i) {
         build = dynamic_cast<Building *>(ownBuilding[i]);
-        cout << build->getName() << ": cost is " << build->getCost() << endl;
+        cout << build->getName() << ": " << build->getCost();
+        AcadBuilding *abuild = dynamic_cast<AcadBuilding *>(build);
+        if (abuild) {
+            cout << ", current level is " << abuild->getCurLevel();
+        }
+        cout << endl;
     }
 }
