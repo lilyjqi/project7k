@@ -181,7 +181,7 @@ void Player::makeMove(int m) {
                         cout << "This builiding is on mortgage. You don't need to pay!" << endl;
                         return;
                     }
-
+                    
                     AcadBuilding *Abuild = dynamic_cast<AcadBuilding *>(t);
                     // if t is an academic building
                     if (Abuild) {
@@ -191,7 +191,6 @@ void Player::makeMove(int m) {
                             if (Abuild->getCurLevel() == 0) {payAmount = (build->getPay()) * 2;}
                             else {payAmount = build->getPay();}
                         }
-
                         // if t is not in a monopoly
                         else {
                             payAmount = build->getPay();
@@ -315,7 +314,7 @@ void Player::noMoney() {
     cout << "You don't have enough money." << endl;
     cout << "You have five options." << endl;
     cout << "asset/bankrupt/Trade/Mortgage/Sell Improvements" << endl;
-    cout << "Please enter <enough> to continue making improvements!" << endl;
+    cout << "Please enter <enough> to continue!" << endl;
     
     School *school = School::getInstance();
     string command = "";
@@ -348,6 +347,7 @@ void Player::noMoney() {
         }
     }// while
     if (cin.eof()) {return;}
+    cin.ignore();
 }
 
 void Player::noMoney(Owner *owes) {

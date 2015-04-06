@@ -21,8 +21,8 @@ string AcadBuilding::getmonoBlock() {
 
 bool AcadBuilding::isMono() {
     for (int i=0; i< numNeighbours; i++) {
-        AcadBuilding* ab = dynamic_cast<AcadBuilding *>(neighbours[i]);
-        if (ab != NULL && ab->getmonoBlock() != this->getmonoBlock()) {
+        Building *build = dynamic_cast<Building *>(neighbours[i]);
+        if (build->getOwner() != this->getOwner()) {
             return false;
         }
     }

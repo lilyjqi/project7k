@@ -142,7 +142,7 @@ GameBoard::GameBoard(BoardDisplay *theDisplay, rollUpRim **cups):
         		           tiles[i]->setOwner(admin);
         	   	           admin->addBuilding(tiles[i]);
         }
-        else if (i == 30) {tiles[i] = new goToTims("GO TO TIMS", 30, 5, 10, theDisplay);}
+        else if (i == 30) {tiles[i] = new goToTims("GO TO TIMS", 30, 1, 10, theDisplay);}
         else if (i == 31) {tiles[i] = new AcadBuilding("EIT", 31, 6, 10, "Sci2", theDisplay);
                            tiles[i]->setCost();
         		           tiles[i]->setOwner(admin);
@@ -320,7 +320,6 @@ void GameBoard::deletePlayer(char c) {
         if (players[i]->getChar() == c) {
             players.erase(players.begin()+i);
             numPlayers--;
-            cout << "Player " << players[i]->getName() << " is deleted." << endl;
             break;
         }
     }

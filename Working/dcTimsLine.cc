@@ -19,8 +19,14 @@ void dcTimsLine::action(Player* p){
 		cout << "Type 1 or 2: ";
 
 		while (cin >> i) {
-
+            if(cin.eof()) {return;}
 			if (i == 1) {
+                if (p->getBalance() < 50) {
+                    cin.ignore();
+                    p->noMoney();
+                    if (cin.eof()) {return;}
+                    if (p->getBalance() == -1) {return;}                
+                }
 				p->addBalance(-50);
 				p->setLanded(true);
 				p->setRollDoubleFailCount(0);
@@ -65,6 +71,7 @@ void dcTimsLine::action(Player* p){
 		cout << "Type 1, 2 or 3: ";
 
 		while (cin >> i){
+            if (cin.eof()) {return;}
 			if (i == 1) {
 				bool success = p->isDouble();
 				if (success) {
@@ -80,6 +87,12 @@ void dcTimsLine::action(Player* p){
 					return; // player does not leave the line
 				}
 			} else if (i == 2) {
+                    if (p->getBalance() < 50) {
+                        cin.ignore();
+                        p->noMoney();
+                        if (cin.eof()) {return;}
+                        if (p->getBalance() == -1) {return;}                        
+                    }
 					p->addBalance(-50);
 					p->setLanded(true);
 					p->setRollDoubleFailCount(0);

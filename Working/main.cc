@@ -354,8 +354,8 @@ int main(int argc, char* argv[]) {
 	int dice;
     board->setCurPlayer();
 	Player *p = board->getCurPlayer();
-
-	while (numPlayer != 1){
+    
+	while (board->getNumPlayer() != 1){
         p = board->getCurPlayer();
         cout << (*(board->getDisplay()));
 		cout << p->getName() << "'s turn begins" << endl;
@@ -392,7 +392,8 @@ int main(int argc, char* argv[]) {
                 else if (options.length() > 4) {
                     int die1, die2;
                     iss >> die1 >> die2;
-                    dice = die1 + die2;
+                    if (die1 == die2) {dice = -1;}
+                    else {dice = die1 + die2;}
 				    if (dice == -1) {
                         cout << "You have been sent to DC Tims Line." << endl; 
                         p->goToIndex(10); 
@@ -433,9 +434,9 @@ int main(int argc, char* argv[]) {
 			board->deletePlayer(p->getChar());
 		}
 	}
-
-	cout << p->getName() << " wins the game!" << endl;
-	board->deletePlayer(p->getChar());
+    
+	cout << board->getCurPlayer()->getName() << " wins the game!" << endl;
+	board->deletePlayer(board->getCurPlayer()->getChar());
 	cout << "Game existing...." << endl;
 	//GameBoard::cleanup();
 	return 1;
