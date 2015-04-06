@@ -32,6 +32,7 @@ int initPlayer(GameBoard* board) {
 	int numPlayer;
 	while (true) {
 		if (!(cin >> numPlayer)) {
+            if (cin.eof()) {return 0;}
 			cin.clear();
 			cin.ignore();
 		} else if (numPlayer > 8 || numPlayer < 2) {
@@ -50,10 +51,13 @@ int initPlayer(GameBoard* board) {
 		// getting name
 		cout << "Enter a name for Player" << i << ": ";
 		cin >> ws;
+        if (cin.eof()) {return 0;}
 		cin >> name;
+        if (cin.eof()) {return 0;}
 		while (checkNameDup.count(name)>0) {
 			cout << "The name is already taken. Please pick another: ";
 			cin >> name;
+            if (cin.eof()) {return 0;}
 		}
 		checkNameDup[name]=i;
 
@@ -61,7 +65,9 @@ int initPlayer(GameBoard* board) {
 		while (true) {
 			cout << "Please pick a char of the following to represent yourself -" << playerChar <<":";
 			cin >> ws;
+            if (cin.eof()) {return 0;}
 			cin >> charPiece;
+            if (cin.eof()) {return 0;}
 			if (playerChar.find(charPiece) == -1) { cout << "Please pick the correct char." << endl;}
 			else {
 				playerChar = playerChar.substr(0,playerChar.find(charPiece)) + playerChar.substr(playerChar.find(charPiece)+1);
@@ -94,13 +100,18 @@ int loadGame(ifstream &in, GameBoard* board){
 	Player* p;
 
 	in >> numPlayer;
+    if (cin.eof()) {return 0;}
 	for(int i = 0; i < numPlayer; i++){
 		in >> name;
-
+        if (cin.eof()) {return 0;}
 		in >> c;
+        if (cin.eof()) {return 0;}
 		in >> money;
+        if (cin.eof()) {return 0;}
 		in >> cups;
+        if (cin.eof()) {return 0;}
 		in >> index;
+        if (cin.eof()) {return 0;}
 		timsCup += cups;
 
 		if(index == 30 || index < 0 || index >= 40){
@@ -131,15 +142,16 @@ int loadGame(ifstream &in, GameBoard* board){
 
 		// load player to the gameboard
 		p = new Player(name, c, index, board->getRindex(index), board->getCindex(index));
-		p->addBalance(money - p->getBalance());
+        p->addBalance(money - p->getBalance());
 		board->addPlayer(p);
+
 		for (int j=0; j<cups; j++){
 			(*(rollUpRim::getInstance()+j))->setOwner(p);
 		}
 		p->setRollDoubleFailCount(timsTurn);
 		cout << name << " with char " << c << " is loaded" << endl;
-
-		BoardDisplay::getInstance()->updatePos(board->getTile(index));
+        
+        board->getTile(p->getPos())->visit(p);
 	}
 
 /****** loading Players to board finished; now loading Tiles ******/
@@ -176,6 +188,7 @@ int loadGame(ifstream &in, GameBoard* board){
 
 	string tileName, owner;
 	int improvements, tileIndex;
+
 	while(in >> tileName){
 		tileIndex = tileNameMap[tileName];
 		if(tileIndex == 0){ // if key tileName does not exist in map, default value of int - zero - is returned
@@ -191,14 +204,14 @@ int loadGame(ifstream &in, GameBoard* board){
 			return 0;
 		}
 		in >> owner;
-		if(owner == "BANK"){
-			ownedTile->setOwner(School::getInstance());
+
+		if(owner == "Bank"){
+ 			ownedTile->setOwner(School::getInstance());
 		}else{
 			p = board->getPlayer(owner);
 			p->addBuilding(ownedTile);
 			ownedTile->setOwner(p);
 		}
-
 		// set Improvements
 		in >> improvements;
 		if(improvements == -1){
@@ -239,11 +252,11 @@ void saveGame(string file, GameBoard* board){
 		Player* p = board->getCurPlayer();
 		string name = p->getName();
 
-		oof << name << " " << p->getChar() << " " << p->getWorth() << " ";
+		oof << name << " " << p->getChar() << " " << p->getBalance() << " ";
 		for (int j=0; j<4; j++){ // get the number of RollUpRims owned by Player p
-			if ( (*(rollUpRim::getInstance()+j))->getOwner()->getName() == name ) { timsCount++; }
+			if ( (rollUpRim::getInstance())[j]->getOwner()->getName() == name ) { timsCount++; }
 		}
-		cout << timsCount << " ";
+		oof << timsCount << " ";
 		int pos = p->getPos();
 		oof << pos;
 		// additional information if player is in DC Tims Line
@@ -252,8 +265,9 @@ void saveGame(string file, GameBoard* board){
 			else { oof << " 1 " << p->getRollDoubleFailCount(); }
 		}
 		oof << endl;
+        board->setCurPlayer();
 	}
-
+    
 	/********** Player info saved; now saving Tile info ***********/
 
 	for(int i = 0; i < 28; i++){
@@ -275,6 +289,7 @@ void saveGame(string file, GameBoard* board){
 		}
 		oof << endl;
 	}
+    cout << "Game saved succesfully!" << endl;
 }
 
 int main(int argc, char* argv[]) {
@@ -286,7 +301,6 @@ int main(int argc, char* argv[]) {
 
     GameBoard* board=GameBoard::getInstance(display,cups);
 
-
 	for(int i=0; i<4; i++){
 		(*(rollUpRim::getInstance()+i))->setOwner(School::getInstance());
 	}
@@ -294,7 +308,6 @@ int main(int argc, char* argv[]) {
 	if (argc > 1) { cmd = argv[1]; }
 
 	cout << "Init finished"<< endl;
-
 	while (true){
 		bool loaded =false;
 		if (cmd == "-load") {
@@ -302,7 +315,8 @@ int main(int argc, char* argv[]) {
 			ifstream ifs(file.c_str());
 			if(ifs.good()){
 				numPlayer = loadGame(ifs, board);
-				if(numPlayer == 0){
+                if (cin.eof()) {cin.clear(); cin.ignore(); return 0;}
+                else if(numPlayer == 0){
 					cerr << "The save file has incorrect format. ";
 					cerr << "Please choose another file to start a new game. " << endl;
 				} else { 
@@ -329,18 +343,19 @@ int main(int argc, char* argv[]) {
 		if (!loaded){
 			cout << "The game is about to START." << endl;
 			numPlayer = initPlayer(board);
+            if (cin.eof()) {cin.clear(); cin.ignore(); return 0;}
+            cin.ignore();
 			break;
 		}
 	}
-    
+
 	cmd = "";
 	string options;
 	int dice;
     board->setCurPlayer();
 	Player *p = board->getCurPlayer();
-	int bankruptPlayer = 0;
-    cin.ignore();
-	while (bankruptPlayer + 1 != numPlayer){
+
+	while (numPlayer != 1){
         p = board->getCurPlayer();
         cout << (*(board->getDisplay()));
 		cout << p->getName() << "'s turn begins" << endl;
@@ -373,7 +388,22 @@ int main(int argc, char* argv[]) {
                     cout << "You are in DC Tims Line. Can'r roll." << endl;
                     cout << "Please use next!" << endl;
                 }
-
+                
+                else if (options.length() > 4) {
+                    int die1, die2;
+                    iss >> die1 >> die2;
+                    dice = die1 + die2;
+				    if (dice == -1) {
+                        cout << "You have been sent to DC Tims Line." << endl; 
+                        p->goToIndex(10); 
+                    }
+				    else {
+					    p->makeMove(dice); 
+                        if (cin.eof()) {return 0;}
+				    }
+				    cout << p->getName() <<"'s turn is over." << endl;
+                    break;
+                }
                 else {
                     dice = p->rollDice();
 				    if (dice == -1) {
@@ -382,6 +412,7 @@ int main(int argc, char* argv[]) {
                     }
 				    else {
 					    p->makeMove(dice); 
+                        if (cin.eof()) {return 0;}
 				    }
 				    cout << p->getName() <<"'s turn is over." << endl;
                     break;
@@ -392,11 +423,12 @@ int main(int argc, char* argv[]) {
 			}
 			//else if (cmd == "next") { break; }
 		}// while
+        
+        if (cin.eof()) {cin.clear(); cin.ignore();return 0;}
 
         board->setCurPlayer();
 
 		if (p->getBalance() == -1){
-			bankruptPlayer++;
 			cout << "DUANG DUANG! " << p->getName()  << " " << p->getChar() << " declares bankruptcy. ";
 			board->deletePlayer(p->getChar());
 		}

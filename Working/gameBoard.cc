@@ -318,7 +318,8 @@ Player * GameBoard::getPlayer(string s){
 void GameBoard::deletePlayer(char c) {
     for (int i=0; i<players.size(); ++i) {
         if (players[i]->getChar() == c) {
-            players.erase(players.begin()+i); 
+            players.erase(players.begin()+i);
+            numPlayers--;
             cout << "Player " << players[i]->getName() << " is deleted." << endl;
             break;
         }

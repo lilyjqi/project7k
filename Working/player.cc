@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
@@ -67,27 +68,7 @@ int Player::getRollDoubleFailCount(){ return rollDoubleFailCount; }
 void Player::setRollDoubleFailCount(int n) { rollDoubleFailCount=n; }
 
 int Player::rollDice() {
-    string d1, d2;
     int die1, die2;
-    if (gb->getTesting()==true) {
-        cout<< "Controlled dice: pick two numbers, separated by space: ";
-        while(cin>>d1 && cin>>d2){
-            istringstream ss1(d1);
-            istringstream ss2(d2);
-            if(ss1>>die1 && ss2>>die2){
-                // if(die1>=1 && die1 <=6 && die2>=1 && die2<=6){
-                //     break;
-                // } else {
-                //     cerr<<"Please enter numbers within [1-6], separated by space: "<<endl;
-                // }
-                break;
-            } else {
-                cerr<<"Please enter valid numbers, separated by space: ";
-            }
-        }
-        return die1+die2;
-    }
-
     for (int i=0; i<3; ++i) {
         srand(time(NULL));
         die1 = rand()%6+1;
@@ -148,16 +129,16 @@ void Player::makeMove(int m) {
                         // if t is in a monopoly
                         if (aBuild->isMono()) {
                             int c = aBuild->getImprCost();
-                            cout << "3" << endl;
                             cout << "Cost of improvement is " << c << endl;
                             cout << "Do you want to make improvement to your building?(y/n)" << endl;
                             string decision = "";
                             while (cin >> decision) {
-
+                                if (cin.eof()) {return;}
                                 // make improvement
                                 if (decision == "y") {
                                     if (c > this->getBalance()) {
                                         this->noMoney();
+                                        if (cin.eof()) {return;}
                                         if (this->getBalance() == -1) {return;}
                                         this->addBalance(-c);
                                         aBuild->improv();
@@ -227,6 +208,7 @@ void Player::makeMove(int m) {
 
                     if (payAmount > this->getBalance()) {
                         this->noMoney(build->getOwner());
+                        if (cin.eof()) {return;}
                         if (this->getBalance() == -1) {return;}
                         cout << "You have paid " << payAmount << " dollars to " << ownerName << endl;
                         this->addBalance(-payAmount);
@@ -244,15 +226,16 @@ void Player::makeMove(int m) {
             else {
                 int c = build->getCost();
                 string n = build->getName();
-                cout << "4" << endl;
                 cout << "Cost of " << n << " is " << c << endl;
                 cout << "Do you want to buy it?(y/n)" << endl;
                 string decision="";
                 while (cin >> decision) {
+                    if (cin.eof()) {return;}
                     if (decision == "y") {
                         if (c > this->getBalance()) {
                             cin.ignore();
                             this->noMoney();
+                            if (cin.eof()) {return;}
                             if (this->getBalance() == -1) {return;}
                             this->addBalance(-c);
                             this->addBuilding(t);
@@ -338,7 +321,6 @@ void Player::noMoney() {
     string command = "";
     while (getline(cin, command)) {
         if (command == "enough") {break;}
-
         else if (command == "bankrupt") {
             // buildings goes to auction
             for (int i=0; i<numBuilding; ++i) {
@@ -364,7 +346,8 @@ void Player::noMoney() {
             this->threeOptions(command);
             cout << "You now have " << this->getBalance() << endl;
         }
-    }
+    }// while
+    if (cin.eof()) {return;}
 }
 
 void Player::noMoney(Owner *owes) {
@@ -392,6 +375,7 @@ void Player::noMoney(Owner *owes) {
                     cout << "Do you want to unmortgage now? (y/n)" << endl;
                     string decision = "";
                     while (cin >> decision) {
+                        if (cin.eof()) {return;}
                         if (decision == "y") {
                             owes->addBalance(-principle);
                             build->setMort(0);
@@ -428,6 +412,7 @@ void Player::noMoney(Owner *owes) {
             cout << "You now have " << this->getBalance() << endl;
         }
     }
+    if (cin.eof()) {return;}
 }
 
 void Player::makeTrade(string com) {
@@ -448,6 +433,7 @@ void Player::makeTrade(string com) {
     cout << "Player " << otherPlayer << ", do you want to make the trade? (y/n)" << endl;
     string decision = "";
     while (cin >> decision) {
+        if(cin.eof()) {return;}
         if (decision == "y") {
             istringstream issgive(give);
             int g;
@@ -460,6 +446,7 @@ void Player::makeTrade(string com) {
                     cout << "Do you want to cancel the trade?(y/n)" << endl;
                     string yn = "";
                     while (cin >> yn) {
+                        if (cin.eof()) {return;}
                         if (yn == "y") {cout << "trade cancelled!" << endl;return;}
                         else if (yn == "n") {cout << "need more money" << endl;break;}
                         else {cout << "Please enter <y> or <n>!";}
