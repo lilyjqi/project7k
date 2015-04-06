@@ -25,7 +25,6 @@ class Building: public Tile{
     virtual int getCost() = 0;
     virtual void addNeighbour(Tile *) = 0;
  
-    void action(Player* p);
     void setOwner(Owner*);
     Owner * getOwner() const;
 	void setMort(int);

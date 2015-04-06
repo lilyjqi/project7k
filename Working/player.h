@@ -29,7 +29,6 @@ class Player: public Owner
     int getWorth();
     void setLanded(bool);
     bool getLanded() const;
-    //void updateBuilding(Tile *);
 
   	bool isDouble();
     int rollDice();
