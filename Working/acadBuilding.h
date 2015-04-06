@@ -13,6 +13,7 @@ public:
 	~AcadBuilding();
         
     bool isMono();
+    bool imprNeighbour();
     std::string getmonoBlock();
     int getCurLevel();
 	void setCost();

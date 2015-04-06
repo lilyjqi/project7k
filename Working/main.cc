@@ -75,7 +75,7 @@ int initPlayer(GameBoard* board) {
 			}
 		}
 
-		p = new Player(name, charPiece, 0, board->getRindex(pos), board->getCindex(pos));
+		p = new Player(name, charPiece, 0, board->getRindex(0), board->getCindex(0));
         Tile *t = board->getTile(p->getPos());
         t->visit(p);
         p->notifyDisplay(t);
@@ -327,13 +327,7 @@ int main(int argc, char* argv[]) {
 				cerr << "Please choose the correct file to start a new game." << endl;
 			}
 		}
-		
-		/* TESTING MODE */
-		/* TESTING MODE */
-		else if (cmd == "-testing") { board->setTesting(true); } 
-		/* TESTING MODE */
-		/* TESTING MODE */
-		
+		else if (cmd == "-testing") { board->setTesting(true); } 		
 		else {
 			cerr << "Invalid command. Starting a new game...";
 		}
@@ -351,8 +345,8 @@ int main(int argc, char* argv[]) {
 	string options;
 	int dice;
     board->setCurPlayer();
-	Player *p = board->getCurPlayer();
-    
+	Player *p = board->getCurPlayer(); 
+
 	while (board->getNumPlayer() != 1){
         p = board->getCurPlayer();
         cout << (*(board->getDisplay()));
@@ -361,7 +355,7 @@ int main(int argc, char* argv[]) {
             cout << "You are in DC Tims Line." << endl;
             (board->getTile(10))->action(p);
         }
-
+        int numRolls = 0;
         cout << "Command?" << endl;
 
         while (getline(cin, options)) {
@@ -388,16 +382,19 @@ int main(int argc, char* argv[]) {
             }
 			else if (cmd == "roll") {
                 if (p->getLanded() == false) {
-                    cout << "You are in DC Tims Line. Can'r roll." << endl;
+                    cout << "You are in DC Tims Line. Can't roll." << endl;
                     cout << "Please use next!" << endl;
                 }
                 
-                else if (options.length() > 4) {
+                else if (board->getTesting() == true && options.length() > 4) {
                     int die1, die2;
                     iss >> die1 >> die2;
                     if (die1 == die2) {dice = -1;}
                     else {dice = die1 + die2;}
-				    if (dice == -1) {
+				    if (dice == -1 && numRolls < 2) {
+                        numRolls++;
+                    }
+                    else if (dice == -1 && numRolls == 2) {
                         cout << "You have been sent to DC Tims Line." << endl; 
                         p->goToIndex(10); 
                     }
@@ -410,7 +407,10 @@ int main(int argc, char* argv[]) {
                 }
                 else {
                     dice = p->rollDice();
-				    if (dice == -1) {
+				    if (dice == -1 && numRolls < 2) {
+                        numRolls++;
+                    }
+                    else if (dice == -1 && numRolls == 2) {
                         cout << "You have been sent to DC Tims Line." << endl; 
                         p->goToIndex(10); 
                     }

@@ -19,6 +19,15 @@ string AcadBuilding::getmonoBlock() {
     return monoBlock;
 }
 
+bool AcadBuilding::imprNeighbour() {
+    for (int i=0; i<numNeighbours; ++i) {
+         AcadBuilding *abuild = dynamic_cast<AcadBuilding *>(neighbours[i]);
+         if (abuild->getCurLevel() > 0) {
+            return true;
+         }
+    }
+    return false;
+}
 bool AcadBuilding::isMono() {
     for (int i=0; i< numNeighbours; i++) {
         Building *build = dynamic_cast<Building *>(neighbours[i]);

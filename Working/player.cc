@@ -69,21 +69,19 @@ void Player::setRollDoubleFailCount(int n) { rollDoubleFailCount=n; }
 
 int Player::rollDice() {
     int die1, die2;
-    for (int i=0; i<3; ++i) {
-        srand(time(NULL));
-        die1 = rand()%6+1;
-        die2 = rand()%6+1;
-        cout << "Die 1 is " << die1 << endl;
-        cout << "Die 2 is " << die2 << endl;
-        cout << "Player " << name << " rolled " << die1+die2 << endl;
 
-        // if didn't roll doubles
-        if (die1 != die2) {  
-            return die1 + die2;
-        }
+    srand(time(NULL));
+    die1 = rand()%6+1;
+    die2 = rand()%6+1;
+    cout << "Die 1 is " << die1 << endl;
+    cout << "Die 2 is " << die2 << endl;
+    cout << "Player " << name << " rolled " << die1+die2 << endl;
 
-        cout << "Doubles! Roll again!" << endl;
+    if (die1 != die2) {  
+        return die1 + die2;
     }
+
+    cout << "Doubles! Roll again!" << endl;
     return -1;
 }
 
@@ -452,14 +450,27 @@ void Player::makeTrade(string com) {
                         else {cout << "Please enter <y> or <n>!";}
                     }
                 }
-            
-                this->addBalance(-g);
-                other->addBalance(g);
-
+                
                 Building *receiveBuilding = dynamic_cast<Building *>(gb->getTile(receive));
+
+                AcadBuilding *abuild = dynamic_cast<AcadBuilding *> (receiveBuilding);
+                if (abuild) {
+                    if (abuild->getCurLevel() > 0) {
+                        cout << "Can't trade academic building with improvement!" << endl;
+                        return;
+                    }
+                    else if (abuild->imprNeighbour()) {
+                        cout << "Can't trade! Property in its monopoly has improvements!" << endl;
+                        return;
+                    }          
+                }
                 receiveBuilding->setOwner(this);
                 this->addBuilding(receiveBuilding);
                 other->deleteBuilding(receiveBuilding);
+
+                this->addBalance(-g);
+                other->addBalance(g);
+
             }
 
             // if give a building
@@ -468,6 +479,18 @@ void Player::makeTrade(string com) {
                 int r;
                 
                 Building *giveBuilding = dynamic_cast<Building *>(gb->getTile(give));
+
+                AcadBuilding *ab = dynamic_cast<AcadBuilding *>(giveBuilding);
+                if (ab) {
+                    if (ab->getCurLevel() > 0) {
+                        cout << "Can't trade academic building with improvement!" << endl;
+                        return;
+                    }
+                    else if (ab->imprNeighbour()) {
+                        cout << "Can't trade! Property in its monopoly has improvements!" << endl;
+                        return;
+                    }          
+                }
                 // receive money
                 if (!(issreceive >> r).fail()) {
                     while (r > other->getBalance()) {
@@ -567,6 +590,10 @@ void Player::makeMortgage(string com) {
     if (isAB) {
         if (isAB->getCurLevel() != 0) {
             cout << "Please sell improvements first!" << endl;
+            return;
+        }
+        else if (isAB->imprNeighbour()) {
+            cout << "Can'r mortgage. Property in its monopoly has improments!" << endl;
             return;
         }
     }
