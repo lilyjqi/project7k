@@ -19,11 +19,12 @@ void dcTimsLine::action(Player* p){
 		cout << "Type 1 or 2: ";
 
 		while (cin >> i) {
-            cin.ignore();
+
 			if (i == 1) {
 				p->addBalance(-50);
 				p->setLanded(true);
 				p->setRollDoubleFailCount(0);
+                cin.ignore();
 				return;
 			} else if (i == 2) {
 				for (int j=0; j<4; j++){
@@ -31,6 +32,7 @@ void dcTimsLine::action(Player* p){
 						(*(rollUpRim::getInstance()+j))->setOwner(NULL);
 						p->setRollDoubleFailCount(0);
 						p->setLanded(true);
+                        cin.ignore();
 						return;
 					}
 				}
@@ -39,6 +41,7 @@ void dcTimsLine::action(Player* p){
 				p->addBalance(-50);
 				p->setLanded(true);
 				p->setRollDoubleFailCount(0);
+                cin.ignore();
 				return;
 			} else {
 				cout << "Please choose the correct option." << endl;
@@ -62,24 +65,25 @@ void dcTimsLine::action(Player* p){
 		cout << "Type 1, 2 or 3: ";
 
 		while (cin >> i){
-            cin.ignore();
 			if (i == 1) {
 				bool success = p->isDouble();
 				if (success) {
 					p->setLanded(true);
 					p->setRollDoubleFailCount(0);
-					return;
+                    cin.ignore();
+                    return;
 				} else {
 					p->setRollDoubleFailCount(p->getRollDoubleFailCount()+1);
 					cout << "Sorry you have to say in the Tims line for the next round." << endl;
 					p->setLanded(false);
-					devisit(p);
+                    cin.ignore();
 					return; // player does not leave the line
 				}
 			} else if (i == 2) {
 					p->addBalance(-50);
 					p->setLanded(true);
 					p->setRollDoubleFailCount(0);
+                    cin.ignore();
 					return;
 			} else if (i == 3) {
 
@@ -88,6 +92,7 @@ void dcTimsLine::action(Player* p){
 						(*(rollUpRim::getInstance()+j))->setOwner(NULL);
 						p->setRollDoubleFailCount(0);
 						p->setLanded(true);
+                        cin.ignore();
 						return;
 					}
 				}

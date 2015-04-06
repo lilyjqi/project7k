@@ -35,7 +35,7 @@ void SLC::action(Player* p){
 				return;
 			}
 		}
-		cout << "Dang the RollUpRims are all occupied. Time to buy a lottery ticket! " << endl;
+		cout << "Duang the RollUpRims are all occupied. Time to buy a lottery ticket! " << endl;
 	}
     else {
 	    int i = drawCard();

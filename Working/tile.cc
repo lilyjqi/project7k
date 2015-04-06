@@ -13,15 +13,17 @@ Tile::~Tile () {
 
 void Tile::visit(Player *player){
 	visitors.push_back(player);
+    player->notifyDisplay(this);
 }
 
 void Tile::devisit(Player * player) {
     for (int i=0; i<visitors.size(); ++i) {
         if (visitors[i] == player) {
 	        visitors.erase(visitors.begin()+i);
-            return;
+            break;
         }
     }
+    player->notifyDisplay(this);
     return;
 }
 

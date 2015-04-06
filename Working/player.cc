@@ -120,32 +120,35 @@ void Player::makeMove(int m) {
             this->addBalance(osap->collectOSAP());
         }
         else if (newpos == 40) {newpos = 0;}
-
+        else if (newpos < 0) {
+            newpos = 40 + newpos;
+            Osap *osap = dynamic_cast<Osap *>(gb->getTile(0));
+            this->addBalance(osap->collectOSAP());
+        }
+        
         // move to new pos and take action
         Tile * t = gb->getTile(newpos);
         position = newpos;
         rindex = t->getRindex();
         cindex = t->getCindex();
-            
+        
         Building *build = dynamic_cast<Building *>(t);
         School *school = School::getInstance();
         // if move to an ownable building
         if (build) {
             
             t->visit(this);
-            notifyDisplay(t);
             // if building is owned by someone
             if (build->getOwner()!=school) {
-
                 // if current player is the owner of t
                 if (build->getOwner() == this) {
-                         
                     AcadBuilding *aBuild = dynamic_cast<AcadBuilding *>(t);
                     // if t is an academic building
                     if (aBuild) {
                         // if t is in a monopoly
                         if (aBuild->isMono()) {
                             int c = aBuild->getImprCost();
+                            cout << "3" << endl;
                             cout << "Cost of improvement is " << c << endl;
                             cout << "Do you want to make improvement to your building?(y/n)" << endl;
                             string decision = "";
@@ -191,50 +194,48 @@ void Player::makeMove(int m) {
 
                 // if current player is not the owner of t
                 else {
-                    string ownerName = build->getOwner()->getName();
+                     string ownerName = build->getOwner()->getName();
                     int payAmount = 0;
-                    AcadBuilding *Abuild = dynamic_cast<AcadBuilding *>(t);
-                    
+                    if (build->isMort()) {
+                        cout << "This builiding is on mortgage. You don't need to pay!" << endl;
+                        return;
+                    }
 
+                    AcadBuilding *Abuild = dynamic_cast<AcadBuilding *>(t);
                     // if t is an academic building
                     if (Abuild) {
 
-                        if (Abuild->isMort()) {
-                            cout << "This builiding is on mortgage. You don't need to pay!" << endl;
-                            return;
-                        }
-
                         // if t is in a monopoly
                         if (Abuild->isMono()) {
-                            if (Abuild->getCurLevel() == 0) {payAmount = (Abuild->getPay()) * 2;}
-                            else {payAmount = Abuild->getPay();}
+                            if (Abuild->getCurLevel() == 0) {payAmount = (build->getPay()) * 2;}
+                            else {payAmount = build->getPay();}
                         }
 
                         // if t is not in a monopoly
                         else {
-                            payAmount = Abuild->getPay();
+                            payAmount = build->getPay();
                         }
                     }// if t is an academic building
 
                     // if t is not an academic building
                     else {
-                        payAmount = Abuild->getPay();
+                        payAmount = build->getPay();
                     }
           
                     cout << "You have entered " << ownerName << "'s Building." << endl;
                     cout << "Please pay " << payAmount << endl;
 
                     if (payAmount > this->getBalance()) {
-                        this->noMoney(Abuild->getOwner());
+                        this->noMoney(build->getOwner());
                         if (this->getBalance() == -1) {return;}
                         cout << "You have paid " << payAmount << " dollars to " << ownerName << endl;
                         this->addBalance(-payAmount);
-                        Abuild->getOwner()->addBalance(payAmount);
+                        build->getOwner()->addBalance(payAmount);
                     }
                     else {
                         cout << "You have paid " << payAmount << " dollars to " << ownerName << endl;
                         this->addBalance(-payAmount);
-                        Abuild->getOwner()->addBalance(payAmount);
+                        build->getOwner()->addBalance(payAmount);
                     }
                 }// else current player is not the owner of t
             }//if building is owned
@@ -243,37 +244,42 @@ void Player::makeMove(int m) {
             else {
                 int c = build->getCost();
                 string n = build->getName();
+                cout << "4" << endl;
                 cout << "Cost of " << n << " is " << c << endl;
                 cout << "Do you want to buy it?(y/n)" << endl;
                 string decision="";
                 while (cin >> decision) {
                     if (decision == "y") {
                         if (c > this->getBalance()) {
+                            cin.ignore();
                             this->noMoney();
                             if (this->getBalance() == -1) {return;}
                             this->addBalance(-c);
                             this->addBuilding(t);
                             t->setOwner(this);
+                            build->setPay();
                             school->deleteBuilding(t);
                             break;
                         }
                         else {
+                            cin.ignore();
                             this->addBalance(-c);
                             this->addBuilding(t);
                             t->setOwner(this);
+                            build->setPay();
                             school->deleteBuilding(t);
                             break;
                         }
                     }
                     else if (decision == "n") {
                         //t->auction();
+                        cin.ignore();
                         break;
                     }
                     else {
                         cout << "Please enter (y) or (n)." << endl;
                     }
                 }// while
-                cin.ignore();
             }// if building is not owned by anyone
         }// if moved to an ownable building
 
@@ -297,7 +303,6 @@ void Player::notifyDisplay(Tile *t) {
 void Player::goToIndex(int index) {
     Tile *currentTile = gb->getTile(this->getPos());
     currentTile->devisit(this);
-    notifyDisplay(currentTile);
 
     Tile *t = gb->getTile(index);
     cout << t->getName() << endl;
@@ -306,7 +311,6 @@ void Player::goToIndex(int index) {
     cindex = t->getCindex();
     if (index == 10) {this->setLanded(false);}
     notify(t);
-    notifyDisplay(t);
 }
 
 void Player::threeOptions(string com) {
@@ -450,6 +454,18 @@ void Player::makeTrade(string com) {
 
             // if give money, must be receiving a building
             if (!(issgive >> g).fail()) {
+                while (g > this->getBalance()) {
+                    this->noMoney();
+                    if (this->getBalance() == -1) {return;}
+                    cout << "Do you want to cancel the trade?(y/n)" << endl;
+                    string yn = "";
+                    while (cin >> yn) {
+                        if (yn == "y") {cout << "trade cancelled!" << endl;return;}
+                        else if (yn == "n") {cout << "need more money" << endl;break;}
+                        else {cout << "Please enter <y> or <n>!";}
+                    }
+                }
+            
                 this->addBalance(-g);
                 other->addBalance(g);
 
@@ -467,6 +483,10 @@ void Player::makeTrade(string com) {
                 Building *giveBuilding = dynamic_cast<Building *>(gb->getTile(give));
                 // receive money
                 if (!(issreceive >> r).fail()) {
+                    while (r > other->getBalance()) {
+                        other->noMoney();
+                        if (other->getBalance() == -1) {return;}
+                    }
                     this->addBalance(r);
                     other->addBalance(-r);
 

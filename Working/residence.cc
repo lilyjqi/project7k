@@ -17,7 +17,7 @@ void Residence::setPay() {
 }
 
 int Residence::getPay() {
-    int count=0;
+    int count=1;
     for (int i=0; i<numNeighbours; i++) {
         Residence* rb = dynamic_cast<Residence *>(neighbours[i]);
         if (rb!=NULL && rb->getOwner()==this->getOwner()) {

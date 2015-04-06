@@ -344,6 +344,11 @@ int main(int argc, char* argv[]) {
         p = board->getCurPlayer();
         cout << (*(board->getDisplay()));
 		cout << p->getName() << "'s turn begins" << endl;
+        if (p->getLanded() == false) {
+            cout << "You are in DC Tims Line." << endl;
+            (board->getTile(10))->action(p);
+        }
+
         cout << "Command?" << endl;
 
         while (getline(cin, options)) {
@@ -359,10 +364,14 @@ int main(int argc, char* argv[]) {
 				iss >> file;
 				saveGame(file, board); 
 			}
+            else if (cmd == "next") {
+				cout << p->getName() <<"'s turn is over." << endl;
+                break;
+            }
 			else if (cmd == "roll") {
                 if (p->getLanded() == false) {
-                    cout << "You are in DC Tims Line." << endl;
-                    (board->getTile(10))->action(p);
+                    cout << "You are in DC Tims Line. Can'r roll." << endl;
+                    cout << "Please use next!" << endl;
                 }
 
                 else {
@@ -374,9 +383,9 @@ int main(int argc, char* argv[]) {
 				    else {
 					    p->makeMove(dice); 
 				    }
+				    cout << p->getName() <<"'s turn is over." << endl;
+                    break;
                 }
-				cout << p->getName() <<"'s turn is over." << endl;
-                break;
 			}
 			else {
 				cerr << "Please enter a valid command. " << endl;
@@ -388,7 +397,7 @@ int main(int argc, char* argv[]) {
 
 		if (p->getBalance() == -1){
 			bankruptPlayer++;
-			cout << "DUANG DUANG! " << p->getName() << " declares bankruptcy. ";
+			cout << "DUANG DUANG! " << p->getName()  << " " << p->getChar() << " declares bankruptcy. ";
 			board->deletePlayer(p->getChar());
 		}
 	}

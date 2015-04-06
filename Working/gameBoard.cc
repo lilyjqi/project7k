@@ -204,7 +204,9 @@ GameBoard::GameBoard(BoardDisplay *theDisplay, rollUpRim **cups):
         else if (i == 16) {tiles[i]->addNeighbour(tiles[18]);
                            tiles[i]->addNeighbour(tiles[19]);}          
         else if (i == 17) {tiles[i]->addNeighbour(tiles[16]);
-                           tiles[i]->addNeighbour(tiles[19]);}           
+                           tiles[i]->addNeighbour(tiles[19]);}
+        else if (i == 18) {tiles[i]->addNeighbour(tiles[16]);
+                           tiles[i]->addNeighbour(tiles[19]);}
         else if (i == 19) {tiles[i]->addNeighbour(tiles[16]);
                            tiles[i]->addNeighbour(tiles[18]);}           
         else if (i == 21) {tiles[i]->addNeighbour(tiles[23]);
@@ -315,9 +317,9 @@ Player * GameBoard::getPlayer(string s){
 
 void GameBoard::deletePlayer(char c) {
     for (int i=0; i<players.size(); ++i) {
-        if (players.at(i)->getChar() == c) {
+        if (players[i]->getChar() == c) {
             players.erase(players.begin()+i); 
-            cout << "Player " << players.at(i)->getName() << " is deleted." << endl;
+            cout << "Player " << players[i]->getName() << " is deleted." << endl;
             break;
         }
     }
