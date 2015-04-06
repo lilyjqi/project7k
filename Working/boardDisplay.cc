@@ -381,7 +381,8 @@ void BoardDisplay::updatePos(Tile *t) {
 
     vector<Player *> visitors = t->getVisitor();
     string p = "";
-    for (int i =0; i<visitors.size(); ++i) {
+    int size = visitors.size();
+    for (int i =0; i<size; ++i) {
         p += visitors[i]->getChar();
     }
     display[r+3][c] = "|" + p + drawString(p.length()) + "|";

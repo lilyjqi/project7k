@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "rollUpRim.h"
-#include "Owner.h"
+#include "owner.h"
 #include "tile.h"
 
 class Player;
