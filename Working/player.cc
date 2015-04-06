@@ -479,7 +479,6 @@ void Player::makeTrade(string com) {
                 int r;
                 
                 Building *giveBuilding = dynamic_cast<Building *>(gb->getTile(give));
-
                 AcadBuilding *ab = dynamic_cast<AcadBuilding *>(giveBuilding);
                 if (ab) {
                     if (ab->getCurLevel() > 0) {
@@ -491,6 +490,7 @@ void Player::makeTrade(string com) {
                         return;
                     }          
                 }
+
                 // receive money
                 if (!(issreceive >> r).fail()) {
                     while (r > other->getBalance()) {

@@ -1,6 +1,6 @@
 2
-Joseph B 1014 0 1
-Lily L 1116 0 35
+Joseph B 0 1014 1
+Lily L 0 1116 35
 AL Joseph 0
 ML Bank 0
 MKV Bank 0

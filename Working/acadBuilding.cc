@@ -5,7 +5,7 @@
 using namespace std;
 
 AcadBuilding::AcadBuilding(string name, int position, int rindex, int cindex, string monoBlock, BoardDisplay *theDisplay):
-    Building(name, position, rindex, cindex, 3, theDisplay), 
+    Building(name, position, rindex, cindex, 0, theDisplay), 
     monoBlock(monoBlock), curLevel(0) {}
 
 AcadBuilding::~AcadBuilding(){
@@ -20,13 +20,15 @@ string AcadBuilding::getmonoBlock() {
 }
 
 bool AcadBuilding::imprNeighbour() {
+    AcadBuilding *abuild;
+    bool b = false;
     for (int i=0; i<numNeighbours; ++i) {
-         AcadBuilding *abuild = dynamic_cast<AcadBuilding *>(neighbours[i]);
+         abuild = dynamic_cast<AcadBuilding *>(neighbours[i]);
          if (abuild->getCurLevel() > 0) {
-            return true;
+            b =  true;
          }
     }
-    return false;
+    return b;
 }
 bool AcadBuilding::isMono() {
     for (int i=0; i< numNeighbours; i++) {
@@ -182,17 +184,18 @@ int AcadBuilding::getImprCost() {
 
 void AcadBuilding::addNeighbour(Tile *b) {
     if (neighbours==NULL) {
-        neighbours = new Tile *[numNeighbours];
+        neighbours = new Tile *[3];
         neighbours[0]= b;
     }
     else {
-        for (int i=0; i< numNeighbours; i++) {
+        for (int i=0; i< 3; i++) {
             if (neighbours[i]==NULL) {
                 neighbours[i]=b;
                 break;
             }
         }
     }
+    numNeighbours++;
 }
 
 void AcadBuilding::improv() {

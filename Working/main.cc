@@ -303,43 +303,53 @@ int main(int argc, char* argv[]) {
 		(*(rollUpRim::getInstance()+i))->setOwner(School::getInstance());
 	}
 
-	if (argc > 1) { cmd = argv[1]; }
+	//if (argc > 1) { cmd = argv[1]; }
 
-	cout << "Init finished"<< endl;
-	while (true){
+	//cout << "Init finished"<< endl;
+	//while (true){
 		bool loaded =false;
-		if (cmd == "-load") {
-			string file = argv[2];
-			ifstream ifs(file.c_str());
-			if(ifs.good()){
-				numPlayer = loadGame(ifs, board);
-                if (cin.eof()) {cin.clear(); cin.ignore(); return 0;}
-                else if(numPlayer == 0){
-					cerr << "The save file has incorrect format. ";
-					cerr << "Please choose another file to start a new game. " << endl;
-				} else { 
-					loaded = true;
-					cout << "Game is loaded. "<< endl;
-					break; 
-				}
-			}else{
-				cerr << "There is no such saved game. " ;
-				cerr << "Please choose the correct file to start a new game." << endl;
-			}
-		}
-		else if (cmd == "-testing") { board->setTesting(true); } 		
-		else {
-			cerr << "Invalid command. Starting a new game...";
-		}
-
+        int argCount=1;
+        while (argCount < argc){
+            cmd = argv[argCount];
+    		if (cmd == "-load") {
+	    		string file = argv[argCount+1];
+		    	ifstream ifs(file.c_str());
+		    	if(ifs.good()){
+			    	numPlayer = loadGame(ifs, board);
+                    if (cin.eof()) {cin.clear(); cin.ignore(); return 0;}
+                    else if(numPlayer == 0){
+					    cerr << "The save file has incorrect format. ";
+					    cerr << "Please choose another file to start a new game. " << endl;
+                        return 0;
+				    } else { 
+					    loaded = true;
+					    cout << "Game is loaded. "<< endl;
+                        argCount += 2;
+					//break; 
+				    }
+			    }else{
+				    cerr << "There is no such saved game. " ;
+				    cerr << "Please choose the correct file to start a new game." << endl;
+                    return 0;
+			    }
+		    }
+		    else if (cmd == "-testing") { 
+                board->setTesting(true); 
+                argCount++;
+                cout << "Testing dice loaded" << endl;} 		
+		    else {
+			    cerr << "Invalid command. Please starting a new game...";
+                return 0;
+		    }
+        }
 		if (!loaded){
 			cout << "The game is about to START." << endl;
 			numPlayer = initPlayer(board);
             if (cin.eof()) {cin.clear(); cin.ignore(); return 0;}
             cin.ignore();
-			break;
+			//break;
 		}
-	}
+	//}
 
 	cmd = "";
 	string options;
@@ -397,13 +407,15 @@ int main(int argc, char* argv[]) {
                     else if (dice == -1 && numRolls == 2) {
                         cout << "You have been sent to DC Tims Line." << endl; 
                         p->goToIndex(10); 
+				        cout << p->getName() <<"'s turn is over." << endl;
+                        break;
                     }
 				    else {
 					    p->makeMove(dice); 
                         if (cin.eof()) {return 0;}
+				        cout << p->getName() <<"'s turn is over." << endl;
+                        break;
 				    }
-				    cout << p->getName() <<"'s turn is over." << endl;
-                    break;
                 }
                 else {
                     dice = p->rollDice();
@@ -413,13 +425,16 @@ int main(int argc, char* argv[]) {
                     else if (dice == -1 && numRolls == 2) {
                         cout << "You have been sent to DC Tims Line." << endl; 
                         p->goToIndex(10); 
+				        cout << p->getName() <<"'s turn is over." << endl;
+                        break;
                     }
 				    else {
 					    p->makeMove(dice); 
                         if (cin.eof()) {return 0;}
+				        cout << p->getName() <<"'s turn is over." << endl;
+                        break;
 				    }
-				    cout << p->getName() <<"'s turn is over." << endl;
-                    break;
+
                 }
 			}
 			else {
