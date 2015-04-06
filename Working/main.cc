@@ -75,10 +75,7 @@ int initPlayer(GameBoard* board) {
 			}
 		}
 
-		srand(time(NULL));
-   		int pos = rand()%40;
-   		while (pos ==  30) { pos = rand()%40; } // make sure pos != 30
-		p = new Player(name, charPiece, pos, board->getRindex(pos), board->getCindex(pos));
+		p = new Player(name, charPiece, 0, board->getRindex(pos), board->getCindex(pos));
         Tile *t = board->getTile(p->getPos());
         t->visit(p);
         p->notifyDisplay(t);
@@ -381,8 +378,13 @@ int main(int argc, char* argv[]) {
 				saveGame(file, board); 
 			}
             else if (cmd == "next") {
-				cout << p->getName() <<"'s turn is over." << endl;
-                break;
+                if (p->getLanded() == true) {
+                    cout << "You must roll!" << endl;
+                }
+                else {
+				    cout << p->getName() <<"'s turn is over." << endl;
+                    break;
+                }
             }
 			else if (cmd == "roll") {
                 if (p->getLanded() == false) {
