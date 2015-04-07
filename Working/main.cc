@@ -209,6 +209,7 @@ int loadGame(ifstream &in, GameBoard* board){
 			p = board->getPlayer(owner);
 			p->addBuilding(ownedTile);
 			ownedTile->setOwner(p);
+            ownedTile->setPay();
 		}
 		// set Improvements
 		in >> improvements;
