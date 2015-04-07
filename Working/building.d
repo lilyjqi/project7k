@@ -1,2 +1,0 @@
-building.o: building.cc building.h boardDisplay.h owner.h tile.h \
-  gameBoard.h rollUpRim.h player.h school.h
