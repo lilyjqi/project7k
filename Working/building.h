@@ -30,7 +30,8 @@ class Building: public Tile{
 	void setMort(int);
 	bool isMort();
     int getMort();
-	//virtual void auction() = 0;
+    void action(Player *);
+	//virtual void action() = 0;
 };
 
 #endif

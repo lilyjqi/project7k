@@ -141,10 +141,11 @@ int loadGame(ifstream &in, GameBoard* board){
 		p = new Player(name, c, index, board->getRindex(index), board->getCindex(index));
         p->addBalance(money - p->getBalance());
 		board->addPlayer(p);
+        
+        for (int i = timsCup-cups; i<4 ; ++i) {
+            rollUpRim::getInstance()[i]->setOwner(p);
+        }
 
-		for (int j=0; j<cups; j++){
-			(*(rollUpRim::getInstance()+j))->setOwner(p);
-		}
 		p->setRollDoubleFailCount(timsTurn);
 		cout << name << " with char " << c << " is loaded" << endl;
         
@@ -402,6 +403,7 @@ int main(int argc, char* argv[]) {
                     if (die1 == die2) {dice = -1;}
                     else {dice = die1 + die2;}
 				    if (dice == -1 && numRolls < 2) {
+                        cout << "You rolled doubles! roll again!" << endl;
                         numRolls++;
                     }
                     else if (dice == -1 && numRolls == 2) {

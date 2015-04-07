@@ -3,8 +3,6 @@
 
 using namespace std;
 
-void Building::action(Player* p){ return ; }
-
 Building::Building(string name, int position, int rindex, int cindex, int numNeighbours, BoardDisplay *theDisplay):
     Tile(name, position, rindex, cindex, theDisplay),
     neighbours(NULL),cost(0),mort(0),numNeighbours(numNeighbours),
@@ -13,6 +11,8 @@ Building::Building(string name, int position, int rindex, int cindex, int numNei
 Building::~Building() {
     delete [] neighbours;
 }
+
+void Building::action(Player *) {return;}
 
 void Building::setOwner(Owner * o) {
     owner = o;

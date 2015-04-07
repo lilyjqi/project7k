@@ -30,7 +30,7 @@ Owner *rollUpRim::getOwner() {
 rollUpRim * rollUpRim::getCup() {
     School *school = School::getInstance();
     for (int i=0; i<4; ++i) {
-        if (instance[i]->owner != school) {
+        if (instance[i]->owner == school) {
             return instance[i];
         }
     }
