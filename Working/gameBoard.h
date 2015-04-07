@@ -32,6 +32,7 @@ public:
 
     Player* getCurPlayer();
     Player* getPlayer(std::string);
+    std::vector<Player *> getPlayers();
     void setCurPlayer();
     int getNumPlayer() const;
 

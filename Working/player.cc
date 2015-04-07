@@ -252,8 +252,8 @@ void Player::makeMove(int m) {
                         }
                     }
                     else if (decision == "n") {
-                        //t->auction();
                         cin.ignore();
+                        build->auction(gb);
                         break;
                     }
                     else {
@@ -321,19 +321,21 @@ void Player::noMoney() {
     while (getline(cin, command)) {
         if (command == "enough") {break;}
         else if (command == "bankrupt") {
+
+            this->addBalance(-1-(this->getBalance()));
             // buildings goes to auction
             for (int i=0; i<numBuilding; ++i) {
-                //ownBuilding[i]->auction();
-                ownBuilding[i]->setOwner(school);
+                Building *build = dynamic_cast<Building *>(ownBuilding[i]);
+                build->auction(gb);
+                //ownBuilding[i]->setOwner(school);
                 this->deleteBuilding(ownBuilding[i]);
-                school->addBuilding(ownBuilding[i]);
+                //school->addBuilding(ownBuilding[i]);
             }
             // destroy rim cups
             for (int i=0; i<4; ++i) {
                 if (gb->cups[i]->getOwner() == this) {gb->cups[i]->setOwner(school);}
             }
             
-            this->addBalance(-1-(this->getBalance()));
             return;
         }
         
@@ -372,7 +374,7 @@ void Player::noMoney(Owner *owes) {
                     int principle = build->getMort();
                     owes->addBalance(-0.1*principle);
 
-                    cout << "Player " << owes->getName() << " , do you want to unmortgage now? (y/n)" << endl;
+                    cout << "Player " << owes->getName() << " , do you want to unmortgage " << build->getName() << " now? (y/n)" << endl;
                     string decision = "";
                     while (cin >> decision) {
                         if (cin.eof()) {return;}

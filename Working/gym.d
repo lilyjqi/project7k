@@ -1,1 +1,2 @@
-gym.o: gym.cc gym.h building.h boardDisplay.h owner.h tile.h
+gym.o: gym.cc gym.h building.h boardDisplay.h owner.h tile.h gameBoard.h \
+  rollUpRim.h player.h school.h

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "boardDisplay.h"
+#include "gameBoard.h"
 #include "tile.h"
 
 class Owner;
@@ -31,7 +32,7 @@ class Building: public Tile{
 	bool isMort();
     int getMort();
     void action(Player *);
-	//virtual void action() = 0;
+	void auction(GameBoard *);
 };
 
 #endif

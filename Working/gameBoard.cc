@@ -253,6 +253,10 @@ Player * GameBoard::getCurPlayer() {
     return curPlayer;
 }
 
+vector<Player *> GameBoard::getPlayers() {
+    return players;
+}
+
 void GameBoard::setCurPlayer() {
     if (curPlayer == NULL) {
         curPlayer = players[0];
